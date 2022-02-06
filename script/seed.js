@@ -2,8 +2,11 @@
 
 const {
   db,
-  models: { User },
+  models: { User, Order, OrderItem, Product },
 } = require("../server/db");
+// const songs = JSON.parse(fs.readFileSync(path.join(__dirname, 'users.json')));
+const userData = require("./users");
+const productData = require("./products");
 
 /**
  * seed - this function clears the database, updates tables to
@@ -14,26 +17,19 @@ async function seed() {
   console.log("db synced!");
 
   // Creating Users
-  const users = await Promise.all([
-    User.create({
-      email: "cody@gmail.com",
-      password: "123",
-      firstName: "cody",
-    }),
-    User.create({
-      email: "murphy@gmail.com",
-      password: "123",
-      firstName: "murphy",
-      role: "ADMIN",
-    }),
-  ]);
+  const users = await Promise.all(userData.map((u) => User.create(u)));
+
+  // Creating Products
+  const products = await Promise.all(productData.map((p) => Product.create(p)));
+  // Creating Orders
 
   console.log(`seeded ${users.length} users`);
+  console.log(`seeded ${products.length} products`);
   console.log(`seeded successfully`);
   return {
     users: {
-      cody: users[0],
-      murphy: users[1],
+      user1: users[0],
+      user2: users[1],
     },
   };
 }
