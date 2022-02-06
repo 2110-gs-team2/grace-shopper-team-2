@@ -1,9 +1,9 @@
 const { ENUM } = require("sequelize");
 const Sequelize = require("sequelize");
-const { STRING, ARRAY, INTEGER, UUID, UUIDV4, BOOLEAN } = Sequelize;
+const { STRING, DECIMAL, INTEGER, UUID, UUIDV4, BOOLEAN } = Sequelize;
 const db = require("../db");
 
-const Inventory = db.define("inventory", {
+const Product = db.define("product", {
   id: {
     type: UUID,
     defaultValue: UUIDV4,
@@ -38,4 +38,4 @@ const Inventory = db.define("inventory", {
   },
 });
 
-module.exports = Inventory;
+module.exports = Product;
