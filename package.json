@@ -41,6 +41,7 @@
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
     "esm": "^3.2.25",
+    "lodash": "^4.17.21",
     "mocha": "^6.2.3",
     "nodemon": "^1.19.4",
     "react": "^16.8.6",

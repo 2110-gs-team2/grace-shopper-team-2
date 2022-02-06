@@ -1,6 +1,6 @@
-const { ENUM } = require("sequelize");
 const Sequelize = require("sequelize");
-const { STRING, DECIMAL, INTEGER, UUID, UUIDV4, BOOLEAN } = Sequelize;
+const { STRING, ENUM, TEXT, DECIMAL, INTEGER, UUID, UUIDV4, BOOLEAN } =
+  Sequelize;
 const db = require("../db");
 
 const Product = db.define("product", {
@@ -15,6 +15,12 @@ const Product = db.define("product", {
     allowNull: false,
     unique: true,
   },
+  description: {
+    type: TEXT,
+  },
+  type: {
+    type: ENUM(["INDOOR", "SUCCULENT", "HERB"]),
+  },
   price: {
     type: DECIMAL(20, 2),
     allowNull: false,
@@ -25,16 +31,17 @@ const Product = db.define("product", {
     defaultValue: 0,
   },
   size: {
-    type: ENUM(["x-small", "small", "medium", "large"]),
+    type: ENUM(["X-SMALL", "SMALL", "MEDIUM", "LARGE"]),
   },
   isPetFriendly: {
     type: BOOLEAN,
+    defaultValue: false,
   },
   light: {
-    type: ENUM(["low", "indirect", "direct"]),
+    type: ENUM(["LOW", "INDIRECT", "DIRECT"]),
   },
   difficulty: {
-    type: ENUM(["easy", "moderate", "expert"]),
+    type: ENUM(["EASY", "MODERATE", "EXPERT"]),
   },
 });
 
