@@ -8,11 +8,6 @@ const OrderItem = db.define("orderItem", {
     allowNull: false,
     defaultValue: 1,
   },
-  size: {
-    type: STRING,
-    allowNull: false,
-    defaultValue: "small",
-  },
 });
 
 module.exports = OrderItem;

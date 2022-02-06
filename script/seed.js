@@ -4,14 +4,18 @@ const {
   db,
   models: { User, Order, OrderItem, Product },
 } = require("../server/db");
-// const songs = JSON.parse(fs.readFileSync(path.join(__dirname, 'users.json')));
+// const users = JSON.parse(fs.readFileSync(path.join(__dirname, 'users.json')));
+const faker = require("faker");
 const userData = require("./users");
 const productData = require("./products");
+const random = require("lodash/random");
+const quantity = [1, 2, 3, 4];
 
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
  */
+
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log("db synced!");
@@ -21,10 +25,69 @@ async function seed() {
 
   // Creating Products
   const products = await Promise.all(productData.map((p) => Product.create(p)));
+
   // Creating Orders
+  let orders = await Promise.all(
+    users.map((u) => {
+      return Order.create({
+        userId: u.id,
+        completedTimestamp: faker.date.past(),
+      });
+    })
+  );
+  orders = [
+    ...orders,
+    ...(await Promise.all(
+      users.map((u, idx) => {
+        if (idx % 3 === 0) {
+          return Order.create({
+            userId: u.id,
+          });
+        } else {
+          return Order.create({
+            userId: u.id,
+            completedTimestamp: faker.date.past(),
+          });
+        }
+      })
+    )),
+  ];
+
+  // Attaching items to each order
+  let orderItems = await Promise.all(
+    orders.map((o) =>
+      OrderItem.create({
+        quantity: random(0, quantity.length - 1),
+        orderId: o.id,
+        productId: products[random(0, products.length - 1)].id,
+      })
+    )
+  );
+  orderItems = [
+    ...orderItems,
+    ...(await Promise.all(
+      orders.map((o, idx) => {
+        if (idx % 2 === 0) {
+          return OrderItem.create({
+            quantity: random(0, quantity.length - 1),
+            orderId: o.id,
+            productId: products[random(0, products.length - 1)].id,
+          });
+        }
+        if (idx % 3 === 0) {
+          return OrderItem.create({
+            quantity: random(0, quantity.length - 1),
+            orderId: o.id,
+            productId: products[random(0, products.length - 1)].id,
+          });
+        }
+      })
+    )),
+  ];
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${products.length} products`);
+  console.log(`seeded ${orders.length} orders`);
   console.log(`seeded successfully`);
   return {
     users: {
@@ -44,13 +107,14 @@ async function runSeed() {
   try {
     await seed();
   } catch (err) {
-    console.error(err);
+    console.error(err, "what is the error");
     process.exitCode = 1;
-  } finally {
-    console.log("closing db connection");
-    await db.close();
-    console.log("db connection closed");
   }
+  // finally {
+  //   console.log("closing db connection");
+  //   await db.close();
+  //   console.log("db connection closed");
+  // }
 }
 
 /*
