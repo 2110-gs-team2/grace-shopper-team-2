@@ -15,7 +15,7 @@ OrderItem.belongsTo(Order);
 Order.hasMany(OrderItem);
 
 //a product and orderItem have a one-to-many relationship
-OrderItem.belongsTo(Order);
+OrderItem.belongsTo(Product);
 
 module.exports = {
   db,
