@@ -1,7 +1,7 @@
 {
-  "name": "fs-app-template",
+  "name": "grace-shopper-team-2",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "Richard, Jay, and Julie's Grace Shopper Project",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
