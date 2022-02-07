@@ -5,6 +5,7 @@ const light = ["LOW", "INDIRECT", "DIRECT"];
 const difficulty = ["EASY", "MODERATE", "EXPERT"];
 const petFriendly = [true, false];
 const price = [59, 85, 108, 99, 49, 80, 45, 130, 50, 79, 83];
+const quantity = [35, 90, 80, 40, 50, 30, 105, 43, 94, 48, 24];
 
 const products = [
   {
@@ -240,6 +241,7 @@ products.forEach((p) => {
   p.light = light[random(0, light.length - 1)];
   p.difficulty = difficulty[random(0, difficulty.length - 1)];
   p.isPetFriendly = petFriendly[random(0, petFriendly.length - 1)];
+  p.quantity = quantity[random(0, quantity.length - 1)];
 });
 
 module.exports = products;
