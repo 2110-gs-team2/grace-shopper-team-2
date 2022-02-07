@@ -107,7 +107,7 @@ async function runSeed() {
   try {
     await seed();
   } catch (err) {
-    console.error(err, "what is the error");
+    console.error(err);
     process.exitCode = 1;
   }
   // finally {
