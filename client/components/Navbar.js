@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
 import { Search, User, Package } from "react-feather";
+import UserMenu from "./UserMenu";
 
 const Navbar = ({ handleClick, isLoggedIn }) => {
   const [styleChange, setStyleChange] = useState(false);
@@ -36,9 +37,8 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
           <button>
             <Search strokeWidth={1} width={30} height={30} />
           </button>
-          <button>
-            <User strokeWidth={1} width={30} height={30} />
-          </button>
+          <UserMenu />
+
           <button>
             <Package strokeWidth={1} width={30} height={30} />
           </button>

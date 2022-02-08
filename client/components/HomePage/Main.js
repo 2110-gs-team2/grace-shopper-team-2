@@ -17,7 +17,7 @@ const Main = () => {
             <div className="flex flex-col ">
               <img src="/img/FicusDanielle.jpeg" className="" alt="" />
               <div className="flex justify-between items-center mt-5">
-                <div className="text-3xl font-medium">Money Tree</div>
+                <div className="text-3xl font-medium ">Money Tree</div>
                 <div>$39</div>
               </div>
               <div className="uppercase text-grey">x-large</div>
