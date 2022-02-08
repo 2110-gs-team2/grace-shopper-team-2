@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getAllProducts } from '../store/products';
+import { getAllProducts } from "../store/products";
 
 class Products extends Component {
   componentDidMount() {
@@ -11,19 +11,18 @@ class Products extends Component {
     const { products } = this.props;
     return (
       <>
-        {products.map((product => {
-          <div key={product.id}>
-            product
-          </div>
-        }))}
+        <h1>PoshLeaf Products:</h1>
+        {products.map((product) => {
+          return <div key={product.id}>{product.name}</div>;
+        })}
       </>
-    )
+    );
   }
 }
 
 const mapStateToProps = ({ products }) => {
   return {
-    products
+    products,
   };
 };
 
