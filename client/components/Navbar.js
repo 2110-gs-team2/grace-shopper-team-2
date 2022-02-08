@@ -1,31 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
+import { Search, User, Package } from "react-feather";
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
-  <div>
-    <h1 className="text-4xl">Here to shop for some plants? </h1>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
+const Navbar = ({ handleClick, isLoggedIn }) => {
+  const [styleChange, setStyleChange] = useState(false);
+  const changeNavbarStyle = () => {
+    if (window.scrollY >= 80) {
+      setStyleChange(true);
+    } else {
+      setStyleChange(false);
+    }
+  };
+
+  useEffect(() => {
+    // clean up code
+    window.removeEventListener("scroll", changeNavbarStyle);
+    window.addEventListener("scroll", changeNavbarStyle, { passive: true });
+    return () => window.removeEventListener("scroll", changeNavbarStyle);
+  }, []);
+
+  return (
+    <div
+      className={`${
+        styleChange ? "bg-beige bg-opacity-80" : "bg-transparent"
+      } fixed px-5 py-3 inset-x-0 transition duration-300`}
+    >
+      <div className="flex justify-between items-center m-2">
+        <button className="text-lg font-medium relative hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green ">
+          <span className="relative">SHOP</span>
+        </button>
+        <img src="/img/logo.svg" className="w-36" alt="" />
+        <div className="flex gap-3 flex-row">
+          <button>
+            <Search strokeWidth={1} width={30} height={30} />
+          </button>
+          <button>
+            <User strokeWidth={1} width={30} height={30} />
+          </button>
+          <button>
+            <Package strokeWidth={1} width={30} height={30} />
+          </button>
         </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
-      )}
-    </nav>
-    <hr />
-  </div>
-);
+      </div>
+    </div>
+  );
+};
 
 /**
  * CONTAINER
