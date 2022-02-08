@@ -15,7 +15,8 @@ module.exports = {
         "light-green": "#7C803B",
         "grass-green": "#5A5E04",
         "forest-green": "#2D4323",
-        grey: "rgba(34,66,41,.72)",
+        grey: "#dfe0e1",
+        "dark-grey": "rgba(34,66,41,.72)",
       },
       fontFamily: {
         sans: ["freight-neo-pro", ...defaultTheme.fontFamily.sans],

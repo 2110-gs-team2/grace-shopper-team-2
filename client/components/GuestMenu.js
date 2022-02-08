@@ -3,8 +3,7 @@ import { Link, useRouteMatch } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { User } from "react-feather";
 
-const GuestMenu = ({}) => {
-
+const GuestMenu = ({ styleChange }) => {
   return (
     <Menu className="relative z-50" as="div">
       <Menu.Button className="flex items-center">
