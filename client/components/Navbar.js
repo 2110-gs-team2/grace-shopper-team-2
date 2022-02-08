@@ -27,7 +27,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
     <div
       className={`${
         styleChange ? "bg-beige bg-opacity-80 shadow-md" : "bg-transparent"
-      } fixed px-5 py-3 inset-x-0 transition duration-300`}
+      } fixed px-5 py-3 inset-x-0 transition duration-300 z-20`}
     >
       <div className="flex justify-between items-center m-2">
         <div className="text-lg font-medium relative hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green ">
