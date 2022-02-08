@@ -22,6 +22,14 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all(userData.map((u) => User.create(u)));
+  // create admin user to test auth
+  await User.create({
+    email: "admin@gmail.com",
+    password: "123",
+    firstName: "Admin",
+    lastName: "User",
+    role: "ADMIN",
+  });
 
   // Creating Products
   const products = await Promise.all(productData.map((p) => Product.create(p)));

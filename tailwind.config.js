@@ -10,11 +10,12 @@ module.exports = {
       colors: {
         transparent: "transparent",
         "light-grey": "#FAFAFA",
-        beige: "#F5F7DE",
+        beige: "#FFFAE3",
         "xlight-green": "#D7D9B1",
         "light-green": "#7C803B",
         "grass-green": "#5A5E04",
         "forest-green": "#2D4323",
+        grey: "rgba(34,66,41,.72)",
       },
       fontFamily: {
         sans: ["freight-neo-pro", ...defaultTheme.fontFamily.sans],
