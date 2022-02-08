@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
+import Products from "./components/Products";
 import { me } from "./store";
 
 /**
@@ -15,7 +16,6 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn } = this.props;
-
     return (
       <div>
         {isLoggedIn ? (
@@ -29,7 +29,7 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/cart" component={Signup} />
-            <Route path="/products/all" component={Signup} />
+            <Route exact path="/products" component={Products} />
             <Route path="/products/:type" component={Signup} />
             <Route path="/view/:role" component={Signup} />
           </Switch>
