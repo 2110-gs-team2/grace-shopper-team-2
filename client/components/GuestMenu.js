@@ -3,7 +3,8 @@ import { Link, useRouteMatch } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { User } from "react-feather";
 
-const UserMenu = ({}) => {
+const GuestMenu = ({}) => {
+
   return (
     <Menu className="relative z-50" as="div">
       <Menu.Button className="flex items-center">
@@ -20,7 +21,6 @@ const UserMenu = ({}) => {
         leaveTo="transform scale-95 opacity-0"
       >
         <Menu.Items className=" absolute right-0 w-48 mt-2 bg-beige rounded-md shadow-md focus:outline-none">
-          <div className="text-medium pt-3 px-3">Hi, firstName!</div>
           <div className="p-1">
             <Menu.Item>
               {({ active }) => (
@@ -30,7 +30,7 @@ const UserMenu = ({}) => {
                   }  group flex rounded-md items-center w-full px-2 py-2 text-medium uppercase`}
                   to="/login"
                 >
-                  Account
+                  Sign in
                 </Link>
               )}
             </Menu.Item>
@@ -42,19 +42,7 @@ const UserMenu = ({}) => {
                   }  group flex rounded-md items-center w-full px-2 py-2 text-medium uppercase`}
                   to="signup"
                 >
-                  Orders
-                </Link>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  className={`${
-                    active ? "bg-xlight-green" : "text-gray-900"
-                  }  group flex rounded-md items-center w-full px-2 py-2 text-medium uppercase`}
-                  to="signup"
-                >
-                  Log out
+                  Sign up
                 </Link>
               )}
             </Menu.Item>
@@ -65,4 +53,4 @@ const UserMenu = ({}) => {
   );
 };
 
-export default UserMenu;
+export default GuestMenu;

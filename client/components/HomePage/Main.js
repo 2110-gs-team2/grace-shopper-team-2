@@ -6,8 +6,7 @@ const Main = () => {
       <div
         className={` h-screen w-full bg-cover bg-center bg-no-repeat`}
         style={{
-          backgroundImage:
-            "url(/img/jon-nathon-stebbe-paydk0JcIOQ-unsplash.jpg)",
+          backgroundImage: "url(/img/above-the-fold.jpg)",
         }}
       ></div>
       <div className=" bg-beige px-10 py-20">
