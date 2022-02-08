@@ -2,17 +2,16 @@ import React, { Fragment } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { User } from "react-feather";
+import { logout } from "../../store";
+import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
 
-const UserMenu = ({ styleChange }) => {
+const UserMenu = ({ styleChange, userName }) => {
+  const dispatch = useDispatch();
   return (
     <Menu className="relative z-50" as="div">
       <Menu.Button className="flex items-center">
-        <User
-          strokeWidth={1}
-          width={30}
-          height={30}
-
-        />
+        <User strokeWidth={1} width={30} height={30} />
       </Menu.Button>
 
       <Transition
@@ -25,7 +24,7 @@ const UserMenu = ({ styleChange }) => {
         leaveTo="transform scale-95 opacity-0"
       >
         <Menu.Items className=" absolute right-0 w-48 mt-2 bg-beige rounded-md shadow-md focus:outline-none">
-          <div className="text-medium pt-3 px-3">Hi, firstName!</div>
+          <div className="text-medium pt-3 px-3">Hi, {userName}!</div>
           <div className="p-1">
             <Menu.Item>
               {({ active }) => (
@@ -33,7 +32,7 @@ const UserMenu = ({ styleChange }) => {
                   className={`${
                     active ? "bg-xlight-green" : "text-gray-900"
                   }  group flex rounded-md items-center w-full px-2 py-2 text-medium uppercase`}
-                  to="/login"
+                  to="/profile"
                 >
                   Account
                 </Link>
@@ -45,7 +44,7 @@ const UserMenu = ({ styleChange }) => {
                   className={`${
                     active ? "bg-xlight-green" : "text-gray-900"
                   }  group flex rounded-md items-center w-full px-2 py-2 text-medium uppercase`}
-                  to="signup"
+                  to="/orders"
                 >
                   Orders
                 </Link>
@@ -53,14 +52,14 @@ const UserMenu = ({ styleChange }) => {
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <Link
+                <button
                   className={`${
                     active ? "bg-xlight-green" : "text-gray-900"
                   }  group flex rounded-md items-center w-full px-2 py-2 text-medium uppercase`}
-                  to="signup"
+                  onClick={() => dispatch(logout())}
                 >
                   Log out
-                </Link>
+                </button>
               )}
             </Menu.Item>
           </div>
@@ -70,4 +69,10 @@ const UserMenu = ({ styleChange }) => {
   );
 };
 
-export default UserMenu;
+const mapState = (state) => {
+  return {
+    userName: state.auth.firstName,
+  };
+};
+
+export default connect(mapState)(UserMenu);
