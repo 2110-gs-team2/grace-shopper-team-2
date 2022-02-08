@@ -6,8 +6,7 @@ const Main = () => {
       <div
         className={` h-screen w-full bg-cover bg-center bg-no-repeat`}
         style={{
-          backgroundImage:
-            "url(/img/jon-nathon-stebbe-paydk0JcIOQ-unsplash.jpg)",
+          backgroundImage: "url(/img/above-the-fold.jpg)",
         }}
       ></div>
       <div className=" bg-beige px-10 py-20">
@@ -17,7 +16,7 @@ const Main = () => {
             <div className="flex flex-col ">
               <img src="/img/FicusDanielle.jpeg" className="" alt="" />
               <div className="flex justify-between items-center mt-5">
-                <div className="text-3xl font-medium">Money Tree</div>
+                <div className="text-3xl font-medium ">Money Tree</div>
                 <div>$39</div>
               </div>
               <div className="uppercase text-grey">x-large</div>
