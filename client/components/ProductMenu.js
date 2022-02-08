@@ -18,7 +18,7 @@ const ProductMenu = () => {
                     : ""
                 }`}
               >
-                <span className="relative">SHOP</span>
+                <span className="relative ">SHOP</span>
               </div>
             </Popover.Button>
             <Transition
