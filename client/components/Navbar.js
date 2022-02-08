@@ -31,7 +31,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
     >
       <div className="flex justify-between items-center m-2">
         <button className="text-lg font-medium relative hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green ">
-          <span className="relative">SHOP</span>
+          <Link to={"/products"}>
+            <span className="relative">SHOP</span>
+          </Link>
         </button>
         <img src="/img/logo.svg" className="w-36" alt="" />
         <div className="flex gap-3 flex-row">
