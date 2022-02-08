@@ -1,19 +1,25 @@
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 
-export default function Example() {
+const ProductMenu = () => {
   return (
-    <div className="w-full max-w-sm px-4 fixed top-16">
+    <div className="w-full max-w-sm">
       <Popover className="relative">
         {({ open }) => (
           <>
-            <Popover.Button
-              className={`
-                ${open ? "" : "text-opacity-90"}
-                text-white group bg-orange-700 px-3 py-2 rounded-md inline-flex items-center text-base font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
-            >
-              <span>SHOP</span>
+            <Popover.Button>
+              <div
+                className={`inline-block text-lg font-medium relative hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green
+                ${
+                  open
+                    ? "before:block before:absolute before:h-2 before:top-1/2 before:-translate-y-1/2 before:-inset-x-0.5 before:bg-xlight-green"
+                    : ""
+                }`}
+              >
+                <span className="relative">SHOP</span>
+              </div>
             </Popover.Button>
             <Transition
               as={Fragment}
@@ -24,9 +30,63 @@ export default function Example() {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel className="absolute z-10 w-screen max-w-sm px-4 mt-3 transform -translate-x-1/2 left-1/2 sm:px-0 lg:max-w-3xl">
-                <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                  <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-2"></div>
+              <Popover.Panel className="absolute left-0 z-10 w-screen max-w-sm px-4 mt-3 transform sm:px-0 lg:max-w-lg">
+                <div className="overflow-hidden rounded-lg shadow-md ">
+                  <div className="relative gap-8 bg-beige p-6 flex justify-between items-center">
+                    <div className="flex flex-col gap-2 grow">
+                      <div className="text-sm font-bold uppercase">
+                        By category
+                      </div>
+                      <Link
+                        to="/products/indoor"
+                        className="hover:bg-xlight-green p-1 px-3 rounded-md"
+                      >
+                        Indoor plants
+                      </Link>
+                      <Link
+                        to="/products/succulent"
+                        className="hover:bg-xlight-green p-1 px-3 rounded-md"
+                      >
+                        Succulents
+                      </Link>
+                      <Link
+                        to="/products/herb"
+                        className="hover:bg-xlight-green p-1 px-3 rounded-md"
+                      >
+                        Herbs
+                      </Link>
+                      <Link
+                        to="/products"
+                        className="hover:bg-xlight-green p-1 px-3 rounded-md"
+                      >
+                        Shop all
+                      </Link>
+                    </div>
+                    <div className="h-36 border-l border-light-green "></div>
+                    <div className="flex flex-col self-start grow gap-2">
+                      <div className="text-sm font-bold uppercase">
+                        Featured
+                      </div>
+                      <Link
+                        to="/products/pet-friendly"
+                        className="hover:bg-xlight-green p-1 px-3 rounded-md"
+                      >
+                        Pet-friendly plants
+                      </Link>
+                      <Link
+                        to="/products/beginners"
+                        className="hover:bg-xlight-green p-1 px-3 rounded-md"
+                      >
+                        Best beginner plants
+                      </Link>
+                      <Link
+                        to="/products/beginners"
+                        className="hover:bg-xlight-green p-1 px-3 rounded-md"
+                      >
+                        Low light plants
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </Popover.Panel>
             </Transition>
@@ -35,4 +95,6 @@ export default function Example() {
       </Popover>
     </div>
   );
-}
+};
+
+export default ProductMenu;
