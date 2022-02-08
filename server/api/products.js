@@ -1,12 +1,12 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 const {
   models: { Product },
-} = require("../db");
+} = require('../db');
 module.exports = router;
 
 // GET all products
-router.get("/", async (req, res, next) => {
+router.get('/products', async (req, res, next) => {
   try {
     const products = await Product.findAll();
     res.json(products);
@@ -16,9 +16,9 @@ router.get("/", async (req, res, next) => {
 });
 
 // GET individual product
-router.get("/:productId", async (req, res, next) => {
+router.get('/:products/:id', async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.params.productId);
+    const product = await Product.findByPk(req.params.id);
     res.json(product);
   } catch (error) {
     next(error);
