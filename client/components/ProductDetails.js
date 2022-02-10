@@ -1,12 +1,33 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { getSingleProduct } from "../store/products";
 
 class ProductDetails extends Component {
+  constructor() {
+    super();
+    this.state = {
+      product: {}
+    };
+  }
+
+  componentDidMount() {
+    const { products, getSingleProduct } = this.props;
+    const { id } = this.props.match.params;
+    /* If user navigates to a single product from the all products page, there is no need to call another thunk since data is already in redux store */
+    products.length
+      ? this.setState({ product: products.find((product) => id === product.id) })
+      : getSingleProduct(id);
+  }
+
+  componentDidUpdate() {
+    if (!Object.keys(this.state.product).length) {
+      this.setState({ product: this.props.products });
+    }
+  }
+
   render() {
-    const id = this.props.match.params.id;
-    const product = this.props.products.find((product) => id === product.id);
-    // Need to use a thunk above instead. This only works if you go through the all products page first
+    const { product } = this.state;
     return (
       <>
         <h1>Product Details:</h1>
@@ -29,4 +50,6 @@ const mapStateToProps = ({ products }) => {
   };
 };
 
-export default connect(mapStateToProps)(ProductDetails);
+const mapDispatchToProps = { getSingleProduct };
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);

@@ -9,9 +9,11 @@ import logger from "redux-logger";
 
 // Action types
 const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
+const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT';
 
 // Action creators
 const _getAllProducts = (products) =>({ type: GET_ALL_PRODUCTS, products });
+const _getSingleProduct = (product) =>({ type: GET_SINGLE_PRODUCT, product });
 
 // Thunks
 export const getAllProducts = () => {
@@ -21,11 +23,20 @@ export const getAllProducts = () => {
   };
 };
 
+export const getSingleProduct = (id) => {
+  return async (dispatch) => {
+    const product = (await axios.get(`/api/products/${id}`)).data;
+    dispatch(_getSingleProduct(product));
+  };
+};
+
 // Reducer
 const products = (state = [], action) => {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
       return action.products;
+    case GET_SINGLE_PRODUCT:
+      return action.product;
     default:
       return state;
   }
