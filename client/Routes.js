@@ -35,7 +35,7 @@ class Routes extends Component {
         )}
         <Route path="/" exact component={Main} />
         <Route exact path="/products" component={Products} />
-        <Route path="/products/:type" component={Signup} />
+        <Route path="/products/:type" component={ProductDetails} />
         <Route path="/view/:role" component={Signup} />
       </div>
     );
