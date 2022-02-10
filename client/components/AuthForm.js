@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { authenticate } from "../store";
 
@@ -42,6 +42,37 @@ const AuthForm = (props) => {
         >
           {displayName}
         </button>
+        {name === "login" ? (
+          <Fragment>
+            <div className="text-lg my-5 mx-0 text-center">
+              or continue with
+            </div>
+            <div className="flex flex-row justify-around my-2 mx-0">
+              <a
+                href="/auth/login/google"
+                className="bg-grey rounded-full px-10 "
+              >
+                <div className="flex gap-2 items-center">
+                  <img
+                    src="https://media.everlane.com/image/upload/c_scale,dpr_1.0,f_auto,q_auto,w_auto/v1/i/5c439b13_4155.png"
+                    className="w-5"
+                  />
+                  <span className="font-bold">Google</span>
+                </div>
+              </a>
+              <button className="bg-grey rounded-full px-10 ">
+                <div className="flex gap-2 items-center">
+                  <img
+                    src="https://media.everlane.com/image/upload/c_scale,dpr_1.0,f_auto,q_auto,w_auto/v1/i/072c2eb3_33d0.png"
+                    className="w-5"
+                  />
+                  <span className="font-bold">Facebook</span>
+                </div>
+              </button>
+            </div>
+          </Fragment>
+        ) : null}
+
         {error && error.response && <div> {error.response.data} </div>}
       </form>
     </div>

@@ -14,6 +14,9 @@ const User = db.define("user", {
     allowNull: false,
     primaryKey: true,
   },
+  passportId: {
+    type: STRING,
+  },
   email: {
     type: STRING,
     unique: true,
@@ -151,6 +154,16 @@ User.findByToken = async function (token) {
     error.status = 401;
     throw error;
   }
+};
+
+User.authenticateViaGoogle = async function (passportId) {
+  const user = await this.findOne({ where: { passportId } });
+  if (!user) {
+    const error = Error("No user exists");
+    error.status = 401;
+    throw error;
+  }
+  return user.generateToken();
 };
 
 /**

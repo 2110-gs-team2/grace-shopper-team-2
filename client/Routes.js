@@ -22,20 +22,21 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-            <Route path="/home" component={Home} />
-            <Redirect to="/home" />
+            <Route path="/home" component={Main} />
+            <Route path="/profile" component={Main} />
+            <Route path="/orders" component={Main} />
           </Switch>
         ) : (
           <Switch>
-            <Route path="/" exact component={Main} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/signup" component={SignupPage} />
             <Route path="/cart" component={Signup} />
-            <Route exact path="/products" component={Products} />
-            <Route path="/products/:id" component={ProductDetails} />
-            <Route path="/view/:role" component={Signup} />
           </Switch>
         )}
+        <Route path="/" exact component={Main} />
+        <Route exact path="/products" component={Products} />
+        <Route path="/products/:type" component={Signup} />
+        <Route path="/view/:role" component={Signup} />
       </div>
     );
   }
