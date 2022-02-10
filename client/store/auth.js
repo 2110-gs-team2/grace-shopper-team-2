@@ -12,6 +12,7 @@ const SET_AUTH = "SET_AUTH";
  * ACTION CREATORS
  */
 const setAuth = (auth) => ({ type: SET_AUTH, auth });
+const _logout = () => ({ type: SET_AUTH, auth: {} });
 
 /**
  * THUNK CREATORS
@@ -39,12 +40,11 @@ export const authenticate = (email, password, method) => async (dispatch) => {
   }
 };
 
-export const logout = () => {
-  window.localStorage.removeItem(TOKEN);
-  history.push("/login");
-  return {
-    type: SET_AUTH,
-    auth: {},
+export const logout =  () => {
+  return async (dispatch) => {
+    window.localStorage.removeItem(TOKEN);
+    await axios.get("/logout");
+    dispatch(_logout());
   };
 };
 

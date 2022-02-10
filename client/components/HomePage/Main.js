@@ -44,8 +44,8 @@ const Main = () => {
         </div>
       </div>
       {/* middle section */}
-      <div className="flex md:flex-row">
-        <div className="basis-1/2 bg-forest-green md:py-20 md:px-10 ">
+      <div className="flex flex-col md:flex-row min-h-[60vh]">
+        <div className="basis-1/2 bg-forest-green p-10 md:py-20 md:px-10 ">
           <div className="text-5xl text-white">
             Delivered right at your door
           </div>
@@ -63,14 +63,14 @@ const Main = () => {
           </Link>
         </div>
         <div
-          className="basis-1/2 md:py-20 md:px-10 bg-cover bg-center"
+          className="basis-1/2 md:py-20 md:px-10 md:h-auto bg-cover bg-center"
           style={{ backgroundImage: "url(/img/homePage-1.jpg)" }}
         ></div>
       </div>
       {/* value prop section */}
       <div className="p-20">
-        <div className="m-10 flex justify-start relative py-10 min-h-[75vh]">
-          <div className=" absolute left-0 min-h-min max-w-md p-14 z-10 flex flex-col justify-center rounded-lg shadow-sm bg-forest-green">
+        <div className="m-10 flex justify-start relative py-10 h-[50vw]">
+          <div className=" absolute left-0 min-h-min w-2/5 p-14 z-10 flex flex-col justify-center rounded-lg shadow-sm bg-forest-green">
             <div className="text-5xl text-white">Value prop 1</div>
             <div className="mt-5 text-xl text-white">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -88,7 +88,7 @@ const Main = () => {
             </div>
           </div>
         </div>
-        <div className="mx-10 flex justify-start relative py-10 min-h-[60vh]">
+        <div className="mx-10 flex justify-start relative py-10 min-h-[40vw]">
           <div className="absolute inset-0 w-4/6 right-auto m-0 z-0">
             <div className="absolute inset-0">
               <img
@@ -97,7 +97,7 @@ const Main = () => {
               ></img>
             </div>
           </div>
-          <div className="absolute right-0 min-h-min  max-w-md p-14 z-10 flex flex-col justify-center rounded-lg shadow-sm bg-forest-green">
+          <div className="absolute right-0 min-h-min  w-2/5 p-14 z-10 flex flex-col justify-center rounded-lg shadow-sm bg-forest-green">
             <div className="text-5xl text-white">Value prop 2</div>
             <div className="mt-5 text-xl text-white">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
