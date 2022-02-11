@@ -7,6 +7,7 @@ import MyAccount from "./components/Account/MyAccount";
 import Main from "./components/HomePage/Main";
 import Products from "./components/Products";
 import ProductDetails from "./components/ProductDetails";
+import Cart from "./components/Cart";
 import { me } from "./store";
 
 class Routes extends Component {
@@ -22,18 +23,18 @@ class Routes extends Component {
           <Switch>
             <Route path="/my-account/profile" component={MyAccount} />
             <Route path="/my-account/orders" component={MyAccount} />
+            <Route path="/my-account/address" component={MyAccount} />
           </Switch>
         ) : (
           <Switch>
             <Route path="/login" component={LoginPage} />
             <Route path="/signup" component={SignupPage} />
-            <Route path="/cart" component={Signup} />
           </Switch>
         )}
         <Route path="/" exact component={Main} />
+        <Route path="/cart" exact component={Cart} />
         <Route exact path="/products" component={Products} />
         <Route exact path="/products/:slug" component={ProductDetails} />
-        <Route path="/view/:role" component={Signup} />
       </div>
     );
   }

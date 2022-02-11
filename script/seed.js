@@ -29,6 +29,11 @@ async function seed() {
     firstName: "Admin",
     lastName: "User",
     role: "ADMIN",
+    addressLine1: "425 Main Way",
+    addressLine2: "6A",
+    city: "New York",
+    state: "NY",
+    zipcode: "10017",
   });
   users.push(admin);
 
