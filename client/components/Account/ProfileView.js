@@ -19,9 +19,9 @@ const ProfileView = () => {
       ) : null}
       <Formik
         initialValues={{
-          firstName: `${currUser.firstName}`,
-          lastName: `${currUser.lastName}`,
-          email: `${currUser.email}`,
+          firstName: `${currUser.firstName || ""}`,
+          lastName: `${currUser.lastName || ""}`,
+          email: `${currUser.email || ""}`,
         }}
         onSubmit={(values) => {
           dispatch(updateUser(values, currUser.id));

@@ -5,14 +5,15 @@ import { fetchOrders } from "../../store/orders";
 import format from "date-fns/format";
 import isPast from "date-fns/isPast";
 import { getAllProducts } from "../../store/products";
+import { me } from "../../store";
 
 const OrderRows = ({ orders, auth }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   useEffect(() => {
-    dispatch(fetchOrders(auth.id));
+    if (auth.id) dispatch(fetchOrders(auth.id));
     dispatch(getAllProducts());
-  }, []);
+  }, [auth]);
 
   return (
     <tbody className=" divide-y divide-dark-grey">
