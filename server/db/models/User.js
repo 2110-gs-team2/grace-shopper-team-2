@@ -31,6 +31,7 @@ const User = db.define("user", {
   firstName: {
     type: STRING,
     allowNull: false,
+    defaultValue: "there",
   },
   lastName: {
     type: STRING,

@@ -29,3 +29,16 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
+// UPDATE an individual user's information
+router.put("/:id", async (req, res, next) => {
+  try {
+    console.log(req.body, "this is req body");
+    const user = await User.findOne({
+      where: { id: req.params.id },
+    });
+    user.update(req.body);
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+});

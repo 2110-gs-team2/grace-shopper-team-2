@@ -4,7 +4,7 @@ import OrderRows from "./OrderRows";
 const OrderView = () => {
   return (
     <div>
-      <div className="text-5xl mb-5">Your orders</div>
+      <div className="text-5xl mb-5">My orders</div>
       <table className="min-w-full divide-y divide-dark-grey sm:table-fixed">
         <thead className="">
           <tr>

@@ -11,7 +11,11 @@ const UserMenu = ({ styleChange, userName }) => {
   return (
     <Menu className="relative z-50" as="div">
       <Menu.Button className="flex items-center">
-        <User strokeWidth={1} width={30} height={30} />
+        <div className="text-lg text-medium px-3 py-1 rounded-lg flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-forest-green"></div>
+          <span>Hi, {userName}</span>
+        </div>
+        {/* <User strokeWidth={1} width={30} height={30} /> */}
       </Menu.Button>
 
       <Transition
@@ -24,7 +28,6 @@ const UserMenu = ({ styleChange, userName }) => {
         leaveTo="transform scale-95 opacity-0"
       >
         <Menu.Items className=" absolute right-0 w-48 mt-2 bg-beige rounded-md shadow-md focus:outline-none">
-          <div className="text-medium pt-3 px-3">Hi, {userName}!</div>
           <div className="p-1">
             <Menu.Item>
               {({ active }) => (
@@ -47,6 +50,18 @@ const UserMenu = ({ styleChange, userName }) => {
                   to="/my-account/orders"
                 >
                   Orders
+                </Link>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <Link
+                  className={`${
+                    active ? "bg-xlight-green" : "text-gray-900"
+                  }  group flex rounded-md items-center w-full px-2 py-2 text-medium uppercase`}
+                  to="/my-account/address"
+                >
+                  Address
                 </Link>
               )}
             </Menu.Item>

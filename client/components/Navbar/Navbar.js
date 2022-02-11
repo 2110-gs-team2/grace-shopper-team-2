@@ -45,9 +45,9 @@ const Navbar = ({ isLoggedIn }) => {
             <Search strokeWidth={1} width={30} height={30} />
           </button>
           {isLoggedIn ? <UserMenu /> : <GuestMenu />}
-          <button>
+          <Link to="/cart">
             <Package strokeWidth={1} width={30} height={30} />
-          </button>
+          </Link>
         </div>
       </div>
     </div>
