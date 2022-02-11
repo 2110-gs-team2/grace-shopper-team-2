@@ -242,6 +242,7 @@ products.forEach((p) => {
   p.difficulty = difficulty[random(0, difficulty.length - 1)];
   p.isPetFriendly = petFriendly[random(0, petFriendly.length - 1)];
   p.quantity = quantity[random(0, quantity.length - 1)];
+  p.slug = p.name.replace(/\s+/g,'-').toLowerCase();
 });
 
 module.exports = products;

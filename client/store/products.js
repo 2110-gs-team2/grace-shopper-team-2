@@ -36,7 +36,7 @@ const products = (state = [], action) => {
     case GET_ALL_PRODUCTS:
       return action.products;
     case GET_SINGLE_PRODUCT:
-      return action.product;
+      return [action.product];
     default:
       return state;
   }

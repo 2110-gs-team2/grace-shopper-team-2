@@ -14,31 +14,22 @@ class Products extends Component {
 
   render() {
     const { products } = this.props;
-    const userType = "user"; // Temporary variable
-    if (userType === "admin")
-      return (
-        <div style={{ backgroundColor: "dodgerblue !important" }}>
-          Logged in as admin
-        </div>
-      );
-    if (userType === "developer") return <div>Logged in as developer</div>;
-    if (userType === "user")
-      return (
-        <>
-          <h1>PoshLeaf Products:</h1>
-          {products.map((product) => {
-            return (
-                <div key={product.id}>
-                  Name:
-                  <Link to={`/products/${product.id}`}>{product.name}</Link>
-                  Type: {product.type}
-                  Price: {product.price}
-                  <button onClick={() => this.addToCart(product)}>Add to Cart</button>
-                </div>
-            );
-          })}
-        </>
-      );
+    return (
+      <div className="py-20">
+        <h1>PoshLeaf Products:</h1>
+        {products.map((product) => {
+          return (
+              <div key={product.id}>
+                Name:
+                <Link to={`/products/${product.slug}`}>{product.name}</Link>
+                Type: {product.type}
+                Price: {product.price}
+                <button onClick={() => this.addToCart(product)}>Add to Cart</button>
+              </div>
+          );
+        })}
+      </div>
+    );
   }
 }
 
