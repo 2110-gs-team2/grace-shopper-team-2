@@ -7,8 +7,6 @@ import isPast from "date-fns/isPast";
 import { getAllProducts } from "../../store/products";
 
 const OrderItemRows = ({ items }) => {
-  console.log(items, "items");
-
   return (
     <tbody className=" divide-y divide-dark-grey">
       {items.map((item) => {

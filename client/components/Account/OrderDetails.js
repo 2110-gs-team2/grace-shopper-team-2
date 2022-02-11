@@ -5,7 +5,6 @@ import isPast from "date-fns/isPast";
 import OrderItemRows from "./OrderItemRows";
 import { ChevronLeft } from "react-feather";
 const OrderDetails = ({ order, items, history }) => {
-  console.log(history);
   const grandTotal = items.reduce((acc, item) => {
     acc += item.quantity * item.productDetails.price;
     return acc;
@@ -71,12 +70,13 @@ const OrderDetails = ({ order, items, history }) => {
 };
 
 const mapState = ({ orders, products }, { match, history }) => {
-  const order = orders.find((o) => o.id === match.params.id);
-  const items = order.items;
+  let order = orders.find((o) => o.id === match.params.id);
+  const items = order ? order.items : [];
   items.forEach((i) => {
     const product = products.find((p) => p.id === i.productId);
     i.productDetails = product;
   });
+
   return { order, items, history };
 };
 

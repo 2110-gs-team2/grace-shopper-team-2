@@ -16,32 +16,42 @@ const OrderRows = ({ orders, auth }) => {
 
   return (
     <tbody className=" divide-y divide-dark-grey">
-      {orders.map((o) => {
-        return (
-          <tr key={o.id}>
-            <td className="py-4 whitespace-nowrap">
-              <Link to={`${location.pathname}/${o.id}`}>
-                <div className="underline">{`#${o.id.split("-")[0]}`}</div>
-              </Link>
-            </td>
-            <td className="py-4 whitespace-nowrap">
-              <div className="">
-                {format(new Date(o.createdAt), "MMM dd, yyy")}
-              </div>
-            </td>
-            <td className="py-4 whitespace-nowrap">
-              <div>
-                {isPast(new Date(o.completedTimestamp))
-                  ? "Complete"
-                  : "In Progress"}
-              </div>
-            </td>
-            <td className="py-4 whitespace-nowrap">
-              <div>{`$${o.total}`}</div>
-            </td>
-          </tr>
-        );
-      })}
+      {orders.length ? (
+        orders.map((o) => {
+          return (
+            <tr key={o.id}>
+              <td className="py-4 whitespace-nowrap">
+                <Link to={`/my-account/orders/${o.id}`}>
+                  <div className="underline">{`#${o.id.split("-")[0]}`}</div>
+                </Link>
+              </td>
+              <td className="py-4 whitespace-nowrap">
+                <div className="">
+                  {format(new Date(o.createdAt), "MMM dd, yyy")}
+                </div>
+              </td>
+              <td className="py-4 whitespace-nowrap">
+                <div>
+                  {isPast(new Date(o.completedTimestamp))
+                    ? "Complete"
+                    : "In Progress"}
+                </div>
+              </td>
+              <td className="py-4 whitespace-nowrap">
+                <div>{`$${o.total}`}</div>
+              </td>
+            </tr>
+          );
+        })
+      ) : (
+        <tr>
+          <td>
+            <div className="text-lg py-5">
+              It doesn't look like you have any orders!
+            </div>
+          </td>
+        </tr>
+      )}
     </tbody>
   );
 };
