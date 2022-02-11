@@ -5,8 +5,8 @@ const OrderView = () => {
   return (
     <div>
       <div className="text-5xl mb-5">My orders</div>
-      <table className="min-w-full divide-y divide-dark-grey sm:table-fixed">
-        <thead className="">
+      <table className="min-w-full table-fixed">
+        <thead className="border-b-2 border-forest-green">
           <tr>
             <th
               scope="col"

@@ -1,6 +1,6 @@
 import React, { Component, useEffect } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { fetchOrders } from "../../store/orders";
 import format from "date-fns/format";
 import isPast from "date-fns/isPast";
@@ -8,7 +8,7 @@ import { getAllProducts } from "../../store/products";
 
 const OrderRows = ({ orders, auth }) => {
   const dispatch = useDispatch();
-
+  const location = useLocation();
   useEffect(() => {
     dispatch(fetchOrders(auth.id));
     dispatch(getAllProducts());
@@ -20,9 +20,9 @@ const OrderRows = ({ orders, auth }) => {
         return (
           <tr key={o.id}>
             <td className="py-4 whitespace-nowrap">
-              <a href={`/order/${o.id}`}>
+              <Link to={`${location.pathname}/${o.id}`}>
                 <div className="underline">{`#${o.id.split("-")[0]}`}</div>
-              </a>
+              </Link>
             </td>
             <td className="py-4 whitespace-nowrap">
               <div className="">
