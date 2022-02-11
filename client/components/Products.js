@@ -9,7 +9,7 @@ class Products extends Component {
   }
 
   addToCart = (product) => {
-    console.log('Product added to cart', product);
+    console.log('Product added to cart!', product);
   }
 
   render() {
