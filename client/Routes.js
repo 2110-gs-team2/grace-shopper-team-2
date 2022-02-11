@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import {
   withRouter,
   Route,
@@ -18,18 +18,22 @@ import Cart from "./components/Cart";
 import { me } from "./store";
 
 function PrivateRoute({ component: Component, authed, ...rest }) {
+  const state = useSelector((state) => state);
+  const newAuthed = !!state.auth.id;
+
   return (
     <Route
       {...rest}
-      render={(props) =>
-        authed ? (
+      render={(props) => {
+        console.log(props);
+        return newAuthed ? (
           <Component {...props} />
         ) : (
           <Redirect
             to={{ pathname: "/login", state: { from: props.location } }}
           />
-        )
-      }
+        );
+      }}
     />
   );
 }
@@ -41,6 +45,8 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn } = this.props;
+    const token = window.localStorage.getItem("token");
+
     return (
       <div>
         <Switch>
@@ -48,34 +54,26 @@ class Routes extends Component {
           <Route path="/cart" exact component={Cart} />
           <Route exact path="/products" component={Products} />
           <Route exact path="/products/:slug" component={ProductDetails} />
-          {isLoggedIn ? null : (
-            <Fragment>
-              <Route path="/login" exact component={LoginPage} />
-              <Route path="/signup" exact component={SignupPage} />
-            </Fragment>
-          )}
-          <PrivateRoute
-            authed={this.props.isLoggedIn}
-            path="/my-account/orders/:id"
-            exact
-            component={MyAccount}
-          />
-          <PrivateRoute
-            authed={this.props.isLoggedIn}
-            path="/my-account/:type"
-            component={MyAccount}
-          />
+          <Route path="/my-account/orders/:id">
+            {!token ? <Redirect to="/login" /> : <MyAccount />}
+          </Route>
+          <Route path="/my-account/:type">
+            {!token ? <Redirect to="/login" /> : <MyAccount />}
+          </Route>
+          <Route path="/login" exact component={LoginPage} />
+          <Route path="/signup" exact component={SignupPage} />
         </Switch>
       </div>
     );
   }
 }
 
-const mapState = (state) => {
+const mapState = ({ auth }) => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
-    isLoggedIn: !!state.auth.id,
+    isLoggedIn: !!auth.id,
+    auth,
   };
 };
 

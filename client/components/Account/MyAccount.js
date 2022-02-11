@@ -8,6 +8,7 @@ import includes from "lodash/includes";
 import OrderDetails from "./OrderDetails";
 
 const MyAccount = (props) => {
+  const params = useParams();
   const location = useLocation();
   return (
     <div className="w-screen h-screen bg-forest-green">
@@ -52,7 +53,7 @@ const MyAccount = (props) => {
             location.pathname === "/my-account/orders" ? (
               <OrderView />
             ) : (
-              <OrderDetails {...props} />
+              <OrderDetails params={params} />
             )
           ) : null}
           {includes(location.pathname, "address") ? <AddressView /> : null}
