@@ -5,11 +5,6 @@ import Routes from "./Routes";
 import { me } from "./store";
 
 const App = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(me());
-  }, []);
-
   return (
     <div>
       <Navbar />

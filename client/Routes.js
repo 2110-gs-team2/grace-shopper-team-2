@@ -17,34 +17,12 @@ import OrderDetails from "./components/Account/OrderDetails";
 import Cart from "./components/Cart";
 import { me } from "./store";
 
-function PrivateRoute({ component: Component, authed, ...rest }) {
-  const state = useSelector((state) => state);
-  const newAuthed = !!state.auth.id;
-
-  return (
-    <Route
-      {...rest}
-      render={(props) => {
-        console.log(props);
-        return newAuthed ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{ pathname: "/login", state: { from: props.location } }}
-          />
-        );
-      }}
-    />
-  );
-}
-
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
   }
 
   render() {
-    const { isLoggedIn } = this.props;
     const token = window.localStorage.getItem("token");
 
     return (
