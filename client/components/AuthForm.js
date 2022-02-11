@@ -44,31 +44,28 @@ const AuthForm = (props) => {
         </button>
         {name === "login" ? (
           <Fragment>
-            <div className="text-lg my-5 mx-0 text-center">
-              or continue with
-            </div>
+            <div className="text-lg my-5 mx-0 text-center">— or —</div>
             <div className="flex flex-row justify-around my-2 mx-0">
               <a
                 href="/auth/login/google"
-                className="bg-grey rounded-full px-10 "
+                className="bg-white rounded-full px-10 shadow-sm"
               >
                 <div className="flex gap-2 items-center">
-                  <img
-                    src="https://media.everlane.com/image/upload/c_scale,dpr_1.0,f_auto,q_auto,w_auto/v1/i/5c439b13_4155.png"
-                    className="w-5"
-                  />
-                  <span className="font-bold">Google</span>
+                  <img src="/img/google.png" className="w-5" />
+                  <span className="font-bold">Login with Google</span>
                 </div>
               </a>
-              <button className="bg-grey rounded-full px-10 ">
-                <div className="flex gap-2 items-center">
-                  <img
-                    src="https://media.everlane.com/image/upload/c_scale,dpr_1.0,f_auto,q_auto,w_auto/v1/i/072c2eb3_33d0.png"
-                    className="w-5"
-                  />
-                  <span className="font-bold">Facebook</span>
+              <a
+                href="/auth/login/facebook"
+                className="rounded-full px-10 bg-[#1877F2]"
+              >
+                <div className="flex gap-2 items-center ">
+                  <img src="/img/facebook.png" className="w-5" />
+                  <span className="font-bold text-white">
+                    Login with Facebook
+                  </span>
                 </div>
-              </button>
+              </a>
             </div>
           </Fragment>
         ) : null}

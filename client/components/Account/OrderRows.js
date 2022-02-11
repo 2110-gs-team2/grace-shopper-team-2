@@ -6,22 +6,13 @@ import format from "date-fns/format";
 import isPast from "date-fns/isPast";
 import { getAllProducts } from "../../store/products";
 
-const OrderRows = ({ orders, auth, products }) => {
+const OrderRows = ({ orders, auth }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchOrders(auth.id));
     dispatch(getAllProducts());
   }, []);
-
-  orders.forEach((o) => {
-    const total = o.items.reduce((acc, item) => {
-      acc +=
-        1 * item.quantity * products.find((p) => p.id === item.productId).price;
-      return acc;
-    }, 0);
-    o.total = total;
-  });
 
   return (
     <tbody className=" divide-y divide-dark-grey">
@@ -56,6 +47,14 @@ const OrderRows = ({ orders, auth, products }) => {
 };
 
 const mapState = ({ auth, orders, products }) => {
+  orders.forEach((o) => {
+    const total = o.items.reduce((acc, item) => {
+      acc +=
+        1 * item.quantity * products.find((p) => p.id === item.productId).price;
+      return acc;
+    }, 0);
+    o.total = total;
+  });
   return { auth, orders, products };
 };
 
