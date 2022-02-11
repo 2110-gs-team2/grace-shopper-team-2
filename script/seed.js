@@ -23,13 +23,14 @@ async function seed() {
   // Creating Users
   const users = await Promise.all(userData.map((u) => User.create(u)));
   // create admin user to test auth
-  await User.create({
+  const admin = await User.create({
     email: "admin@gmail.com",
     password: "123",
     firstName: "Admin",
     lastName: "User",
     role: "ADMIN",
   });
+  users.push(admin);
 
   // Creating Products
   const products = await Promise.all(productData.map((p) => Product.create(p)));
@@ -65,7 +66,7 @@ async function seed() {
   let orderItems = await Promise.all(
     orders.map((o) =>
       OrderItem.create({
-        quantity: random(0, quantity.length - 1),
+        quantity: random(1, quantity.length - 1),
         orderId: o.id,
         productId: products[random(0, products.length - 1)].id,
       })
@@ -77,14 +78,14 @@ async function seed() {
       orders.map((o, idx) => {
         if (idx % 2 === 0) {
           return OrderItem.create({
-            quantity: random(0, quantity.length - 1),
+            quantity: random(1, quantity.length - 1),
             orderId: o.id,
             productId: products[random(0, products.length - 1)].id,
           });
         }
         if (idx % 3 === 0) {
           return OrderItem.create({
-            quantity: random(0, quantity.length - 1),
+            quantity: random(1, quantity.length - 1),
             orderId: o.id,
             productId: products[random(0, products.length - 1)].id,
           });

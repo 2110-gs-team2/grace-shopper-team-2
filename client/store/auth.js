@@ -40,10 +40,11 @@ export const authenticate = (email, password, method) => async (dispatch) => {
   }
 };
 
-export const logout =  () => {
+export const logout = () => {
   return async (dispatch) => {
     window.localStorage.removeItem(TOKEN);
     await axios.get("/logout");
+    history.push("/");
     dispatch(_logout());
   };
 };
