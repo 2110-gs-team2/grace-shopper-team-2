@@ -6,6 +6,7 @@ const {
 const app = require("../app");
 module.exports = router;
 
+// GOOGLE oauth routes
 router.get(
   "/login/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
@@ -18,18 +19,41 @@ router.get(
   }),
   async (req, res) => {
     const passportId = req.user[0].dataValues.passportId;
-    const token = await User.authenticateViaGoogle(passportId);
+    const token = await User.authenticateViaSocial(passportId);
     res.send(`
-      <html>
-       <body>
-       <script>
-        window.localStorage.setItem('token', '${token}');
-        window.document.location = '/';
-       </script>
-        </body>
-      </html>
+    <html>
+    <body>
+    <script>
+    window.localStorage.setItem('token', '${token}');
+    window.document.location = '/';
+    </script>
+    </body>
+    </html>
     `);
-    // res.redirect("/");
+  }
+);
+
+// FACEBOOK oauth routes
+router.get("/login/facebook", passport.authenticate("facebook"));
+
+router.get(
+  "/redirect/facebook",
+  passport.authenticate("facebook", { failureRedirect: "/login" }),
+  async function (req, res) {
+    const passportId = req.user[0].dataValues.passportId;
+    const token = await User.authenticateViaSocial(passportId);
+    res.send(
+      `
+    <html>
+    <body>
+    <script>
+    window.localStorage.setItem('token', '${token}');
+    window.document.location = '/';
+    </script>
+    </body>
+    </html>
+    `
+    );
   }
 );
 

@@ -156,7 +156,7 @@ User.findByToken = async function (token) {
   }
 };
 
-User.authenticateViaGoogle = async function (passportId) {
+User.authenticateViaSocial = async function (passportId) {
   const user = await this.findOne({ where: { passportId } });
   if (!user) {
     const error = Error("No user exists");
