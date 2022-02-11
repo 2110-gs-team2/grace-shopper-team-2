@@ -23,3 +23,13 @@ router.get("/:orderId", async (req, res, next) => {
     next(error);
   }
 });
+
+// GET individual user's set of orders
+router.get("/user/:userId", async (req, res, next) => {
+  try {
+    const order = await Order.findAll({ where: { userId: req.params.userId } });
+    res.json(order);
+  } catch (error) {
+    next(error);
+  }
+});

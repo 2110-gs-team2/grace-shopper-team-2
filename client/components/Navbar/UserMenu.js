@@ -32,7 +32,7 @@ const UserMenu = ({ styleChange, userName }) => {
                   className={`${
                     active ? "bg-xlight-green" : "text-gray-900"
                   }  group flex rounded-md items-center w-full px-2 py-2 text-medium uppercase`}
-                  to="/profile"
+                  to="/my-account/profile"
                 >
                   Account
                 </Link>
@@ -44,7 +44,7 @@ const UserMenu = ({ styleChange, userName }) => {
                   className={`${
                     active ? "bg-xlight-green" : "text-gray-900"
                   }  group flex rounded-md items-center w-full px-2 py-2 text-medium uppercase`}
-                  to="/orders"
+                  to="/my-account/orders"
                 >
                   Orders
                 </Link>
@@ -56,7 +56,7 @@ const UserMenu = ({ styleChange, userName }) => {
                   className={`${
                     active ? "bg-xlight-green" : "text-gray-900"
                   }  group flex rounded-md items-center w-full px-2 py-2 text-medium uppercase`}
-                  onClick={async () => {
+                  onClick={() => {
                     dispatch(logout());
                   }}
                 >

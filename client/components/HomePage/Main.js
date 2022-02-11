@@ -69,7 +69,7 @@ const Main = () => {
       </div>
       {/* value prop section */}
       <div className="p-20">
-        <div className="m-10 flex justify-start relative py-10 h-[50vw]">
+        <div className="flex justify-start relative py-10 h-[40vw] max-w-5xl m-auto my-10">
           <div className=" absolute left-0 min-h-min w-2/5 p-14 z-10 flex flex-col justify-center rounded-lg shadow-sm bg-forest-green">
             <div className="text-5xl text-white">Value prop 1</div>
             <div className="mt-5 text-xl text-white">
@@ -88,7 +88,7 @@ const Main = () => {
             </div>
           </div>
         </div>
-        <div className="mx-10 flex justify-start relative py-10 min-h-[40vw]">
+        <div className="flex justify-start relative py-10 min-h-[30vw] max-w-5xl m-auto my-10">
           <div className="absolute inset-0 w-4/6 right-auto m-0 z-0">
             <div className="absolute inset-0">
               <img
