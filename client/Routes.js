@@ -1,12 +1,19 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import {
+  withRouter,
+  Route,
+  Switch,
+  Redirect,
+  useRouteMatch,
+} from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
 import { LoginPage, SignupPage } from "./components/AuthPage";
 import MyAccount from "./components/Account/MyAccount";
 import Main from "./components/HomePage/Main";
 import Products from "./components/Products";
 import ProductDetails from "./components/ProductDetails";
+import OrderDetails from "./components/Account/OrderDetails";
 import Cart from "./components/Cart";
 import { me } from "./store";
 
@@ -22,7 +29,11 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/my-account/profile" component={MyAccount} />
-            <Route path="/my-account/orders" component={MyAccount} />
+            <Route path="/my-account/orders" exact component={MyAccount} />
+            <Route
+              path={`/my-account/orders/:id`}
+              render={(props) => <MyAccount {...props} />}
+            />
             <Route path="/my-account/address" component={MyAccount} />
           </Switch>
         ) : (
