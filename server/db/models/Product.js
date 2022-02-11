@@ -15,6 +15,10 @@ const Product = db.define("product", {
     allowNull: false,
     unique: true,
   },
+  slug: {
+    type: STRING,
+    unique: true
+  },
   description: {
     type: TEXT,
   },
@@ -42,7 +46,7 @@ const Product = db.define("product", {
   },
   difficulty: {
     type: ENUM(["EASY", "MODERATE", "EXPERT"]),
-  },
+  }
 });
 
 module.exports = Product;

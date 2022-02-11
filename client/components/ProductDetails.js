@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getSingleProduct } from "../store/products";
+import { isArray } from "lodash";
 
 class ProductDetails extends Component {
   constructor() {
@@ -13,23 +14,28 @@ class ProductDetails extends Component {
 
   componentDidMount() {
     const { products, getSingleProduct } = this.props;
-    const { id } = this.props.match.params;
+    const { slug } = this.props.match.params;
     /* If user navigates to a single product from the all products page, there is no need to call another thunk since data is already in redux store */
-    products.length
-      ? this.setState({ product: products.find((product) => id === product.id) })
-      : getSingleProduct(id);
+    if (products.length) {
+      this.setState({ product: products.find((product) => slug === product.slug) })
+    }
+    else {
+      getSingleProduct(slug);
+    }
   }
 
   componentDidUpdate() {
     if (!Object.keys(this.state.product).length) {
-      this.setState({ product: this.props.products });
+      if (isArray(this.props.products) && this.props.products.length) {
+        this.setState({ product: this.props.products[0] });
+      }
     }
   }
 
   render() {
     const { product } = this.state;
     return (
-      <>
+      <div className="py-20">
         <h1>Product Details:</h1>
         <div>Name: {product.name}</div>
         <div>Description: {product.description}</div>
@@ -39,7 +45,7 @@ class ProductDetails extends Component {
         <div>Light: {product.light}</div>
         <div>Size: {product.size}</div>
         <div>Pet Friendly: {product.isPetFriendly ? 'Yes' : 'No'}</div>
-      </>
+      </div>
     );
   }
 }
