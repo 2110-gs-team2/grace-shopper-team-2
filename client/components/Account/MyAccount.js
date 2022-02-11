@@ -15,7 +15,7 @@ const MyAccount = (props) => {
         <div className="col-span-1 p-10 bg-beige rounded-lg">
           <div className="flex flex-col gap-3">
             <Link
-              to="/my-account/profile"
+              to={`/my-account/profile`}
               className={`${
                 includes(location.pathname, "profile")
                   ? "before:block before:absolute before:h-2 before:top-1/2 before:-translate-y-1/2 before:-inset-x-0.5 before:bg-xlight-green"
@@ -25,7 +25,7 @@ const MyAccount = (props) => {
               <span className="relative z-10">Profile</span>
             </Link>
             <Link
-              to="/my-account/orders"
+              to={`/my-account/orders`}
               className={`${
                 includes(location.pathname, "orders")
                   ? "before:block before:absolute before:h-2 before:top-1/2 before:-translate-y-1/2 before:-inset-x-0.5 before:bg-xlight-green"

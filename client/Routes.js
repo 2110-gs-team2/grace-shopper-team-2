@@ -17,6 +17,23 @@ import OrderDetails from "./components/Account/OrderDetails";
 import Cart from "./components/Cart";
 import { me } from "./store";
 
+function PrivateRoute({ component: Component, authed, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        authed ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{ pathname: "/login", state: { from: props.location } }}
+          />
+        )
+      }
+    />
+  );
+}
+
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
@@ -26,26 +43,29 @@ class Routes extends Component {
     const { isLoggedIn } = this.props;
     return (
       <div>
-        {isLoggedIn ? (
-          <Switch>
-            <Route path="/my-account/profile" component={MyAccount} />
-            <Route path="/my-account/orders" exact component={MyAccount} />
-            <Route
-              path={`/my-account/orders/:id`}
-              render={(props) => <MyAccount {...props} />}
-            />
-            <Route path="/my-account/address" component={MyAccount} />
-          </Switch>
-        ) : (
-          <Switch>
-            <Route path="/login" component={LoginPage} />
-            <Route path="/signup" component={SignupPage} />
-          </Switch>
-        )}
-        <Route path="/" exact component={Main} />
-        <Route path="/cart" exact component={Cart} />
-        <Route exact path="/products" component={Products} />
-        <Route exact path="/products/:slug" component={ProductDetails} />
+        <Switch>
+          <Route path="/" exact component={Main} />
+          <Route path="/cart" exact component={Cart} />
+          <Route exact path="/products" component={Products} />
+          <Route exact path="/products/:slug" component={ProductDetails} />
+          {isLoggedIn ? null : (
+            <Fragment>
+              <Route path="/login" exact component={LoginPage} />
+              <Route path="/signup" exact component={SignupPage} />
+            </Fragment>
+          )}
+          <PrivateRoute
+            authed={this.props.isLoggedIn}
+            path="/my-account/orders/:id"
+            exact
+            component={MyAccount}
+          />
+          <PrivateRoute
+            authed={this.props.isLoggedIn}
+            path="/my-account/:type"
+            component={MyAccount}
+          />
+        </Switch>
       </div>
     );
   }
