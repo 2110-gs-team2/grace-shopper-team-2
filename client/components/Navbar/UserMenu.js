@@ -59,9 +59,9 @@ const UserMenu = ({ styleChange, userName }) => {
                   className={`${
                     active ? "bg-xlight-green" : "text-gray-900"
                   }  group flex rounded-md items-center w-full px-2 py-2 text-medium uppercase`}
-                  to="/my-account/address"
+                  to="/manage"
                 >
-                  Address
+                  Manage
                 </Link>
               )}
             </Menu.Item>

@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 import includes from "lodash/includes";
 import OrderDetails from "./OrderDetails";
 
-const MyAccount = (props) => {
+const MyAccount = () => {
   const params = useParams();
   const location = useLocation();
   return (

@@ -1,20 +1,13 @@
-import React, { Component, Fragment } from "react";
-import { connect, useSelector } from "react-redux";
-import {
-  withRouter,
-  Route,
-  Switch,
-  Redirect,
-  useRouteMatch,
-} from "react-router-dom";
-import { Login, Signup } from "./components/AuthForm";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { LoginPage, SignupPage } from "./components/AuthPage";
 import MyAccount from "./components/Account/MyAccount";
 import Main from "./components/HomePage/Main";
 import Products from "./components/Products";
 import ProductDetails from "./components/ProductDetails";
-import OrderDetails from "./components/Account/OrderDetails";
 import Cart from "./components/Cart";
+import InventoryView from "./components/Manage/InventoryView";
 import { me } from "./store";
 
 class Routes extends Component {
@@ -24,6 +17,9 @@ class Routes extends Component {
 
   render() {
     const token = window.localStorage.getItem("token");
+    const { auth } = this.props;
+    const isAdmin = auth.role === "ADMIN";
+    console.log(auth.role, "what is this");
 
     return (
       <div>
@@ -40,6 +36,15 @@ class Routes extends Component {
           </Route>
           <Route path="/login" exact component={LoginPage} />
           <Route path="/signup" exact component={SignupPage} />
+          {isAdmin ? (
+            <>
+              <Route path="/manage/inventory" exact component={InventoryView} />
+              <Route path="/manage/users" exact component={Products} />
+              <Route path="/manage" exact>
+                <Redirect to="/manage/inventory" />
+              </Route>
+            </>
+          ) : null}
         </Switch>
       </div>
     );
