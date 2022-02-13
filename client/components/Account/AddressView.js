@@ -4,6 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../store";
 import { Check } from "react-feather";
 import { states } from "./states";
+import * as Yup from "yup";
+
+const AddressFormSchema = Yup.object().shape({
+  addressLine1: Yup.string().required("Street addresss is required"),
+  addressLine2: Yup.string(),
+  city: Yup.string().required("City is required"),
+  state: Yup.string().required("State is required"),
+  zipcode: Yup.string()
+    .length(5, "Invalid zipcode")
+    .required("Zipcode is required"),
+});
 
 const AddressView = () => {
   const [success, setSuccess] = useState(false);
@@ -26,6 +37,7 @@ const AddressView = () => {
           state: `${currUser.state || ""}`,
           zipcode: `${currUser.zipcode || ""}`,
         }}
+        validationSchema={AddressFormSchema}
         onSubmit={(values) => {
           dispatch(updateUser(values, currUser.id));
           setSuccess(true);
@@ -46,7 +58,11 @@ const AddressView = () => {
                 className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
           "
               />
-              <ErrorMessage name="addressLine1" />
+              <ErrorMessage
+                name="addressLine1"
+                component="div"
+                className="text-red-700 m-0 text-sm"
+              />
             </div>
             <div className="flex flex-col grow m-0">
               <label
@@ -61,7 +77,11 @@ const AddressView = () => {
                 className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
           "
               />
-              <ErrorMessage name="addressLine2" />
+              <ErrorMessage
+                name="addressLine2"
+                component="div"
+                className="text-red-700 m-0 text-sm"
+              />
             </div>
           </div>
 
@@ -79,7 +99,11 @@ const AddressView = () => {
                 className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
           "
               />
-              <ErrorMessage name="city" />
+              <ErrorMessage
+                name="city"
+                component="div"
+                className="text-red-700 m-0 text-sm"
+              />
             </div>
             <div className="flex flex-col m-0 basis-1/6">
               <label
@@ -100,7 +124,11 @@ const AddressView = () => {
                   </option>
                 ))}
               </Field>
-              <ErrorMessage name="state" />
+              <ErrorMessage
+                name="state"
+                component="div"
+                className="text-red-700 m-0 text-sm"
+              />
             </div>
             <div className="flex flex-col m-0 ">
               <label
@@ -115,7 +143,11 @@ const AddressView = () => {
                 className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
           "
               />
-              <ErrorMessage name="zipcode" />
+              <ErrorMessage
+                name="zipcode"
+                component="div"
+                className="text-red-700 m-0 text-sm"
+              />
             </div>
           </div>
           <div className="m-0">
