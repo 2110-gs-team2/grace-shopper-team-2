@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { useState, Fragment } from "react";
 import { X } from "react-feather";
-import { Formik, Form, ErrorMessage, Field } from "formik";
+import { useDispatch } from "react-redux";
 import SingleInventoryForm from "./SingleInventoryForm";
 
 const SingleInventory = ({ product }) => {

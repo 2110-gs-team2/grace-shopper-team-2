@@ -9,7 +9,6 @@ import { me } from "../../store";
 
 const OrderRows = ({ orders, auth }) => {
   const dispatch = useDispatch();
-  const location = useLocation();
   useEffect(() => {
     if (auth.id) dispatch(fetchOrders(auth.id));
     dispatch(getAllProducts());
@@ -60,8 +59,7 @@ const OrderRows = ({ orders, auth }) => {
 const mapState = ({ auth, orders, products }) => {
   orders.forEach((o) => {
     const total = o.items.reduce((acc, item) => {
-      acc +=
-        1 * item.quantity * products.find((p) => p.id === item.productId).price;
+      acc += 1 * item.quantity * item.price;
       return acc;
     }, 0);
     o.total = total;

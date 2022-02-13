@@ -4,11 +4,13 @@ import axios from "axios";
 const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 const GET_SINGLE_PRODUCT = "GET_SINGLE_PRODUCT";
 const UPDATE_PRODUCT = "UPDATE_PRODUCT";
+const DELETE_PRODUCT = "DELETE_PRODUCT";
 
 // Action creators
 const _getAllProducts = (products) => ({ type: GET_ALL_PRODUCTS, products });
 const _getSingleProduct = (product) => ({ type: GET_SINGLE_PRODUCT, product });
 const _updateProduct = (product) => ({ type: UPDATE_PRODUCT, product });
+const _deleteProduct = (productId) => ({ type: DELETE_PRODUCT, productId });
 
 // Thunks
 export const getAllProducts = () => {
@@ -35,6 +37,13 @@ export const updateProduct = (product) => {
   };
 };
 
+export const deleteProduct = (id) => {
+  return async (dispatch) => {
+    await axios.delete(`/api/products/${id}`);
+    dispatch(_deleteProduct(id));
+  };
+};
+
 // Reducer
 const products = (state = [], action) => {
   switch (action.type) {
@@ -45,6 +54,8 @@ const products = (state = [], action) => {
     case UPDATE_PRODUCT:
       const products = [...state].filter((p) => p.id !== action.product.id);
       return [...products, action.product];
+    case DELETE_PRODUCT:
+      return [...state].filter((p) => p.id !== action.productId);
     default:
       return state;
   }

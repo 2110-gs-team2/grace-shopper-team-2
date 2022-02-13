@@ -2,14 +2,16 @@ import { Tab } from "@headlessui/react";
 import React, { Component, useEffect, useState } from "react";
 import { useDispatch, useSelector, connect } from "react-redux";
 import { getAllProducts } from "../../store/products";
-import users, { fetchUsers } from "../../store/users";
+import { fetchUsers } from "../../store/users";
 import SingleInventory from "./SingleInventory";
+import WarningModal from "./WarningModal";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const InventoryList = () => {
+const AdminTab = () => {
+  let [categories] = useState(["Inventory", "Users"]);
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
   const users = useSelector((state) => state.users);
@@ -18,46 +20,11 @@ const InventoryList = () => {
     dispatch(fetchUsers());
   }, []);
 
-  let [categories] = useState({
-    Inventory: [
-      {
-        id: 1,
-        title: "Does drinking coffee make you smarter?",
-        date: "5h ago",
-        commentCount: 5,
-        shareCount: 2,
-      },
-      {
-        id: 2,
-        title: "So you've bought coffee... now what?",
-        date: "2h ago",
-        commentCount: 3,
-        shareCount: 2,
-      },
-    ],
-    Users: [
-      {
-        id: 1,
-        title: "Is tech making coffee better or worse?",
-        date: "Jan 7",
-        commentCount: 29,
-        shareCount: 16,
-      },
-      {
-        id: 2,
-        title: "The most innovative things happening in coffee",
-        date: "Mar 19",
-        commentCount: 24,
-        shareCount: 12,
-      },
-    ],
-  });
-
   return (
     <div className="w-full px-2  sm:px-0">
       <Tab.Group>
         <Tab.List className="flex p-1 space-x-1 bg-forest-green rounded-xl">
-          {Object.keys(categories).map((category) => (
+          {categories.map((category) => (
             <Tab
               key={category}
               className={({ selected }) =>
@@ -75,13 +42,10 @@ const InventoryList = () => {
           ))}
         </Tab.List>
         <Tab.Panels className="mt-2 bg-forest-green rounded-lg p-5">
-          <Tab.Panel className="rounded-lg focus:outline-none focus:ring-2 ring-offset-2 ring-offset-forest-green ring-beige ring-opacity-60">
+          <Tab.Panel className="rounded-lg">
             <ul className="grid grid-cols-2 gap-5">
               {products.map((p) => (
-                <li
-                  key={p.id}
-                  className="bg-beige rounded-md hover:bg-coolGray-100 flex"
-                >
+                <li key={p.id} className="bg-beige rounded-lg flex">
                   <div
                     style={{ backgroundImage: "url('/img/HomePage-1.jpg')" }}
                     className="w-1/2 bg-no-repeat rounded-lg bg-center bg-cover"
@@ -92,7 +56,7 @@ const InventoryList = () => {
                         {p.name}
                       </span>
                     </div>
-                    <div className="my-2 flex flex-col gap-2">
+                    <div className="mt-2 flex flex-col gap-2">
                       <div className="flex justify-between">
                         <div>Quantity</div>
                         <div>{p.quantity}</div>
@@ -109,7 +73,8 @@ const InventoryList = () => {
                         <div>Size</div>
                         <div>{p.size}</div>
                       </div>
-                      <SingleInventory product={p}/>
+                      <SingleInventory product={p} />
+                      <WarningModal productId={p.id} />
                     </div>
                   </div>
                 </li>
@@ -117,13 +82,22 @@ const InventoryList = () => {
             </ul>
           </Tab.Panel>
           <Tab.Panel className="rounded-lg focus:outline-none focus:ring-2 ring-offset-2 ring-offset-forest-green ring-beige ring-opacity-60">
-            <ul className="flex flex-col gap-5">
+            <ul className="grid grid-cols-4 gap-5">
               {users.map((u, idx) => (
-                <li
-                  key={idx}
-                  className="p-5 bg-beige rounded-md hover:bg-coolGray-100 flex"
-                >
-                  {u.firstName}
+                <li key={idx} className="p-5 bg-beige rounded-lg flex flex-col">
+                  <div className="font-bold uppercase leading-5 border-b border-dark-grey pb-2 grow">
+                    {u.firstName} {u.lastName}
+                  </div>
+                  <div className="mt-2 flex flex-col gap-2">
+                    <div className="flex justify-between">
+                      <div className="">Email</div>
+                      <div>{u.email}</div>
+                    </div>
+                    <div className="flex justify-between">
+                      <div>Role</div>
+                      <div>{u.role}</div>
+                    </div>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -138,4 +112,4 @@ const mapState = ({ products }) => {
   return { products };
 };
 
-export default connect(mapState)(InventoryList);
+export default connect(mapState)(AdminTab);
