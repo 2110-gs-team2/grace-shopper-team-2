@@ -3,22 +3,43 @@ import { Formik, Form, ErrorMessage, Field } from "formik";
 import { useDispatch } from "react-redux";
 import { updateProduct } from "../../store/products";
 import { Check } from "react-feather";
+import { addProduct } from "../../store/products";
+import omit from "lodash/omit";
+import * as Yup from "yup";
 
-const SingleInventoryForm = ({ product, setOpen }) => {
+const SingleInventoryForm = ({ product, operation }) => {
   const [success, setSuccess] = useState(false);
+  const dispatch = useDispatch();
 
   const types = ["INDOOR", "SUCCULENT", "HERB"];
   const sizes = ["X-SMALL", "SMALL", "MEDIUM", "LARGE"];
   const lightLevels = ["LOW", "INDIRECT", "DIRECT"];
   const difficultyLevels = ["EASY", "MODERATE", "EXPERT"];
 
-  const dispatch = useDispatch();
+  const InventoryFormSchema = Yup.object().shape({
+    name: Yup.string("Invalid value")
+      .min(2, "Too short!")
+      .required("Name is required"),
+    description: Yup.string("Invalid value")
+      .min(2, "Too short!")
+      .required("Description is required"),
+    quantity: Yup.number("Invalid quantity")
+      .min(1)
+      .required("Quantity is required"),
+    price: Yup.number("Invalid price").min(1.0).required("Price is required"),
+    type: Yup.mixed().oneOf(types).required("Type is required"),
+    size: Yup.mixed().oneOf(sizes).required("Size is required"),
+    difficulty: Yup.mixed()
+      .oneOf(difficultyLevels)
+      .required("Difficulty level is required"),
+    light: Yup.mixed().oneOf(lightLevels).required("Light level is required"),
+  });
 
   return (
     <Formik
       initialValues={{
         id: `${product.id || ""}`,
-        name: `${product.name || ""} `,
+        name: `${product.name || ""}`,
         description: `${product.description || ""}`,
         quantity: `${product.quantity || ""}`,
         price: `${product.price || ""}`,
@@ -27,141 +48,199 @@ const SingleInventoryForm = ({ product, setOpen }) => {
         difficulty: `${product.difficulty || ""}`,
         light: `${product.light || ""}`,
       }}
+      validationSchema={InventoryFormSchema}
       onSubmit={(values) => {
         if (values.id) dispatch(updateProduct(values));
+        else {
+          values = omit(values, "id");
+          values.slug = values.name.replace(/\s+/g, "-").toLowerCase();
+          dispatch(addProduct(values));
+        }
         setSuccess(true);
-        // setOpen(false);
       }}
     >
       <Form className="flex flex-col gap-3">
-        <div className="flex justify-between items-center m-0">
-          <label htmlFor="name" className="text-sm font-bold uppercase">
-            Name
-          </label>
-          <Field
+        <div className="flex flex-col m-0">
+          <div className="flex justify-between items-center m-0">
+            <label htmlFor="name" className="text-sm font-bold uppercase">
+              Name
+            </label>
+            <Field
+              name="name"
+              type="text"
+              className="py-2 px-4 w-2/3 border-forest-green border-2 focus:ring-forest-green block rounded-full bg-beige
+          "
+            />
+          </div>
+          <ErrorMessage
             name="name"
-            type="text"
-            className="py-2 px-4 w-2/3 border-forest-green border-2 focus:ring-forest-green block rounded-full bg-beige
-          "
+            component="div"
+            className="m-0 text-red-700 self-end text-sm"
           />
-          <ErrorMessage name="name" />
         </div>
-        <div className="flex justify-between items-center m-0">
-          <label htmlFor="description" className="text-sm font-bold uppercase">
-            Description
-          </label>
-          <Field
+        <div className="flex flex-col m-0">
+          <div className="flex justify-between items-center m-0">
+            <label
+              htmlFor="description"
+              className="text-sm font-bold uppercase"
+            >
+              Description
+            </label>
+            <Field
+              name="description"
+              as="textarea"
+              type="text"
+              rows="5"
+              className="py-2 px-4 w-2/3 border-forest-green border-2 focus:ring-forest-green block rounded-lg bg-beige
+          "
+            />
+          </div>
+          <ErrorMessage
             name="description"
-            as="textarea"
-            type="text"
-            rows="5"
-            className="py-2 px-4 w-2/3 border-forest-green border-2 focus:ring-forest-green block rounded-lg bg-beige
-          "
+            component="div"
+            className="m-0 text-red-700 self-end text-sm"
           />
-
-          <ErrorMessage name="description" />
         </div>
-        <div className="flex justify-between items-center m-0">
-          <label htmlFor="quantity" className="text-sm font-bold uppercase ">
-            Quantity
-          </label>
-          <Field
+        <div className="flex flex-col m-0">
+          <div className="flex justify-between items-center m-0">
+            <label htmlFor="quantity" className="text-sm font-bold uppercase ">
+              Quantity
+            </label>
+            <Field
+              name="quantity"
+              type="number"
+              className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
+          "
+            />
+          </div>
+          <ErrorMessage
             name="quantity"
-            type="number"
-            className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
-          "
+            component="div"
+            className="m-0 text-red-700 self-end text-sm"
           />
-          <ErrorMessage name="quantity" />
         </div>
-
-        <div className="flex justify-between items-center m-0">
-          <label htmlFor="price" className="text-sm font-bold uppercase ">
-            Price
-          </label>
-          <Field
+        <div className="flex flex-col m-0">
+          <div className="flex justify-between items-center m-0">
+            <label htmlFor="price" className="text-sm font-bold uppercase ">
+              Price
+            </label>
+            <Field
+              name="price"
+              type="text"
+              className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
+          "
+            />
+          </div>
+          <ErrorMessage
             name="price"
-            type="text"
-            className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
-          "
+            component="div"
+            className="m-0 text-red-700 self-end text-sm"
           />
-          <ErrorMessage name="price" />
         </div>
-        <div className="flex justify-between items-center m-0">
-          <label htmlFor="type" className="text-sm font-bold uppercase">
-            Type
-          </label>
-          <Field
-            as="select"
+        <div className="flex flex-col m-0">
+          <div className="flex justify-between items-center m-0">
+            <label htmlFor="type" className="text-sm font-bold uppercase">
+              Type
+            </label>
+            <Field
+              as="select"
+              name="type"
+              className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
+          "
+            >
+              <option value="">Pick a type</option>
+              {types.map((t, idx) => (
+                <option key={idx} value={t}>
+                  {t}
+                </option>
+              ))}
+            </Field>
+          </div>
+          <ErrorMessage
             name="type"
-            className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
-          "
-          >
-            {types.map((t, idx) => (
-              <option key={idx} value={t}>
-                {t}
-              </option>
-            ))}
-          </Field>
-          <ErrorMessage name="type" />
+            component="div"
+            className="m-0 text-red-700 self-end text-sm"
+          />
         </div>
-        <div className="flex justify-between items-center m-0">
-          <label htmlFor="size" className="text-sm font-bold uppercase">
-            size
-          </label>
-          <Field
-            as="select"
+        <div className="flex flex-col m-0">
+          <div className="flex justify-between items-center m-0">
+            <label htmlFor="size" className="text-sm font-bold uppercase">
+              size
+            </label>
+            <Field
+              as="select"
+              name="size"
+              className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
+          "
+            >
+              <option value="">Pick a size</option>
+              {sizes.map((s, idx) => (
+                <option key={idx} value={s}>
+                  {s}
+                </option>
+              ))}
+            </Field>
+          </div>
+          <ErrorMessage
             name="size"
-            className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
-          "
-          >
-            {sizes.map((s, idx) => (
-              <option key={idx} value={s}>
-                {s}
-              </option>
-            ))}
-          </Field>
-          <ErrorMessage name="size" />
+            component="div"
+            className="m-0 text-red-700 self-end text-sm"
+          />
         </div>
-        <div className="flex justify-between items-center m-0">
-          <label htmlFor="difficulty" className="text-sm font-bold uppercase">
-            Difficulty
-          </label>
-          <Field
-            as="select"
+        <div className="flex flex-col m-0">
+          <div className="flex justify-between items-center m-0">
+            <label htmlFor="difficulty" className="text-sm font-bold uppercase">
+              Difficulty
+            </label>
+            <Field
+              as="select"
+              name="difficulty"
+              className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
+          "
+            >
+              <option value="">Pick a difficulty level</option>
+              {difficultyLevels.map((d, idx) => (
+                <option key={idx} value={d}>
+                  {d}
+                </option>
+              ))}
+            </Field>
+          </div>
+          <ErrorMessage
             name="difficulty"
-            className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
-          "
-          >
-            {difficultyLevels.map((d, idx) => (
-              <option key={idx} value={d}>
-                {d}
-              </option>
-            ))}
-          </Field>
-          <ErrorMessage name="difficulty" />
+            component="div"
+            className="m-0 text-red-700 self-end text-sm"
+          />
         </div>
-        <div className="flex justify-between items-center m-0">
-          <label htmlFor="light" className="text-sm font-bold uppercase">
-            Light
-          </label>
-          <Field
-            as="select"
-            name="light"
-            className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
+        <div className="flex flex-col m-0">
+          <div className="flex justify-between items-center m-0">
+            <label htmlFor="light" className="text-sm font-bold uppercase">
+              Light
+            </label>
+            <Field
+              as="select"
+              name="light"
+              className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
           "
-          >
-            {lightLevels.map((l, idx) => (
-              <option key={idx} value={l}>
-                {l}
-              </option>
-            ))}
-          </Field>
-          <ErrorMessage name="light" />
+            >
+              <option value="">Pick a light level</option>
+              {lightLevels.map((l, idx) => (
+                <option key={idx} value={l}>
+                  {l}
+                </option>
+              ))}
+            </Field>
+          </div>
+          <ErrorMessage
+            name="light"
+            component="div"
+            className="m-0 text-red-700 self-end text-sm"
+          />
         </div>
         {success ? (
           <div className="m-0 mt-2 py-3 px-5 bg-forest-green flex gap-2 text-white rounded-lg">
             <Check strokeWidth={1} />
-            Your product has been updated
+            Your product has been {operation === "add" ? "added" : "updated"}
           </div>
         ) : null}
         <button

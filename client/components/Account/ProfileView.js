@@ -3,6 +3,19 @@ import { useFormik, Formik, Form, ErrorMessage, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../store";
 import { Check } from "react-feather";
+import * as Yup from "yup";
+
+const ProfileFormSchema = Yup.object().shape({
+  firstName: Yup.string("Invalid value")
+    .min(2, "Too short!")
+    .max(50, "Too long!")
+    .required("First name is required"),
+  lastName: Yup.string("Invalid value")
+    .min(2, "Too short!")
+    .max(50, "Too long!")
+    .required("Last name is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+});
 
 const ProfileView = () => {
   const [success, setSuccess] = useState(false);
@@ -23,6 +36,7 @@ const ProfileView = () => {
           lastName: `${currUser.lastName || ""}`,
           email: `${currUser.email || ""}`,
         }}
+        validationSchema={ProfileFormSchema}
         onSubmit={(values) => {
           dispatch(updateUser(values, currUser.id));
           setSuccess(true);
@@ -43,7 +57,11 @@ const ProfileView = () => {
                 className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
           "
               />
-              <ErrorMessage name="firstName" />
+              <ErrorMessage
+                name="firstName"
+                component="div"
+                className="text-red-700 m-0 text-sm"
+              />
             </div>
             <div className="flex flex-col grow m-0">
               <label
@@ -58,7 +76,11 @@ const ProfileView = () => {
                 className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
           "
               />
-              <ErrorMessage name="lastName" />
+              <ErrorMessage
+                name="lastName"
+                component="div"
+                className="text-red-700 m-0 text-sm"
+              />
             </div>
           </div>
           <div className="flex flex-col m-0 w-3/5">
@@ -74,7 +96,11 @@ const ProfileView = () => {
               className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
           "
             />
-            <ErrorMessage name="email" />
+            <ErrorMessage
+              name="email"
+              component="div"
+              className="text-red-700 m-0 text-sm"
+            />
           </div>
           <div className="m-0">
             <button

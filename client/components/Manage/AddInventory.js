@@ -4,7 +4,7 @@ import { X } from "react-feather";
 import { useDispatch } from "react-redux";
 import SingleInventoryForm from "./SingleInventoryForm";
 
-const SingleInventory = ({ product }) => {
+const AddInventory = () => {
   const [open, setOpen] = useState(false);
   function closeModal() {
     setOpen(false);
@@ -17,9 +17,9 @@ const SingleInventory = ({ product }) => {
     <Fragment>
       <button
         onClick={openModal}
-        className="mt-5 block p-6 py-3 text-center rounded-full text-base font-bold text-beige bg-forest-green uppercase"
+        className="mb-5 block p-6 py-3 text-center rounded-full text-base font-bold text-beige bg-forest-green uppercase"
       >
-        Edit
+        Add a product
       </button>
       <Transition.Root appear show={open} as={Fragment}>
         <Dialog
@@ -61,19 +61,7 @@ const SingleInventory = ({ product }) => {
                 </div>
                 <div className="bg-beige p-7 pt-14 rounded-md">
                   <div className="flex flex-col">
-                    <div className="flex justify-between items-center">
-                      <label
-                        htmlFor="id"
-                        className="text-sm font-bold uppercase"
-                      >
-                        ID
-                      </label>
-                      {product.id}
-                    </div>
-                    <SingleInventoryForm
-                      product={product}
-                      operation={"update"}
-                    />
+                    <SingleInventoryForm product={{}} operation={"add"} />
                   </div>
                 </div>
               </div>
@@ -85,4 +73,4 @@ const SingleInventory = ({ product }) => {
   );
 };
 
-export default SingleInventory;
+export default AddInventory;

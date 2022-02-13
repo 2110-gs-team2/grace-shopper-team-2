@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
-import { User } from "react-feather";
 import { logout } from "../../store";
 import { useDispatch } from "react-redux";
 import { connect } from "react-redux";
@@ -53,18 +52,7 @@ const UserMenu = ({ styleChange, userName }) => {
                 </Link>
               )}
             </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  className={`${
-                    active ? "bg-xlight-green" : "text-gray-900"
-                  }  group flex rounded-md items-center w-full px-2 py-2 text-medium uppercase`}
-                  to="/manage"
-                >
-                  Manage
-                </Link>
-              )}
-            </Menu.Item>
+
             <Menu.Item>
               {({ active }) => (
                 <button

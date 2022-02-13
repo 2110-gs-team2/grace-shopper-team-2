@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { logout } from "../../store";
-import { Search, Package } from "react-feather";
+import { Search, Package, Settings } from "react-feather";
 import { Link } from "react-router-dom";
 import GuestMenu from "./GuestMenu";
 import UserMenu from "./UserMenu";
@@ -47,6 +47,9 @@ const Navbar = ({ isLoggedIn }) => {
           {isLoggedIn ? <UserMenu /> : <GuestMenu />}
           <Link to="/cart">
             <Package strokeWidth={1} width={30} height={30} />
+          </Link>
+          <Link to="/manage">
+            <Settings strokeWidth={1} width={30} height={30} />
           </Link>
         </div>
       </div>
