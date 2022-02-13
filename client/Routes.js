@@ -8,6 +8,7 @@ import Products from "./components/Products";
 import ProductDetails from "./components/ProductDetails";
 import Cart from "./components/Cart";
 import AdminView from "./components/Admin/AdminView";
+import CheckoutPage from "./components/Purchase/CheckoutPage";
 import { me } from "./store";
 
 class Routes extends Component {

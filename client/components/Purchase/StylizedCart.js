@@ -3,6 +3,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { Package, X } from "react-feather";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import StylizedCartCard from "./StyledCartCard";
+import { Link } from "react-router-dom";
 
 const StylizedCart = (props) => {
   const [open, setOpen] = useState(false);
@@ -80,10 +81,14 @@ const StylizedCart = (props) => {
                         $100
                       </span>
                     </div>
-                    <button className="py-3 px-5 shadow w-full text-base font-bold text-beige bg-forest-green uppercase rounded-full flex gap-2 justify-center">
+                    <a
+                      href="/checkout"
+                      onClick={() => closeSlideover()}
+                      className="py-3 px-5 shadow w-full text-base font-bold text-beige bg-forest-green uppercase rounded-full flex gap-2 justify-center"
+                    >
                       Continue to checkout
                       <LockClosedIcon width={20} height={20} />
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>
