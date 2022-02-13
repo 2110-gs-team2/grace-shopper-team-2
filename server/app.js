@@ -1,3 +1,6 @@
+const {
+  models: { User },
+} = require("./db");
 const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
@@ -18,11 +21,36 @@ app.use("/api", require("./api"));
 require("./auth/passport")(passport);
 app.use(passport.initialize());
 
+const requireToken = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    const user = await User.findByToken(token);
+    console.log(user, "is the user found???");
+    req.user = user;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, "..", "public")));
 
-app.get("/checkout", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/checkout.html"));
+app.get("/checkout", (req, res, next) => {
+  try {
+    res.sendFile(
+      path.join(__dirname, "../public/checkout.html"),
+      function (err) {
+        if (err) {
+          next(err);
+        } else {
+          console.log("Sent!!");
+        }
+      }
+    );
+  } catch (error) {
+    next(error);
+  }
 });
 
 app.get("/*", (req, res) => {
