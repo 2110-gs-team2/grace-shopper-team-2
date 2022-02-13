@@ -1,15 +1,78 @@
-import React from "react";
+// Component REACTO Information:
+
+// Restate Needs:
+// This component is required to showcase the following:
+// Display products they've added to a cart with quantity & ability to:
+// * +/- quantity
+// * delete from cart
+// * place order via a button
+// If no user logged in: same functionality applied to a 'guest' identity
+// If place order button clicked:
+// * create user account if not a logged-in user
+// * initiate final order confirmation component (Order comp????)
+// * clearout products from the user's cart
+
+// Example:
+// Logged in user places 4 products into their cart
+// * The user clicks on their cart icon from the general header html
+// * The user is presented with their cart to review
+// * The user makes an update to their cart by increasing the quantitiy of
+// one product from 1 to 2
+// * The user makes a change by clicking a delte button next to a product
+// * The user clicks a 'Proceed to Checkout' button when satisfied
+
+// Approach: (As a Todo list, 'DONE' denotes an step that has been coded)
+// The following parts will be used to build out this React component:
+// * localStorage of the browser to contain products and user Id data
+// * DONE - user Id will be pulled from localStorage via current webToken
+// * un-ordered list elements to display products user has placed into localStorage
+// * user will place products into localStorage via an 'add to cart' button from
+// within the Products and/or ProductsDetail components
+// * a 'proceed to checkout' button will present user with a Order component spa to finalize order
+
+// Code: Please see following 'code starts here' line
+
+//Testing: There is no testing component at this time, though subject to change if needed
+
+//Optimize:
+// * would like to try using local state to help manipulate localStorage or populate, if able?
+//Why?:  May be needed when handling events? (Not sure yet)
+
+//* Code starts here *//
+
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 //Component
 const Cart = () => {
   //hook to pull in redux store
-  const state = useSelector((state) => {
+  const myState = useSelector((state) => {
     return state;
   });
 
-  // test data for localStorage (to delete when store is up)
+  //local state hooks initiated here
+  // let due to how a product is removed from state in the removeProduct function
+  let [localProducts, setProducts] = useState(
+    //eval if localStorage already has products
+    !window.localStorage.products
+      ? []
+      : JSON.parse(window.localStorage.getItem("products"))
+  );
 
+  console.log(localProducts);
+
+  //getting auth properties from myState (redux store)
+  const auth = myState.auth;
+
+  //Local Storage setup
+  // JSON (stringify,parse) needed to keep array integrity for productSample
+  const productsJson = JSON.stringify(localProducts);
+  //localStorage needs a key:value pair is loaded using class method
+  window.localStorage.setItem("products", productsJson);
+  // variable used to retrieve localStorage data
+  const products = JSON.parse(window.localStorage.getItem("products"));
+
+  // test data for localStorage (to delete when store is up)
   //this test pulls productSample data into local storage, back out into test html
 
   //products api test data
@@ -61,55 +124,17 @@ const Cart = () => {
     },
   ];
 
-  //users api test data (currently not in test)
-  const usersSample = [
-    {
-      id: "7d38cd53-5f74-463b-b9b8-2620d669aa7b",
-      email: "dcraigmile0@wordpress.org",
-      firstName: "Dodi",
-      lastName: "Craigmile",
-      role: "CUSTOMER",
-    },
-    {
-      id: "871dc491-19ee-4226-b801-cc9744165383",
-      email: "gperfili1@alibaba.com",
-      firstName: "Georgie",
-      lastName: "Perfili",
-      role: "ADMIN",
-    },
-    {
-      id: "123938b2-64a5-49cd-878f-28232e89ae30",
-      email: "pdensey3@shutterfly.com",
-      firstName: "Pascale",
-      lastName: "Densey",
-      role: "DEVELOPER",
-    },
-    {
-      id: "68275fc3-dcf6-4377-80f4-ee560c53791c",
-      email: "nbiaggiotti5@clickbank.net",
-      firstName: "Neysa",
-      lastName: "Biaggiotti",
-      role: "CUSTOMER",
-    },
-  ];
-
-  // JSON (stringify,parse) needed to keep array integrity
-  const productsJson = JSON.stringify(productsSample);
-  //localStorage needs a key:value pair is loaded using class method
-  window.localStorage.setItem("products", productsJson);
-  // variable used to retrieve localStorage data
-  const storageOutput = JSON.parse(window.localStorage.getItem("products"));
-
-  //inline css styling for output table
+  //inline css styling for TEST output
   const tableStyle = {
-    bordercollapse: "collapse",
+    borderCollapse: "collapse",
     border: "2px solid rgb(200, 200, 200)",
-    letterspacing: "1px",
-    fontfamily: "sans-serif",
-    fontsize: ".8rem",
+    letterSpacing: "1px",
+    fontFamily: "sans-serif",
+    fontSize: ".8rem",
+    margin: "0 auto",
   };
   const tableBody = {
-    backgroundcolor: "#e4f0f5",
+    backgroundColor: "#e4f0f5",
   };
 
   const th = {
@@ -122,30 +147,138 @@ const Cart = () => {
     padding: "5px 10px",
   };
 
-  //html/Jsx where localStorage is mapped onto webpage
+  const buttonAlign = {
+    display: "flex",
+    justifyContent: "center",
+  };
+
+  const h1 = {
+    textAlign: "center",
+  };
+
+  //Functions to add/remove/adjust quantity
+
+  //function to remove product from localStorage array and return new array
+  const removeProduct = (id, array) => {
+    const filteredProducts = array.filter((elem) => elem.id !== id);
+    return setProducts((localProducts = filteredProducts));
+  };
+
+  //function to add product to cart if product button id matches mapped product from sample
+  const addProduct = (id, productArray) => {
+    //eval if product already in cart and show alert if needed
+    const productCheck = localProducts.find((product) => product.id === id);
+    if (productCheck) return console.log("Product already in the cart");
+    const product = productArray.find((product) => {
+      return product.id === id;
+    });
+    return setProducts(localProducts.concat(product));
+  };
+
+  //locates quantity for product via querySelector then decrements innerHtml value
+  //activated via button onClick
+  const subtractQuantity = () => {
+    const quantity = document.querySelector("#quantity");
+
+    if (quantity.innerHTML > 1) {
+      return (quantity.innerHTML = quantity.innerHTML * 1 - 1);
+    } else return "Quantity Limit Reached";
+  };
+  //locates quantity for product via querySelector then increments innerHtml value
+  //activated via button onClick
+  const addQuantity = () => {
+    const quantity = document.querySelector("#quantity");
+    if (quantity.innerHTML < 5) {
+      return (quantity.innerHTML = quantity.innerHTML * 1 + 1);
+    } else return "Quantity Limit Reached";
+  };
+
+  //html/Jsx where user & localStorage is mapped onto webpage
   return (
-    <div className="py-20">
-      <div>
-        <h1>Test Output: Cart Page</h1>
+    <div
+      style={{ position: "relative", top: "10em" }}
+      className="cart-container"
+    >
+      <div style={{ textAlign: "center" }}>
+        <h1>{`Test Output: Cart Page for ${auth.firstName} ${auth.lastName}`}</h1>
       </div>
-      <table style={tableStyle}>
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Type</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody style={tableBody}>
-          {storageOutput.map((product) => (
-            <tr key={product.id}>
-              <th style={th}>{product.name}</th>
-              <td style={td}>{product.type}</td>
-              <td style={td}>{product.price}</td>
+      {localProducts.length < 1 ? (
+        <h1 style={h1}>Your cart is empty</h1>
+      ) : (
+        <table style={tableStyle}>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Type</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Remove</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody style={tableBody}>
+            {localProducts.map((product) => (
+              <tr key={product.id}>
+                <th style={th}>{product.name}</th>
+                <td style={td}>{product.type}</td>
+                <td style={td}>{product.price}</td>
+                <td style={td}>
+                  <button
+                    onClick={() => {
+                      console.log(subtractQuantity(product.id));
+                    }}
+                  >
+                    -{" "}
+                  </button>
+                  <span id="quantity"> 1 </span>
+                  <button
+                    onClick={() => {
+                      console.log(addQuantity(product.id));
+                    }}
+                  >
+                    {" "}
+                    +
+                  </button>
+                </td>
+                <td style={td}>
+                  <button
+                    onClick={() => {
+                      removeProduct(product.id, localProducts);
+                    }}
+                  >
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      <div style={buttonAlign}>
+        <button
+          onClick={() => {
+            addProduct(productsSample[0].id, productsSample);
+          }}
+          className="block mt-5 p-6 py-3 w-25 text-center rounded-full text-base font-bold bg-forest-green text-beige uppercase"
+        >
+          Product A
+        </button>
+        <button
+          onClick={() => {
+            addProduct(productsSample[1].id, productsSample);
+          }}
+          className="block mt-5 p-6 py-3 w-25 text-center rounded-full text-base font-bold bg-forest-green text-beige uppercase"
+        >
+          Product B
+        </button>
+        <button
+          onClick={() => {
+            addProduct(productsSample[2].id, productsSample);
+          }}
+          className="block mt-5 p-6 py-3 w-25 text-center rounded-full text-base font-bold bg-forest-green text-beige uppercase"
+        >
+          Product C
+        </button>
+      </div>
     </div>
   );
 };
