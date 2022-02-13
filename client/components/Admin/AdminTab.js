@@ -29,7 +29,7 @@ const AdminTab = () => {
               key={category}
               className={({ selected }) =>
                 classNames(
-                  "text-lg uppercase w-full py-2.5 leading-5 font-medium text-forest-green rounded-lg",
+                  "text-xl w-full py-2.5 leading-5 font-medium text-forest-green rounded-lg",
                   "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-forest-green ring-beige ring-opacity-60",
                   selected
                     ? "bg-beige shadow"

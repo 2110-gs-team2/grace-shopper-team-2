@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import GuestMenu from "./GuestMenu";
 import UserMenu from "./UserMenu";
 import ProductMenu from "./ProductMenu";
+import StylizedCart from "../Purchase/StylizedCart";
 import { useLocation } from "react-router-dom";
 
 const Navbar = ({ isLoggedIn }) => {
@@ -51,6 +52,7 @@ const Navbar = ({ isLoggedIn }) => {
           <Link to="/manage">
             <Settings strokeWidth={1} width={30} height={30} />
           </Link>
+          <StylizedCart />
         </div>
       </div>
     </div>

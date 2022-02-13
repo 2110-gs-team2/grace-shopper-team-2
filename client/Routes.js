@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-import { LoginPage, SignupPage } from "./components/AuthPage";
+import { LoginPage, SignupPage } from "./components/Account/AuthPage";
 import MyAccount from "./components/Account/MyAccount";
 import Main from "./components/HomePage/Main";
 import Products from "./components/Products";
 import ProductDetails from "./components/ProductDetails";
-import Cart from "./components/Cart";
-import AdminView from "./components/Manage/AdminView";
+import Cart from "./components/Purchase/Cart";
+import AdminView from "./components/Admin/AdminView";
 import { me } from "./store";
 
 class Routes extends Component {
