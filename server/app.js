@@ -21,6 +21,10 @@ app.use(passport.initialize());
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, "..", "public")));
 
+app.get("/checkout", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/checkout.html"));
+});
+
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));
 });

@@ -243,10 +243,7 @@ const SingleInventoryForm = ({ product, operation }) => {
             Your product has been {operation === "add" ? "added" : "updated"}
           </div>
         ) : null}
-        <button
-          type="submit"
-          className="block p-6 w-48 py-3 text-center rounded-full text-base font-bold text-beige bg-forest-green uppercase disabled:bg-slate-300"
-        >
+        <button className="self-end block p-6 w-48 py-3 text-center rounded-full text-base font-bold text-beige bg-forest-green uppercase disabled:bg-slate-300">
           Save
         </button>
       </Form>

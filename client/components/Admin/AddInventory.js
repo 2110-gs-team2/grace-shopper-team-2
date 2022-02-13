@@ -14,10 +14,10 @@ const AddInventory = () => {
   }
 
   return (
-    <Fragment>
+    <div className="flex flex-col">
       <button
         onClick={openModal}
-        className="mb-5 block p-6 py-3 text-center rounded-full text-base font-bold text-beige bg-forest-green uppercase"
+        className="self-end w-48 block mb-5 p-6 py-3 text-center rounded-full text-base font-bold text-beige bg-forest-green uppercase"
       >
         Add a product
       </button>
@@ -54,7 +54,7 @@ const AddInventory = () => {
               leaveTo="opacity-0 top-1/3 "
             >
               <div className=" absolute rounded-md left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white text-left shadow-xl transition-all max-w-2xl w-full">
-                <div className="right-0 absolute p-2 max-w-fit flex justify-center bg-xlight-green m-2 rounded-md">
+                <div className="right-0 absolute p-2 max-w-fit flex justify-center m-2 rounded-md">
                   <button onClick={closeModal}>
                     <X />
                   </button>
@@ -69,7 +69,7 @@ const AddInventory = () => {
           </div>
         </Dialog>
       </Transition.Root>
-    </Fragment>
+    </div>
   );
 };
 
