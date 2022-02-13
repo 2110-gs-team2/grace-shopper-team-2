@@ -6,7 +6,7 @@ import MyAccount from "./components/Account/MyAccount";
 import Main from "./components/HomePage/Main";
 import Products from "./components/Products";
 import ProductDetails from "./components/ProductDetails";
-import Cart from "./components/Purchase/Cart";
+import Cart from "./Cart";
 import AdminView from "./components/Admin/AdminView";
 import { me } from "./store";
 
