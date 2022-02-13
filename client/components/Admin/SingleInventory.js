@@ -54,14 +54,14 @@ const SingleInventory = ({ product }) => {
               leaveTo="opacity-0 top-1/3 "
             >
               <div className=" absolute rounded-md left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white text-left shadow-xl transition-all max-w-2xl w-full">
-                <div className="right-0 absolute p-2 max-w-fit flex justify-center bg-xlight-green m-2 rounded-md">
+                <div className="right-0 absolute p-2 max-w-fit flex justify-center m-2 rounded-md">
                   <button onClick={closeModal}>
                     <X />
                   </button>
                 </div>
                 <div className="bg-beige p-7 pt-14 rounded-md">
                   <div className="flex flex-col">
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-center mb-2">
                       <label
                         htmlFor="id"
                         className="text-sm font-bold uppercase"
