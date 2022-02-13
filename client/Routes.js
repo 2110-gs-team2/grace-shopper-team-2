@@ -20,7 +20,6 @@ class Routes extends Component {
     const token = window.localStorage.getItem("token");
     const { auth } = this.props;
     const isAdmin = auth.role === "ADMIN";
-    console.log(auth.role, "what is this");
 
     return (
       <div>
@@ -39,11 +38,9 @@ class Routes extends Component {
           </Route>
           <Route path="/login" exact component={LoginPage} />
           <Route path="/signup" exact component={SignupPage} />
-          {isAdmin ? (
-            <>
-              <Route path="/manage" exact component={AdminView} />
-            </>
-          ) : null}
+          <Route path="/manage" exact>
+            {!isAdmin ? <Redirect to="/" /> : <AdminView />}
+          </Route>
         </Switch>
       </div>
     );

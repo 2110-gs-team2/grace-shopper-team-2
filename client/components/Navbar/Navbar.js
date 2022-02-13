@@ -9,7 +9,7 @@ import ProductMenu from "./ProductMenu";
 import StylizedCart from "../Purchase/StylizedCart";
 import { useLocation } from "react-router-dom";
 
-const Navbar = ({ isLoggedIn }) => {
+const Navbar = ({ isLoggedIn, isAdmin }) => {
   const [styleChange, setStyleChange] = useState(false);
   const { pathname } = useLocation();
   const changeNavbarStyle = () => {
@@ -49,10 +49,12 @@ const Navbar = ({ isLoggedIn }) => {
           <Link to="/cart">
             <Package strokeWidth={1} width={30} height={30} />
           </Link>
-          <Link to="/manage">
-            <Settings strokeWidth={1} width={30} height={30} />
-          </Link>
           <StylizedCart />
+          {isAdmin ? (
+            <Link to="/manage" className="flex  items-center">
+              <Settings strokeWidth={1} width={30} height={30} />
+            </Link>
+          ) : null}
         </div>
       </div>
     </div>
@@ -65,6 +67,7 @@ const Navbar = ({ isLoggedIn }) => {
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
+    isAdmin: state.auth.role === "ADMIN",
   };
 };
 
