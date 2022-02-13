@@ -26,6 +26,12 @@ export const getSingleProduct = (id) => {
     dispatch(_getSingleProduct(product));
   };
 };
+export const addProduct = (product) => {
+  return async (dispatch) => {
+    const { data: newProduct } = await axios.post(`/api/products/`, product);
+    dispatch(_updateProduct(newProduct));
+  };
+};
 
 export const updateProduct = (product) => {
   return async (dispatch) => {

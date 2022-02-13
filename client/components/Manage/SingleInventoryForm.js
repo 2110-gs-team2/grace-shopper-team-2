@@ -3,8 +3,10 @@ import { Formik, Form, ErrorMessage, Field } from "formik";
 import { useDispatch } from "react-redux";
 import { updateProduct } from "../../store/products";
 import { Check } from "react-feather";
+import { addProduct } from "../../store/products";
+import omit from "lodash/omit";
 
-const SingleInventoryForm = ({ product, setOpen }) => {
+const SingleInventoryForm = ({ product, operation }) => {
   const [success, setSuccess] = useState(false);
 
   const types = ["INDOOR", "SUCCULENT", "HERB"];
@@ -18,7 +20,7 @@ const SingleInventoryForm = ({ product, setOpen }) => {
     <Formik
       initialValues={{
         id: `${product.id || ""}`,
-        name: `${product.name || ""} `,
+        name: `${product.name || ""}`,
         description: `${product.description || ""}`,
         quantity: `${product.quantity || ""}`,
         price: `${product.price || ""}`,
@@ -29,8 +31,12 @@ const SingleInventoryForm = ({ product, setOpen }) => {
       }}
       onSubmit={(values) => {
         if (values.id) dispatch(updateProduct(values));
+        else {
+          values = omit(values, "id");
+          values.slug = values.name.replace(/\s+/g, "-").toLowerCase();
+          dispatch(addProduct(values));
+        }
         setSuccess(true);
-        // setOpen(false);
       }}
     >
       <Form className="flex flex-col gap-3">
@@ -96,6 +102,7 @@ const SingleInventoryForm = ({ product, setOpen }) => {
             className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
           "
           >
+            <option value="">Pick a type</option>
             {types.map((t, idx) => (
               <option key={idx} value={t}>
                 {t}
@@ -114,6 +121,7 @@ const SingleInventoryForm = ({ product, setOpen }) => {
             className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
           "
           >
+            <option value="">Pick a size</option>
             {sizes.map((s, idx) => (
               <option key={idx} value={s}>
                 {s}
@@ -132,6 +140,7 @@ const SingleInventoryForm = ({ product, setOpen }) => {
             className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
           "
           >
+            <option value="">Pick a difficulty level</option>
             {difficultyLevels.map((d, idx) => (
               <option key={idx} value={d}>
                 {d}
@@ -150,6 +159,7 @@ const SingleInventoryForm = ({ product, setOpen }) => {
             className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
           "
           >
+            <option value="">Pick a light level</option>
             {lightLevels.map((l, idx) => (
               <option key={idx} value={l}>
                 {l}
@@ -161,7 +171,7 @@ const SingleInventoryForm = ({ product, setOpen }) => {
         {success ? (
           <div className="m-0 mt-2 py-3 px-5 bg-forest-green flex gap-2 text-white rounded-lg">
             <Check strokeWidth={1} />
-            Your product has been updated
+            Your product has been {operation === "add" ? "added" : "updated"}
           </div>
         ) : null}
         <button

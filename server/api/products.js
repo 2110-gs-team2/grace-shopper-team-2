@@ -32,6 +32,16 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+// ADD new product
+router.post("/", async (req, res, next) => {
+  try {
+    const newProduct = await Product.create(req.body);
+    res.send(newProduct);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // UPDATE an individual product's information
 router.put("/:id", async (req, res, next) => {
   try {
