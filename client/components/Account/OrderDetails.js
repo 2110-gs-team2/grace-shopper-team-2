@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 const OrderDetails = ({ order, items }) => {
   const history = useHistory();
   const grandTotal = items.reduce((acc, item) => {
-    acc += item.quantity * item.productDetails.price;
+    acc += item.quantity * item.price;
     return acc;
   }, 0);
 

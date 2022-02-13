@@ -7,7 +7,7 @@ import Main from "./components/HomePage/Main";
 import Products from "./components/Products";
 import ProductDetails from "./components/ProductDetails";
 import Cart from "./components/Cart";
-import InventoryView from "./components/Manage/InventoryView";
+import AdminView from "./components/Manage/AdminView";
 import { me } from "./store";
 
 class Routes extends Component {
@@ -26,6 +26,8 @@ class Routes extends Component {
         <Switch>
           <Route path="/" exact component={Main} />
           <Route path="/cart" exact component={Cart} />
+          <Route exact path="/products/categories/:type" component={Products} />
+          <Route exact path="/products/featured/:type" component={Products} />
           <Route exact path="/products" component={Products} />
           <Route exact path="/products/:slug" component={ProductDetails} />
           <Route path="/my-account/orders/:id">
@@ -38,11 +40,7 @@ class Routes extends Component {
           <Route path="/signup" exact component={SignupPage} />
           {isAdmin ? (
             <>
-              <Route path="/manage/inventory" exact component={InventoryView} />
-              <Route path="/manage/users" exact component={Products} />
-              <Route path="/manage" exact>
-                <Redirect to="/manage/inventory" />
-              </Route>
+              <Route path="/manage" exact component={AdminView} />
             </>
           ) : null}
         </Switch>

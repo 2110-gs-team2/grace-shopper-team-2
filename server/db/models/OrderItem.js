@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const { INTEGER, STRING } = Sequelize;
+const { INTEGER, DECIMAL } = Sequelize;
 const db = require("../db");
 
 const OrderItem = db.define("orderItem", {
@@ -7,6 +7,10 @@ const OrderItem = db.define("orderItem", {
     type: INTEGER,
     allowNull: false,
     defaultValue: 1,
+  },
+  price: {
+    type: DECIMAL(20, 2),
+    allowNull: false,
   },
 });
 

@@ -69,30 +69,35 @@ async function seed() {
 
   // Attaching items to each order
   let orderItems = await Promise.all(
-    orders.map((o) =>
-      OrderItem.create({
+    orders.map((o) => {
+      const product = products[random(0, products.length - 1)];
+      return OrderItem.create({
         quantity: random(1, quantity.length - 1),
+        price: product.price,
         orderId: o.id,
-        productId: products[random(0, products.length - 1)].id,
-      })
-    )
+        productId: product.id,
+      });
+    })
   );
   orderItems = [
     ...orderItems,
     ...(await Promise.all(
       orders.map((o, idx) => {
+        const product = products[random(0, products.length - 1)];
         if (idx % 2 === 0) {
           return OrderItem.create({
             quantity: random(1, quantity.length - 1),
             orderId: o.id,
-            productId: products[random(0, products.length - 1)].id,
+            productId: product.id,
+            price: product.price,
           });
         }
         if (idx % 3 === 0) {
           return OrderItem.create({
             quantity: random(1, quantity.length - 1),
             orderId: o.id,
-            productId: products[random(0, products.length - 1)].id,
+            productId: product.id,
+            price: product.price,
           });
         }
       })

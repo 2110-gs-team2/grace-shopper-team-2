@@ -38,19 +38,19 @@ const ProductMenu = () => {
                         By category
                       </div>
                       <Link
-                        to="/products/indoor"
+                        to="/products/categories/indoor"
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Indoor plants
                       </Link>
                       <Link
-                        to="/products/succulent"
+                        to="/products/categories/succulent"
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Succulents
                       </Link>
                       <Link
-                        to="/products/herb"
+                        to="/products/categories/herb"
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Herbs
@@ -68,19 +68,19 @@ const ProductMenu = () => {
                         Featured
                       </div>
                       <Link
-                        to="/products/pet-friendly"
+                        to="/products/featured/pet-friendly"
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Pet-friendly plants
                       </Link>
                       <Link
-                        to="/products/beginners"
+                        to="/products/featured/beginners"
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Best beginner plants
                       </Link>
                       <Link
-                        to="/products/beginners"
+                        to="/products/featured/beginners"
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Low light plants
