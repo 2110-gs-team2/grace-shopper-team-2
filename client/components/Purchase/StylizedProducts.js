@@ -2,6 +2,7 @@ import React, { Component, useEffect } from "react";
 import { Check, ChevronDown, MoreHorizontal } from "react-feather";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "../../store";
+import products, { getAllProducts } from "../../store/products";
 import { Disclosure } from "@headlessui/react";
 import {
   difficultyLevels,
@@ -11,16 +12,31 @@ import {
 } from "../Admin/SingleInventoryForm";
 import { useParams } from "react-router-dom";
 import startCase from "lodash/startcase";
+import ProductCard from "./ProductCard";
 
 const StylizedProducts = () => {
   const dispatch = useDispatch();
   const params = useParams();
+  const currProducts = useSelector((state) => {
+    if (params.type) {
+      return state.products.filter(
+        (product) => product.type === params.type.toUpperCase()
+      );
+    }
+    return state.products;
+  });
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, []);
+
+  console.log(currProducts, "look at products");
+  console.log(params, "look at params");
 
   return (
     <div>
       <div className="min-h-[100vh] bg-beige">
         <div className="min-h-[120vh] pt-28 p-20 max-w-7xl m-auto">
-          <div className="flex justify-between">
+          <div className="flex justify-between mb-5">
             <div className="text-5xl">{startCase(params.type)}s</div>
             <select className="focus:outline-none block p-6 py-3  text-center rounded-full text-base font-bold bg-forest-green text-beige uppercase">
               <option value="">Sort by</option>
@@ -50,7 +66,7 @@ const StylizedProducts = () => {
                             type="checkbox"
                             value={type}
                             defaultChecked={false}
-                            className=" appearance-none float-left bg-no-repeat bg-center bg-contain h-8 w-8 border-2 form-check-input rounded-lg border-forest-green text-white focus:outline-none checked:text-white checked:bg-forest-green "
+                            className="h-8 w-8 border-2 rounded-lg border-forest-green  focus:text-forest-green focus:ring-forest-green focus:outline-none checked:hover:bg-forest-green checked:bg-forest-green bg-beige"
                           />
                           <label
                             htmlFor={type}
@@ -86,7 +102,7 @@ const StylizedProducts = () => {
                             type="checkbox"
                             value={size}
                             defaultChecked={false}
-                            className="appearance-none float-left bg-no-repeat bg-center bg-contain h-8 w-8 border-2 form-check-input rounded-lg border-forest-green text-white focus:outline-none checked:text-white checked:bg-forest-green "
+                            className="h-8 w-8 border-2 rounded-lg border-forest-green  focus:text-forest-green focus:ring-forest-green focus:outline-none checked:hover:bg-forest-green checked:bg-forest-green bg-beige"
                           />
                           <label
                             htmlFor={size}
@@ -122,7 +138,7 @@ const StylizedProducts = () => {
                             type="checkbox"
                             value={light}
                             defaultChecked={false}
-                            className="appearance-none float-left bg-no-repeat bg-center bg-contain h-8 w-8 border-2 form-check-input rounded-lg border-forest-green text-white focus:outline-none checked:text-white checked:bg-forest-green "
+                            className="h-8 w-8 border-2 rounded-lg border-forest-green  focus:text-forest-green focus:ring-forest-green focus:outline-none checked:hover:bg-forest-green checked:bg-forest-green bg-beige"
                           />
                           <label
                             htmlFor={light}
@@ -158,7 +174,7 @@ const StylizedProducts = () => {
                             type="checkbox"
                             value={difficulty}
                             defaultChecked={false}
-                            className="appearance-none float-left bg-no-repeat bg-center bg-contain h-8 w-8 border-2 form-check-input rounded-lg border-forest-green text-white focus:outline-none checked:text-white checked:bg-forest-green "
+                            className="h-8 w-8 border-2 rounded-lg border-forest-green  focus:text-forest-green focus:ring-forest-green focus:outline-none checked:hover:bg-forest-green checked:bg-forest-green bg-beige"
                           />
                           <label
                             htmlFor={difficulty}
@@ -190,7 +206,7 @@ const StylizedProducts = () => {
                           type="checkbox"
                           value={false}
                           defaultChecked={false}
-                          className="appearance-none float-left bg-no-repeat bg-center bg-contain h-8 w-8 border-2 form-check-input rounded-lg border-forest-green text-white focus:outline-none checked:text-white checked:bg-forest-green "
+                          className="h-8 w-8 border-2 rounded-lg border-forest-green  focus:text-forest-green focus:ring-forest-green focus:outline-none checked:hover:bg-forest-green checked:bg-forest-green bg-beige"
                         />
                         <label
                           htmlFor="petFriendly"
@@ -204,7 +220,15 @@ const StylizedProducts = () => {
                 )}
               </Disclosure>
             </div>
-            <div className="col-span-3 p-10 bg-beige rounded-lg"></div>
+            <div className="col-span-3  bg-beige rounded-lg px-5 ">
+              <div className="grid grid-cols-3 gap-5">
+                {currProducts.length
+                  ? currProducts.map((product) => (
+                      <ProductCard product={product} key={product.id} />
+                    ))
+                  : null}
+              </div>
+            </div>
           </div>
         </div>
       </div>
