@@ -27,4 +27,7 @@ module.exports = {
       center: true,
     },
   },
+  plugins: [
+    require("@tailwindcss/forms"),
+  ],
 };

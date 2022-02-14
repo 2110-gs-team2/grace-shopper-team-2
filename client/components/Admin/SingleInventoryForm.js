@@ -6,15 +6,14 @@ import { Check } from "react-feather";
 import { addProduct } from "../../store/products";
 import omit from "lodash/omit";
 import * as Yup from "yup";
+export const types = ["INDOOR", "SUCCULENT", "HERB"];
+export const sizes = ["X-SMALL", "SMALL", "MEDIUM", "LARGE"];
+export const lightLevels = ["LOW", "INDIRECT", "DIRECT"];
+export const difficultyLevels = ["EASY", "MODERATE", "EXPERT"];
 
 const SingleInventoryForm = ({ product, operation }) => {
   const [success, setSuccess] = useState(false);
   const dispatch = useDispatch();
-
-  const types = ["INDOOR", "SUCCULENT", "HERB"];
-  const sizes = ["X-SMALL", "SMALL", "MEDIUM", "LARGE"];
-  const lightLevels = ["LOW", "INDIRECT", "DIRECT"];
-  const difficultyLevels = ["EASY", "MODERATE", "EXPERT"];
 
   const InventoryFormSchema = Yup.object().shape({
     name: Yup.string("Invalid value")
