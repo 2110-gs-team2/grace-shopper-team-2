@@ -27,15 +27,13 @@ const StylizedProducts = () => {
   });
   useEffect(() => {
     dispatch(getAllProducts());
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
-
-  console.log(currProducts, "look at products");
-  console.log(params, "look at params");
 
   return (
     <div>
       <div className="min-h-[100vh] bg-beige">
-        <div className="min-h-[120vh] pt-28 p-20 max-w-7xl m-auto">
+        <div className="min-h-[120vh] pt-28 p-20 max-w-[90vw] m-auto">
           <div className="flex justify-between mb-5">
             <div className="text-5xl">{startCase(params.type)}s</div>
             <select className="focus:outline-none block p-6 py-3  text-center rounded-full text-base font-bold bg-forest-green text-beige uppercase">
@@ -72,7 +70,7 @@ const StylizedProducts = () => {
                             htmlFor={type}
                             className="ml-3 min-w-0 flex-1 text-lg"
                           >
-                            {type}
+                            {startCase(type.toLowerCase())}
                           </label>
                         </div>
                       ))}
@@ -108,7 +106,7 @@ const StylizedProducts = () => {
                             htmlFor={size}
                             className="ml-3 min-w-0 flex-1 text-lg"
                           >
-                            {size}
+                            {startCase(size.toLowerCase())}
                           </label>
                         </div>
                       ))}
@@ -144,7 +142,7 @@ const StylizedProducts = () => {
                             htmlFor={light}
                             className="ml-3 min-w-0 flex-1 text-lg"
                           >
-                            {light}
+                            {startCase(light.toLowerCase())}
                           </label>
                         </div>
                       ))}
@@ -180,7 +178,7 @@ const StylizedProducts = () => {
                             htmlFor={difficulty}
                             className="ml-3 min-w-0 flex-1 text-lg"
                           >
-                            {difficulty}
+                            {startCase(difficulty.toLowerCase())}
                           </label>
                         </div>
                       ))}
@@ -219,9 +217,12 @@ const StylizedProducts = () => {
                   </>
                 )}
               </Disclosure>
+              <button className="mt-5 uppercase p-6 py-3 w-full border-2 border-forest-green rounded-full text-base font-bold bg-beige text-forest-green ">
+                Clear filters
+              </button>
             </div>
             <div className="col-span-3  bg-beige rounded-lg px-5 ">
-              <div className="grid grid-cols-3 gap-5">
+              <div className="flex flex-col md:grid md:grid-cols-3 gap-5">
                 {currProducts.length
                   ? currProducts.map((product) => (
                       <ProductCard product={product} key={product.id} />

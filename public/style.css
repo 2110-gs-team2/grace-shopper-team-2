@@ -22,3 +22,11 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+/* .slick-list {
+  padding-left: 0px !important;
+} */
+
+.slick-dots li {
+  margin-bottom: 25px !important;
+}
