@@ -46,6 +46,7 @@ const SingleInventoryForm = ({ product, operation }) => {
         size: `${product.size || ""}`,
         difficulty: `${product.difficulty || ""}`,
         light: `${product.light || ""}`,
+        isPetFriendly: product.isPetFriendly || false,
       }}
       validationSchema={InventoryFormSchema}
       onSubmit={(values) => {
@@ -136,6 +137,7 @@ const SingleInventoryForm = ({ product, operation }) => {
             className="m-0 text-red-700 self-end text-sm"
           />
         </div>
+
         <div className="flex flex-col m-0">
           <div className="flex justify-between items-center m-0">
             <label htmlFor="type" className="text-sm font-bold uppercase">
@@ -232,6 +234,26 @@ const SingleInventoryForm = ({ product, operation }) => {
           </div>
           <ErrorMessage
             name="light"
+            component="div"
+            className="m-0 text-red-700 self-end text-sm"
+          />
+        </div>
+        <div className="flex flex-col m-0">
+          <div className="flex justify-between items-center m-0">
+            <label
+              htmlFor="isPetFriendly"
+              className="text-sm font-bold uppercase"
+            >
+              Pet-friendly?
+            </label>
+            <Field
+              name="isPetFriendly"
+              type="checkbox"
+              className="pr-4 block bg-beige h-6 w-6 border-2 rounded-lg border-forest-green  focus:text-forest-green focus:ring-forest-green focus:outline-none checked:hover:bg-forest-green checked:bg-forest-green "
+            />
+          </div>
+          <ErrorMessage
+            name="isPetFriendly"
             component="div"
             className="m-0 text-red-700 self-end text-sm"
           />
