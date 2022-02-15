@@ -80,7 +80,7 @@ const ProductMenu = () => {
                         Best beginner plants
                       </Link>
                       <Link
-                        to="/products/featured/beginners"
+                        to="/products/featured/low-light"
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Low light plants
