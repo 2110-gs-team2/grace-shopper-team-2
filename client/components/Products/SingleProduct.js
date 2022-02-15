@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getSingleProduct } from "../store/products";
+import { getSingleProduct } from "../../store/products";
 import { isArray } from "lodash";
 
-class ProductDetails extends Component {
+class SingleProduct extends Component {
   constructor() {
     super();
     this.state = {
@@ -25,9 +25,11 @@ class ProductDetails extends Component {
   }
 
   componentDidUpdate() {
-    if (!Object.keys(this.state.product).length) {
-      if (isArray(this.props.products) && this.props.products.length) {
-        this.setState({ product: this.props.products[0] });
+    const { products } = this.props;
+    const { product } = this.state;
+    if (!Object.keys(product).length) {
+      if (isArray(products) && products.length) {
+        this.setState({ product: products[0] });
       }
     }
   }
@@ -35,7 +37,7 @@ class ProductDetails extends Component {
   render() {
     const { product } = this.state;
     return (
-      <div className="py-20">
+      <div className="py-20 px-5">
         <h1>Product Details:</h1>
         <div>Name: {product.name}</div>
         <div>Description: {product.description}</div>
@@ -58,4 +60,4 @@ const mapStateToProps = ({ products }) => {
 
 const mapDispatchToProps = { getSingleProduct };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);
