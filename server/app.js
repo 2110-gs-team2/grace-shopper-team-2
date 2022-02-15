@@ -25,7 +25,6 @@ const requireToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
     const user = await User.findByToken(token);
-    console.log(user, "is the user found???");
     req.user = user;
     next();
   } catch (error) {
@@ -35,23 +34,6 @@ const requireToken = async (req, res, next) => {
 
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, "..", "public")));
-
-app.get("/checkout", (req, res, next) => {
-  try {
-    res.sendFile(
-      path.join(__dirname, "../public/checkout.html"),
-      function (err) {
-        if (err) {
-          next(err);
-        } else {
-          console.log("Sent!!");
-        }
-      }
-    );
-  } catch (error) {
-    next(error);
-  }
-});
 
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));
@@ -69,9 +51,9 @@ app.use((req, res, next) => {
 });
 
 // sends index.html
-// app.use("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "..", "public/index.html"));
-// });
+app.use("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "public/index.html"));
+});
 
 // error handling endware
 app.use((err, req, res, next) => {

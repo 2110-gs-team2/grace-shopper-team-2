@@ -38,7 +38,7 @@ const Navbar = ({ isLoggedIn, isAdmin }) => {
           <ProductMenu />
         </div>
         <Link to="/">
-          <img src="/img/logo.svg" className="w-36" alt="" />
+          <img src="/img/logo2.svg" className="w-36" alt="" />
         </Link>
 
         <div className="flex gap-3 flex-row">
