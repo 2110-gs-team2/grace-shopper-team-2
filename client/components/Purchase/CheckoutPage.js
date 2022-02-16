@@ -17,6 +17,7 @@ const CheckoutPage = () => {
   const [clientSecret, setClientSecret] = useState("");
   const dispatch = useDispatch();
   const currUser = useSelector((state) => state.auth);
+  const products = useSelector((state) => state.products);
   const items = [{ id: "xl-tshirt" }];
   useEffect(() => {
     async function getClientSecret() {
@@ -36,14 +37,7 @@ const CheckoutPage = () => {
       colorPrimary: "#2D4323",
       colorBackground: "#FFFFFF",
       colorText: "#30313d",
-      colorDanger: "#df1b41",
-    },
-    rules: {
-      ".Tab": {
-        border: "1px solid #E0E6EB",
-        boxShadow:
-          "0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(18, 42, 66, 0.02)",
-      },
+      colorDanger: "#B91C1C",
     },
   };
   const options = {
@@ -113,12 +107,14 @@ const CheckoutPage = () => {
             <div className="text-3xl pt-5 pb-5">Your cart</div>
             <div className="overflow-x-hidden overflow-y-auto h-full">
               <div className="flex flex-col gap-5 ">
-                <CartCard />
-                <CartCard />
-                <CartCard />
-                <CartCard />
-                <CartCard />
-                <CartCard />
+                {products.length ? (
+                  <>
+                    <CartCard product={products[0]} />
+                    <CartCard product={products[0]} />
+                    <CartCard product={products[0]} />
+                    <CartCard product={products[0]} />
+                  </>
+                ) : null}
               </div>
             </div>
             <div className="rounded-lg absolute inset-x-0 bottom-0 bg-beige drop-shadow-[0_-6px_18px_rgba(0,0,0,0.2)] p-5 flex flex-col gap-4">
