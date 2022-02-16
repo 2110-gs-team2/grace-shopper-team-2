@@ -1,16 +1,55 @@
 import { LockClosedIcon } from "@heroicons/react/solid";
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { Check, MoreHorizontal } from "react-feather";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "../../store";
 import CartCard from "./CartCard";
+import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./CheckoutForm";
+
+const stripePromise = loadStripe(
+  "pk_test_51KTcZ8G6iunwbpRu5GmvFjN92ftNqJy6Jo3rK2OgxD2EFLtBjPz9NyvpyKhGL8NBe79XEgEbWTXaVnZ5tBtP5EPP008ToSXphu"
+);
 
 const CheckoutPage = () => {
+  const [clientSecret, setClientSecret] = useState("");
   const dispatch = useDispatch();
   const currUser = useSelector((state) => state.auth);
+  const items = [{ id: "xl-tshirt" }];
   useEffect(() => {
+    async function getClientSecret() {
+      const { data } = await axios.post("/create-payment-intent", items);
+      let clientSecret = data.clientSecret;
+      setClientSecret(clientSecret);
+    }
+
+    getClientSecret();
+
     dispatch(me());
   }, []);
+
+  const appearance = {
+    theme: "stripe",
+    variables: {
+      colorPrimary: "#2D4323",
+      colorBackground: "#FFFFFF",
+      colorText: "#30313d",
+      colorDanger: "#df1b41",
+    },
+    rules: {
+      ".Tab": {
+        border: "1px solid #E0E6EB",
+        boxShadow:
+          "0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(18, 42, 66, 0.02)",
+      },
+    },
+  };
+  const options = {
+    clientSecret,
+    appearance,
+  };
 
   return (
     <div>
@@ -60,13 +99,22 @@ const CheckoutPage = () => {
                   </div>
                   Your payment method
                 </div>
+                <div>
+                  {clientSecret && (
+                    <Elements options={options} stripe={stripePromise}>
+                      <CheckoutForm />
+                    </Elements>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-          <div className="col-span-2 p-10 bg-beige rounded-lg min-h-[80vh] relative">
-            <div className="text-3xl">Your cart</div>
-            <div className="mt-6 overflow-x-hidden overflow-y-auto max-h-[60vh] pb-16">
+          <div className="col-span-2 pb-52 px-10 bg-beige rounded-lg min-h-[80vh] max-h-[100vh] relative">
+            <div className="text-3xl pt-5 pb-5">Your cart</div>
+            <div className="overflow-x-hidden overflow-y-auto h-full">
               <div className="flex flex-col gap-5 ">
+                <CartCard />
+                <CartCard />
                 <CartCard />
                 <CartCard />
                 <CartCard />

@@ -16,21 +16,11 @@ app.use(express.json());
 // auth and api routes
 app.use("/auth", require("./auth"));
 app.use("/api", require("./api"));
+app.use(require("./stripe.js"));
 
 //passport middlewares
 require("./auth/passport")(passport);
 app.use(passport.initialize());
-
-const requireToken = async (req, res, next) => {
-  try {
-    const token = req.headers.authorization;
-    const user = await User.findByToken(token);
-    req.user = user;
-    next();
-  } catch (error) {
-    next(error);
-  }
-};
 
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, "..", "public")));
