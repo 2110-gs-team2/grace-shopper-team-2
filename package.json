@@ -40,6 +40,7 @@
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
     "pg": "^8.5.1",
+    "query-string": "^7.1.1",
     "react-feather": "^2.0.9",
     "react-slick": "^0.28.1",
     "sequelize": "^6.3.5",

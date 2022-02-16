@@ -12,6 +12,7 @@ import AdminView from "./components/Admin/AdminView";
 import StylizedProducts from "./components/Products/StylizedProducts";
 import CheckoutPage from "./components/Purchase/CheckoutPage";
 import StylizedProductPage from "./components/Products/StylizedProductPage";
+import TestQueryStrings from "./components/Products/TestQueryStrings";
 import { me } from "./store";
 
 class Routes extends Component {
@@ -39,6 +40,7 @@ class Routes extends Component {
             path="/products/featured/:type"
             component={withRouter(ByFeaturedType)}
           />
+          <Route exact path="/test" component={TestQueryStrings} />
           <Route exact path="/products" component={AllProducts} />
           <Route exact path="/products/:slug" component={SingleProduct} />
           {/* <Route exact path="/products/:slug" component={StylizedProductPage} /> */}
