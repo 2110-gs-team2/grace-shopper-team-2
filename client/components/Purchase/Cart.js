@@ -1,9 +1,11 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCart } from '../../store/cart';
 import { Transition, Dialog } from "@headlessui/react";
 import { Package, X } from "react-feather";
 import { LockClosedIcon } from "@heroicons/react/solid";
-import CartCard from "./CartCard";
 import { Link } from "react-router-dom";
+import CartCard from "./CartCard";
 import axios from "axios";
 
 const Cart = (props) => {
@@ -15,6 +17,14 @@ const Cart = (props) => {
   function openSlideOver() {
     setOpen(true);
   }
+
+  //redux hooks for cart store  
+const dispatch = useDispatch();
+useEffect(()=> dispatch(fetchCart()), []);
+const cart = useSelector((state) => {
+  return state.cart;
+});
+
   return (
     <Fragment>
       <button onClick={openSlideOver}>
@@ -59,13 +69,13 @@ const Cart = (props) => {
                   </div>
                   <div className="mt-6 overflow-x-hidden overflow-y-auto max-h-[80vh] pb-16">
                     <div className="flex flex-col gap-5 ">
-                      <CartCard />
-                      <CartCard />
-                      <CartCard />
-                      <CartCard />
-                      <CartCard />
-                      <CartCard />
-                      <CartCard />
+
+                    {cart.map(product => {
+                        return (
+                          <CartCard key={product.id} product={product} />
+                        );
+                      })}
+
                     </div>
                   </div>
                   <div className="absolute inset-x-0 bottom-0 bg-beige drop-shadow-[0_-6px_18px_rgba(0,0,0,0.2)] p-5 flex flex-col gap-4">

@@ -2,6 +2,8 @@
 const SET_CART = 'SET_CART';
 const ADD_TO_CART = 'ADD_TO_CART';
 const DELETE_FROM_CART = 'DELETE_FROM_CART';
+const ADD_TO_QUANTITY = 'ADD_TO_QUANTITY';
+const SUB_FROM_QUANTITY = 'SUB_FROM_QUANTITY';
 
 //action creators
 const _setCart = (cart) => {
@@ -22,6 +24,18 @@ const _deleteFromCart = (id) => {
     id
   }
 };
+const _addToQuantity = (product) => {
+  return {
+    type:  ADD_TO_QUANTITY,
+    product
+  };
+};
+const _subFromQuantity = (product) => {
+  return {
+    type: SUB_FROM_QUANTITY,
+    product
+  };
+};
 
 //thunks
 export const fetchCart = () => {
@@ -41,8 +55,9 @@ export const addToCart = (id, productArray) => {
     const product = productArray.find(product => id === product.id);
     //find & discover if product already in cart
     const productCheck = cart.find(product => product.id === id)
-    //if not in cart, push to cart & dispatch to store
+    //if not in cart, push to cart, update quantity, & dispatch to store
     if(!productCheck) {
+      product.quantity = 1;
       cart.push(product);
       dispatch(_addToCart(product));
     } else {
@@ -67,6 +82,50 @@ export const removeFromCart = (id) => {
 
   }
 };
+export const addToQuantity = (id) => {
+  return (dispatch) => {
+    let productIdx = 0;
+    //pull localStorage cart
+    const cart = JSON.parse(window.localStorage.getItem('cart'))
+    //find product to update & assign cart product array index
+    const product = cart.find((product, idx) => {
+      if(product.id === id) {
+        productIdx = idx;
+        return product;
+      };
+    });
+    //increment product quantity by 1 via assigned index value
+    cart[productIdx].quantity += 1;
+    //send updated cart back to localStorage
+    const cartJSON = JSON.stringify(cart);
+    window.localStorage.setItem('cart', cartJSON);
+    //update redux store
+    dispatch(_addToQuantity(product));
+  };
+};
+
+export const subFromQuantity = (id) => {
+  return (dispatch) => {
+    let productIdx = 0;
+    //pull localStorage cart
+    const cart = JSON.parse(window.localStorage.getItem('cart'));
+    //find product to update & assign cart product array index
+    const product = cart.find((product, idx) => {
+      if(product.id === id) {
+        productIdx = idx;
+        return product;
+      };
+    });    
+    //decrement product quantity by 1 via assigned index value
+    cart[productIdx].quantity -= 1;
+    //send updated cart back to localStorage
+    const cartJSON = JSON.stringify(cart);
+    window.localStorage.setItem('cart', cartJSON);
+    //update redux store
+    dispatch(_subFromQuantity(product));
+  };
+};
+
 
 //reducer
 const cartReducer = (state=[], action) => {
@@ -78,6 +137,16 @@ const cartReducer = (state=[], action) => {
   };
   if(action.type === DELETE_FROM_CART) {
     return state.filter(product => product.id !== action.id);
+  };
+  if(action.type === ADD_TO_QUANTITY) {
+    return state.map(product => 
+      product.id === action.product.id ? action.product : product
+    );
+  };
+  if(action.type === SUB_FROM_QUANTITY) {
+    return state.map(product => 
+      product.id === action.product.id ? action.product : product
+    );
   };
   return state;
 };
