@@ -32,6 +32,19 @@ const CheckoutPage = () => {
 
   const appearance = {
     theme: "stripe",
+    variables: {
+      colorPrimary: "#2D4323",
+      colorBackground: "#FFFFFF",
+      colorText: "#30313d",
+      colorDanger: "#df1b41",
+    },
+    rules: {
+      ".Tab": {
+        border: "1px solid #E0E6EB",
+        boxShadow:
+          "0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(18, 42, 66, 0.02)",
+      },
+    },
   };
   const options = {
     clientSecret,
@@ -96,10 +109,12 @@ const CheckoutPage = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-2 p-10 bg-beige rounded-lg min-h-[80vh] relative">
-            <div className="text-3xl">Your cart</div>
-            <div className="mt-6 overflow-x-hidden overflow-y-auto max-h-[60vh] pb-16">
+          <div className="col-span-2 pb-52 px-10 bg-beige rounded-lg min-h-[80vh] max-h-[100vh] relative">
+            <div className="text-3xl pt-5 pb-5">Your cart</div>
+            <div className="overflow-x-hidden overflow-y-auto h-full">
               <div className="flex flex-col gap-5 ">
+                <CartCard />
+                <CartCard />
                 <CartCard />
                 <CartCard />
                 <CartCard />
