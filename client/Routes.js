@@ -10,6 +10,7 @@ import SingleProduct from "./components/Products/SingleProduct";
 import Cart from "./components/Purchase/Cart";
 import AdminView from "./components/Admin/AdminView";
 import StylizedProducts from "./components/Products/StylizedProducts";
+import CheckoutPage from "./components/Purchase/CheckoutPage";
 import StylizedProductPage from "./components/Products/StylizedProductPage";
 import { me } from "./store";
 
