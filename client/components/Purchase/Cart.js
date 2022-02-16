@@ -27,6 +27,14 @@ const cart = useSelector((state) => {
   return state.cart;
 });
 
+//subtotal function
+const cartSubTotal = (arr) => {
+  return arr.reduce((acc, product) => {
+    acc += (product.price * 1) * product.quantity
+    return acc;
+  }, 0);
+};
+
   return (
     <Fragment>
       <button onClick={openSlideOver}>
@@ -91,7 +99,7 @@ const cart = useSelector((state) => {
                         Subtotal:
                       </span>
                       <span className="font-bold uppercase leading-5 text-xl">
-                        $100
+                        ${cartSubTotal(cart).toFixed(2)}
                       </span>
                     </div>
                     <button
