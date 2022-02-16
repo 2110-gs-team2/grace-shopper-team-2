@@ -1,4 +1,6 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCart } from '../../store/cart';
 import { Transition, Dialog } from "@headlessui/react";
 import { Package, X } from "react-feather";
 import { LockClosedIcon } from "@heroicons/react/solid";
@@ -9,16 +11,31 @@ import axios from "axios";
 const Cart = (props) => {
   const [open, setOpen] = useState(false);
 
+  
   function closeSlideover() {
     setOpen(false);
   }
   function openSlideOver() {
     setOpen(true);
   }
+
+//redux hooks for cart store  
+const dispatch = useDispatch();
+useEffect(()=> dispatch(fetchCart()), []);
+
+const cart = useSelector((state) => {
+  return state.cart;
+});
+
   return (
     <Fragment>
       <button onClick={openSlideOver}>
-        <Package strokeWidth={1} width={30} height={30} />
+        <Package
+          strokeWidth={1}
+          width={30}
+          height={30}
+          className="text-red-700"
+        />
       </button>
       <Transition.Root appear show={open} as={Fragment}>
         <Dialog
@@ -53,19 +70,19 @@ const Cart = (props) => {
                     <button onClick={closeSlideover}>
                       <X />
                     </button>
-                  </div>
+                  </div>  
                   <div className="">
                     <Dialog.Title className="text-3xl">Your cart</Dialog.Title>
                   </div>
                   <div className="mt-6 overflow-x-hidden overflow-y-auto max-h-[80vh] pb-16">
                     <div className="flex flex-col gap-5 ">
-                      <CartCard />
-                      <CartCard />
-                      <CartCard />
-                      <CartCard />
-                      <CartCard />
-                      <CartCard />
-                      <CartCard />
+                      
+                      {cart.map(product => {
+                        return (
+                          <CartCard key={product.id} product={product} />
+                        );
+                      })}
+
                     </div>
                   </div>
                   <div className="absolute inset-x-0 bottom-0 bg-beige drop-shadow-[0_-6px_18px_rgba(0,0,0,0.2)] p-5 flex flex-col gap-4">
@@ -78,12 +95,23 @@ const Cart = (props) => {
                       </span>
                     </div>
                     <button
-                      onClick={() => {
+                      onClick={async () => {
+                        const token = window.localStorage.getItem("token");
                         closeSlideover();
+                        // fetch("/checkout", {
+                        //   method: "GET",
+                        //   redirect: "manual",
+                        //   headers: {
+                        //     authorization: token,
+                        //   },
+                        // }).then((response) => {
+                        //   console.log(response);
+                        // });
+                        window.location = "/checkout";
                       }}
                       className="py-3 px-5 shadow w-full text-base font-bold text-beige bg-forest-green uppercase rounded-full flex gap-2 justify-center"
                     >
-                      <Link to="/checkout">Continue to checkout</Link>
+                      Continue to checkout
                       <LockClosedIcon width={20} height={20} />
                     </button>
                   </div>
