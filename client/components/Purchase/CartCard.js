@@ -1,7 +1,7 @@
 import React from "react";
 import { Trash2, Package, Minus, Plus } from "react-feather";
 
-const StylizedCartCard = () => {
+const CartCard = () => {
   return (
     <div className="flex flex-row gap-5 pr-1">
       <img src="/img/HomePage-1.jpg" className=" object-contain w-24" alt="" />
@@ -34,4 +34,4 @@ const StylizedCartCard = () => {
   );
 };
 
-export default StylizedCartCard;
+export default CartCard;

@@ -2,11 +2,11 @@ import React, { useState, Fragment } from "react";
 import { Transition, Dialog } from "@headlessui/react";
 import { Package, X } from "react-feather";
 import { LockClosedIcon } from "@heroicons/react/solid";
-import StylizedCartCard from "./StyledCartCard";
+import CartCard from "./CartCard";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const StylizedCart = (props) => {
+const Cart = (props) => {
   const [open, setOpen] = useState(false);
 
   function closeSlideover() {
@@ -18,12 +18,7 @@ const StylizedCart = (props) => {
   return (
     <Fragment>
       <button onClick={openSlideOver}>
-        <Package
-          strokeWidth={1}
-          width={30}
-          height={30}
-          className="text-red-700"
-        />
+        <Package strokeWidth={1} width={30} height={30} />
       </button>
       <Transition.Root appear show={open} as={Fragment}>
         <Dialog
@@ -64,13 +59,13 @@ const StylizedCart = (props) => {
                   </div>
                   <div className="mt-6 overflow-x-hidden overflow-y-auto max-h-[80vh] pb-16">
                     <div className="flex flex-col gap-5 ">
-                      <StylizedCartCard />
-                      <StylizedCartCard />
-                      <StylizedCartCard />
-                      <StylizedCartCard />
-                      <StylizedCartCard />
-                      <StylizedCartCard />
-                      <StylizedCartCard />
+                      <CartCard />
+                      <CartCard />
+                      <CartCard />
+                      <CartCard />
+                      <CartCard />
+                      <CartCard />
+                      <CartCard />
                     </div>
                   </div>
                   <div className="absolute inset-x-0 bottom-0 bg-beige drop-shadow-[0_-6px_18px_rgba(0,0,0,0.2)] p-5 flex flex-col gap-4">
@@ -83,23 +78,12 @@ const StylizedCart = (props) => {
                       </span>
                     </div>
                     <button
-                      onClick={async () => {
-                        const token = window.localStorage.getItem("token");
+                      onClick={() => {
                         closeSlideover();
-                        // fetch("/checkout", {
-                        //   method: "GET",
-                        //   redirect: "manual",
-                        //   headers: {
-                        //     authorization: token,
-                        //   },
-                        // }).then((response) => {
-                        //   console.log(response);
-                        // });
-                        window.location = "/checkout";
                       }}
                       className="py-3 px-5 shadow w-full text-base font-bold text-beige bg-forest-green uppercase rounded-full flex gap-2 justify-center"
                     >
-                      Continue to checkout
+                      <Link to="/checkout">Continue to checkout</Link>
                       <LockClosedIcon width={20} height={20} />
                     </button>
                   </div>
@@ -113,4 +97,4 @@ const StylizedCart = (props) => {
   );
 };
 
-export default StylizedCart;
+export default Cart;

@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
 export default class Carousel extends Component {
   render() {
     const settings = {
       dots: true,
       infinite: true,
-      className: "max-w-xl",
+      className: "max-w-2xl",
       infinite: true,
       slidesToShow: 1,
       speed: 500,
@@ -61,25 +62,25 @@ export default class Carousel extends Component {
         <Slider {...settings}>
           <div>
             <div
-              className="min-h-[70vh] bg-cover bg-no-repeat"
+              className="min-h-[80vh] bg-cover bg-no-repeat"
               style={{ backgroundImage: "url('/img/homePage-1.jpg')" }}
             ></div>
           </div>
           <div>
             <div
-              className="min-h-[70vh] bg-cover bg-no-repeat"
+              className="min-h-[80vh] bg-cover bg-no-repeat"
               style={{ backgroundImage: "url(/img/FicusDanielle.jpeg)" }}
             ></div>
           </div>
           <div>
             <div
-              className="min-h-[70vh] bg-cover bg-no-repeat"
+              className="min-h-[80vh] bg-cover bg-no-repeat"
               style={{ backgroundImage: "url(/img/spider-plant.jpeg)" }}
             ></div>
           </div>
           <div>
             <div
-              className="min-h-[70vh] bg-cover bg-no-repeat"
+              className="min-h-[80vh] bg-cover bg-no-repeat"
               style={{ backgroundImage: "url(/img/spider-plant.jpeg)" }}
             ></div>
           </div>

@@ -7,9 +7,10 @@ import Main from "./components/HomePage/Main";
 import AllProducts from "./components/Products/AllProducts";
 import ByFeaturedType from "./components/Products/ByFeaturedType";
 import SingleProduct from "./components/Products/SingleProduct";
-import Cart from "./components/Cart";
+import Cart from "./components/Purchase/Cart";
 import AdminView from "./components/Admin/AdminView";
-import StylizedProducts from "./components/Purchase/StylizedProducts";
+import StylizedProducts from "./components/Products/StylizedProducts";
+import StylizedProductPage from "./components/Products/StylizedProductPage";
 import { me } from "./store";
 
 class Routes extends Component {
@@ -28,15 +29,18 @@ class Routes extends Component {
           <Route path="/" exact component={Main} />
           <Route path="/cart" exact component={Cart} />
           <Route
-            exact path="/products/categories/:type"
+            exact
+            path="/products/categories/:type"
             component={StylizedProducts}
           />
           <Route
-            exact path="/products/featured/:type"
+            exact
+            path="/products/featured/:type"
             component={withRouter(ByFeaturedType)}
           />
           <Route exact path="/products" component={AllProducts} />
           <Route exact path="/products/:slug" component={SingleProduct} />
+          {/* <Route exact path="/products/:slug" component={StylizedProductPage} /> */}
           <Route path="/my-account/orders/:id">
             {!token ? <Redirect to="/login" /> : <MyAccount />}
           </Route>
@@ -45,6 +49,7 @@ class Routes extends Component {
           </Route>
           <Route path="/login" exact component={LoginPage} />
           <Route path="/signup" exact component={SignupPage} />
+          <Route path="/checkout" exact component={CheckoutPage} />
           <Route path="/manage" exact>
             {!isAdmin ? <Redirect to="/" /> : <AdminView />}
           </Route>
