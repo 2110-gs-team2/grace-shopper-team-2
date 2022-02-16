@@ -50,7 +50,7 @@ const StylizedProducts = () => {
                       <ChevronDown
                         className={`${
                           open ? "transform rotate-180" : ""
-                        } w-5 h-5 text-forest-green`}
+                        } w-5 h-5 text-forest-green transition-all duration-200`}
                       />
                     </Disclosure.Button>
                     <Disclosure.Panel className="px-4 pt-4 pb-2">
@@ -86,7 +86,7 @@ const StylizedProducts = () => {
                       <ChevronDown
                         className={`${
                           open ? "transform rotate-180" : ""
-                        } w-5 h-5 text-forest-green`}
+                        } w-5 h-5 text-forest-green transition-all duration-200`}
                       />
                     </Disclosure.Button>
                     <Disclosure.Panel className="px-4 pt-4 pb-2 ">
@@ -122,7 +122,7 @@ const StylizedProducts = () => {
                       <ChevronDown
                         className={`${
                           open ? "transform rotate-180" : ""
-                        } w-5 h-5 text-forest-green`}
+                        } w-5 h-5 text-forest-green transition-all duration-200`}
                       />
                     </Disclosure.Button>
                     <Disclosure.Panel className="px-4 pt-4 pb-2 ">
@@ -158,7 +158,7 @@ const StylizedProducts = () => {
                       <ChevronDown
                         className={`${
                           open ? "transform rotate-180" : ""
-                        } w-5 h-5 text-forest-green`}
+                        } w-5 h-5 text-forest-green transition-all duration-200`}
                       />
                     </Disclosure.Button>
                     <Disclosure.Panel className="px-4 pt-4 pb-2 ">
@@ -194,7 +194,7 @@ const StylizedProducts = () => {
                       <ChevronDown
                         className={`${
                           open ? "transform rotate-180" : ""
-                        } w-5 h-5 text-forest-green`}
+                        } w-5 h-5 text-forest-green transition-all duration-200`}
                       />
                     </Disclosure.Button>
                     <Disclosure.Panel className="px-4 pt-4 pb-2 ">

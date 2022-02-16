@@ -12,7 +12,6 @@ const ProductCard = ({ product }) => {
               Add to cart
             </button>
           </div>
-
           <div className="flex justify-between items-center mt-2">
             <div className="text-xl font-medium">{product.name}</div>
             <div className="text-xl font-bold">${product.price}</div>
