@@ -1,16 +1,42 @@
 import { LockClosedIcon } from "@heroicons/react/solid";
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { Check, MoreHorizontal } from "react-feather";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "../../store";
 import CartCard from "./CartCard";
+import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./CheckoutForm";
+
+const stripePromise = loadStripe(
+  "pk_test_51KTcZ8G6iunwbpRu5GmvFjN92ftNqJy6Jo3rK2OgxD2EFLtBjPz9NyvpyKhGL8NBe79XEgEbWTXaVnZ5tBtP5EPP008ToSXphu"
+);
 
 const CheckoutPage = () => {
+  const [clientSecret, setClientSecret] = useState("");
   const dispatch = useDispatch();
   const currUser = useSelector((state) => state.auth);
+  const items = [{ id: "xl-tshirt" }];
   useEffect(() => {
+    async function getClientSecret() {
+      const { data } = await axios.post("/create-payment-intent", items);
+      let clientSecret = data.clientSecret;
+      setClientSecret(clientSecret);
+    }
+
+    getClientSecret();
+
     dispatch(me());
   }, []);
+
+  const appearance = {
+    theme: "stripe",
+  };
+  const options = {
+    clientSecret,
+    appearance,
+  };
 
   return (
     <div>
@@ -59,6 +85,13 @@ const CheckoutPage = () => {
                     <MoreHorizontal className="text-white" />
                   </div>
                   Your payment method
+                </div>
+                <div>
+                  {clientSecret && (
+                    <Elements options={options} stripe={stripePromise}>
+                      <CheckoutForm />
+                    </Elements>
+                  )}
                 </div>
               </div>
             </div>
