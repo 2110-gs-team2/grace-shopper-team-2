@@ -1,6 +1,6 @@
 import React, { useState, Fragment, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchCart } from "../../store/cart";
+import cartReducer, { fetchCart } from "../../store/cart";
 import { Transition, Dialog } from "@headlessui/react";
 import { Package, X } from "react-feather";
 import { LockClosedIcon } from "@heroicons/react/solid";
@@ -13,6 +13,13 @@ import axios from "axios";
 export const cartSubTotal = (arr) => {
   return arr.reduce((acc, product) => {
     acc += product.price * 1 * product.quantity;
+    return acc;
+  }, 0);
+};
+
+export const getCartQuantity = (arr) => {
+  return arr.reduce((acc, product) => {
+    acc += product.quantity;
     return acc;
   }, 0);
 };
@@ -52,9 +59,12 @@ const Cart = (props) => {
 
   return (
     <Fragment>
-      <button onClick={openSlideOver} className="focus:outline-none flex gap-1">
+      <button
+        onClick={openSlideOver}
+        className="focus:outline-none flex gap-1 items-center"
+      >
         <Package strokeWidth={1} width={30} height={30} />
-        <span className="text-lg">({cart.length})</span>
+        <span className="text-lg">({getCartQuantity(cart)})</span>
       </button>
       <Transition.Root appear show={open} as={Fragment}>
         <Dialog
@@ -86,12 +96,17 @@ const Cart = (props) => {
               <div className="fixed inset-y-0 right-0 bg-beige md:w-[35vw] w-11/12 flex">
                 <div className="h-full flex flex-col p-5 bg-beige shadow-xl min-w-full relative overflow-scroll	">
                   <div className="right-0 my-2 absolute px-5 max-w-fit flex justify-center rounded-md">
-                    <button onClick={closeSlideover}>
+                    <button
+                      onClick={closeSlideover}
+                      className="focus:outline-none"
+                    >
                       <X />
                     </button>
                   </div>
                   <div className="">
-                    <Dialog.Title className="text-3xl">Your cart</Dialog.Title>
+                    <Dialog.Title className="text-3xl">
+                      Your cart ({getCartQuantity(cart)})
+                    </Dialog.Title>
                   </div>
                   <div className="mt-6 overflow-x-hidden overflow-y-auto max-h-[80vh] pb-16">
                     <div className="flex flex-col gap-5 ">
@@ -100,6 +115,40 @@ const Cart = (props) => {
                       })}
                     </div>
                   </div>
+                  {cart && cart.length === 0 ? (
+                    <div className="flex flex-col gap-3">
+                      <div className="text-3xl">
+                        Your cart is looking a little empty..
+                      </div>
+                      <div className="text-xl">Here's where to start:</div>
+                      <Link
+                        to="/products"
+                        onClick={closeSlideover}
+                        className="w-full h-32 group bg-cover bg-center relative before:block before:absolute before:h-full before:top-0 before:-inset-x-0 before:bg-black before:opacity-40 hover:before:opacity-80 before:transition before:ease-in-out before:duration-500"
+                        style={{
+                          backgroundImage:
+                            'url("/img/scott-webb-oRWRlTgBrPo-unsplash.jpg")',
+                        }}
+                      >
+                        <span className="text-center absolute text-3xl top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2  text-white">
+                          Shop all products
+                        </span>
+                      </Link>
+                      <Link
+                        to="/featured/beginners"
+                        onClick={closeSlideover}
+                        className="w-full h-32 group bg-cover bg-center relative before:block before:absolute before:h-full before:top-0 before:-inset-x-0 before:bg-black before:opacity-40 hover:before:opacity-80 before:transition before:ease-in-out before:duration-500"
+                        style={{
+                          backgroundImage:
+                            'url("/img/sarah-dorweiler-x2Tmfd1-SgA-unsplash.jpg")',
+                        }}
+                      >
+                        <span className="text-center absolute text-3xl top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2  text-white">
+                          For beginner plant parents
+                        </span>
+                      </Link>
+                    </div>
+                  ) : null}
                   <div className="absolute inset-x-0 bottom-0 bg-beige drop-shadow-[0_-6px_18px_rgba(0,0,0,0.2)] p-5 flex flex-col gap-4">
                     <div className="flex justify-between">
                       <span className="font-bold uppercase leading-5 text-xl">
@@ -114,7 +163,10 @@ const Cart = (props) => {
                       onClick={async () => {
                         closeSlideover();
                       }}
-                      className="py-3 px-5 shadow w-full text-base font-bold text-beige bg-forest-green uppercase rounded-full flex gap-2 justify-center"
+                      disabled={!cart.length}
+                      className={`${
+                        !cart.length ? "pointer-events-none bg-stone-300" : ""
+                      } py-3 px-5 w-full text-base font-bold text-beige bg-forest-green uppercase rounded-full flex gap-2 justify-center`}
                     >
                       Continue to checkout
                       <LockClosedIcon width={20} height={20} />

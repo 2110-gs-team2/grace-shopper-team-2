@@ -51,8 +51,6 @@ const CheckoutForm = () => {
     if (!stripe || !elements) return;
     setIsLoading(true);
 
-    dispatch(convertCartToOrder(currUser));
-
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
@@ -60,6 +58,8 @@ const CheckoutForm = () => {
         return_url: "http://localhost:8080/thank-you",
       },
     });
+
+    if (!error) dispatch(convertCartToOrder(currUser));
 
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);
@@ -82,8 +82,8 @@ const CheckoutForm = () => {
           {isLoading ? (
             <div className="spinner" id="spinner"></div>
           ) : (
-            <div className="m-0 p-0 flex flex-2 justify-around">
-              <span> Place order</span>
+            <div className="m-0 p-0 flex justify-around">
+              <span className="mr-2"> Place order</span>
               <LockClosedIcon width={20} height={20} />
             </div>
           )}
