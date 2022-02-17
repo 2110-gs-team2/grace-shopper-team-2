@@ -176,7 +176,7 @@ const AddressView = () => {
               <button
                 disabled={!isValid || !dirty}
                 type="submit"
-                className="disabled:bg-grey mt-5 block p-6 py-3 w-48 text-center rounded-full text-base font-bold text-beige bg-forest-green uppercase"
+                className="disabled:bg-stone-300 mt-5 block p-6 py-3 w-48 text-center rounded-full text-base font-bold text-beige bg-forest-green uppercase"
               >
                 Save
               </button>

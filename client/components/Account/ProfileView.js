@@ -55,75 +55,78 @@ const ProfileView = () => {
           }
         }}
       >
-        <Form className="max-w-3xl flex flex-col">
-          <div className="flex flex-start m-0 gap-5">
-            <div className="flex flex-col grow m-0">
+        {({ dirty, isValid }) => (
+          <Form className="max-w-3xl flex flex-col">
+            <div className="flex flex-start m-0 gap-5">
+              <div className="flex flex-col grow m-0">
+                <label
+                  htmlFor="firstName"
+                  className="text-sm font-bold uppercase pt-5 pb-3"
+                >
+                  First Name
+                </label>
+                <Field
+                  name="firstName"
+                  type="text"
+                  className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
+          "
+                />
+                <ErrorMessage
+                  name="firstName"
+                  component="div"
+                  className="text-red-700 m-0 text-sm"
+                />
+              </div>
+              <div className="flex flex-col grow m-0">
+                <label
+                  htmlFor="lastName"
+                  className="text-sm font-bold uppercase pt-5 pb-3"
+                >
+                  Last Name
+                </label>
+                <Field
+                  name="lastName"
+                  type="text"
+                  className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
+          "
+                />
+                <ErrorMessage
+                  name="lastName"
+                  component="div"
+                  className="text-red-700 m-0 text-sm"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col m-0 w-3/5">
               <label
-                htmlFor="firstName"
+                htmlFor="email"
                 className="text-sm font-bold uppercase pt-5 pb-3"
               >
-                First Name
+                Email Address
               </label>
               <Field
-                name="firstName"
-                type="text"
+                name="email"
+                type="email"
                 className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
           "
               />
               <ErrorMessage
-                name="firstName"
+                name="email"
                 component="div"
                 className="text-red-700 m-0 text-sm"
               />
             </div>
-            <div className="flex flex-col grow m-0">
-              <label
-                htmlFor="lastName"
-                className="text-sm font-bold uppercase pt-5 pb-3"
+            <div className="m-0">
+              <button
+                disabled={!isValid || !dirty}
+                type="submit"
+                className="disabled:bg-stone-300 mt-5 block p-6 py-3 w-48 text-center rounded-full text-base font-bold text-beige bg-forest-green uppercase"
               >
-                Last Name
-              </label>
-              <Field
-                name="lastName"
-                type="text"
-                className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
-          "
-              />
-              <ErrorMessage
-                name="lastName"
-                component="div"
-                className="text-red-700 m-0 text-sm"
-              />
+                Save
+              </button>
             </div>
-          </div>
-          <div className="flex flex-col m-0 w-3/5">
-            <label
-              htmlFor="email"
-              className="text-sm font-bold uppercase pt-5 pb-3"
-            >
-              Email Address
-            </label>
-            <Field
-              name="email"
-              type="email"
-              className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
-          "
-            />
-            <ErrorMessage
-              name="email"
-              component="div"
-              className="text-red-700 m-0 text-sm"
-            />
-          </div>
-          <div className="m-0">
-            <button
-              type="submit"
-              className="mt-5 block p-6 py-3 w-48 text-center rounded-full text-base font-bold text-beige bg-forest-green uppercase"
-            >
-              Save
-            </button>
-          </div>
-        </Form>
+          </Form>
+        )}
       </Formik>
     </div>
   );

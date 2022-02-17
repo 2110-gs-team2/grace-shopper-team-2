@@ -13,7 +13,7 @@ export const fetchOrders = (userId) => {
   return async (dispatch) => {
     const { data: orders } = await axios.get(`/api/orders/user/${userId}`);
     const itemResults = await Promise.all(
-      orders.map((o) => axios.get(`/api/order-items/${o.id}`))
+      orders.map((o) => axios.get(`/api/order-items/order/${o.id}`))
     );
     orders.forEach((o) => {
       const items = itemResults.find((item) => item.data[0].orderId === o.id);

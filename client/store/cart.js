@@ -69,7 +69,7 @@ export const addToCart = (id, productArray) => {
       cart.push(product);
       dispatch(_addToCart(product));
     } else {
-      return dispatch(addToQuantity(id));
+      console.log("Product already in cart");
     }
     //send cart back to localStorage
     const cartJSON = JSON.stringify(cart);
@@ -183,6 +183,7 @@ export const convertCartToOrder = (user) => {
       );
     }
 
+    window.localStorage.removeItem("cart");
     dispatch(_resetCart());
   };
 };
