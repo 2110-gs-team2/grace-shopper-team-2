@@ -92,7 +92,7 @@ const CheckoutPage = () => {
               )}
             </div>
             <div className="bg-beige p-10 rounded-lg">
-              {!currUser.id ? (
+              {!currUser.addressLine1 ? (
                 <div className="flex flex-col gap-2">
                   <div className="text-3xl flex gap-2 items-center">
                     <HelpCircle
@@ -158,10 +158,6 @@ const CheckoutPage = () => {
                   ${cartSubTotal(cart).toFixed(2)}
                 </span>
               </div>
-              <button className="py-3 px-5 shadow w-full text-base font-bold text-beige bg-forest-green uppercase rounded-full flex gap-2 justify-center">
-                Place order
-                <LockClosedIcon width={20} height={20} />
-              </button>
             </div>
           </div>
         </div>

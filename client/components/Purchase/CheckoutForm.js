@@ -4,6 +4,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { LockClosedIcon } from "@heroicons/react/solid";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -72,7 +73,14 @@ const CheckoutForm = () => {
         className="py-3 px-5 shadow w-48 text-base font-bold text-beige bg-forest-green uppercase rounded-full flex gap-2 justify-center"
       >
         <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+          {isLoading ? (
+            <div className="spinner" id="spinner"></div>
+          ) : (
+            <div className="m-0 p-0 flex flex-2 justify-around">
+              <span> Place order</span>
+              <LockClosedIcon width={20} height={20} />
+            </div>
+          )}
         </span>
       </button>
       {/* Show any error or success messages */}

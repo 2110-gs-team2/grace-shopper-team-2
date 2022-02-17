@@ -6,6 +6,7 @@ import { Check } from "react-feather";
 import * as Yup from "yup";
 import { useLocation } from "react-router-dom";
 import includes from "lodash/includes";
+import { createGuest } from "../../store";
 
 const ProfileFormSchema = Yup.object().shape({
   firstName: Yup.string("Invalid value")
@@ -46,8 +47,13 @@ const ProfileView = () => {
         }}
         validationSchema={ProfileFormSchema}
         onSubmit={(values) => {
-          dispatch(updateUser(values, currUser.id));
-          setSuccess(true);
+          if (!includes(location.pathname, "checkout")) {
+            dispatch(updateUser(values, currUser.id));
+            setSuccess(true);
+          } else {
+            console.log("woooooo");
+            dispatch(createGuest(values));
+          }
         }}
       >
         <Form className="max-w-3xl flex flex-col">

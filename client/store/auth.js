@@ -62,6 +62,13 @@ export const updateUser = (user, id) => {
   };
 };
 
+export const createGuest = (guest) => {
+  return async (dispatch) => {
+    const { data: newGuest } = await axios.post(`/api/users/`, guest);
+    dispatch(setAuth(newGuest));
+  };
+};
+
 /**
  * REDUCER
  */

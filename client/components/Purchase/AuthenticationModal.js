@@ -3,7 +3,6 @@ import React, { useState, Fragment } from "react";
 import { X } from "react-feather";
 import { useDispatch } from "react-redux";
 import { Login, Signup } from "../Account/AuthForm";
-import GuestForm from "./GuestForm";
 import ProfileView from "../Account/ProfileView";
 
 const AuthenticationModal = ({ operation }) => {

@@ -23,8 +23,6 @@ const StylizedProductPage = () => {
     });
   }, []);
 
-
-  
   return (
     <div className="min-h-[100vh] bg-beige">
       <div className="pt-28 p-20 max-w-[90vw] m-auto">
@@ -32,12 +30,12 @@ const StylizedProductPage = () => {
           <Carousel />
           <div className="grid-cols-1 flex flex-col gap-3 basis-1/3">
             <div className="flex flex-col gap-2 pb-5 border-b-2 border-forest-green">
-              <div className="text-5xl">{product.name}</div>
-              <div className="text-3xl font-bold">${product.price}</div>
+              <div className="text-5xl">ZZ Plant</div>
+              <div className="text-3xl font-bold">$100</div>
             </div>
             <div className="flex justify-between mt-5">
               <div className="text-lg uppercase font-bold">Size</div>
-              <div className="text-lg ">{product.size}</div>
+              <div className="text-lg ">Small</div>
             </div>
             <div className="flex justify-between ">
               <div className="text-lg uppercase font-bold">Quantity</div>

@@ -23,6 +23,8 @@ const AddressView = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const currUser = useSelector((state) => state.auth);
+
+  console.log(currUser, "whos the currUser?");
   return (
     <div>
       {!includes(location.pathname, "checkout") ? (
