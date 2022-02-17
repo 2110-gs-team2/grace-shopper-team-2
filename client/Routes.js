@@ -11,7 +11,8 @@ import AdminView from "./components/Admin/AdminView";
 import StylizedProducts from "./components/Products/StylizedProducts";
 import CheckoutPage from "./components/Purchase/CheckoutPage";
 import StylizedProductPage from "./components/Products/StylizedProductPage";
-import TestQueryStrings from "./components/Products/TestQueryStrings";
+import Test_GetQueryStrings from "./components/Products/Test_GetQueryStrings";
+import Test_SetQueryStrings from "./components/Products/Test_SetQueryStrings";
 import Cart from "./components/Purchase/Cart";
 import { me } from "./store";
 
@@ -40,7 +41,10 @@ class Routes extends Component {
             path="/products/featured/:type"
             component={withRouter(ByFeaturedType)}
           />
-          <Route exact path="/test" component={TestQueryStrings} />
+          {/* Testing */}
+          <Route exact path="/test" component={Test_GetQueryStrings} />
+          <Route exact path="/testqs" component={Test_SetQueryStrings} />
+          {/* Testing end */}
           <Route exact path="/products" component={AllProducts} />
           {/* <Route exact path="/products/:slug" component={SingleProduct} /> */}
           <Route exact path="/products/:slug" component={StylizedProductPage} />
