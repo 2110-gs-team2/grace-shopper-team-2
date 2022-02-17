@@ -57,7 +57,7 @@ const CheckoutForm = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:8080/products",
+        return_url: "http://localhost:8080/thank-you",
       },
     });
 

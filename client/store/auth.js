@@ -27,10 +27,6 @@ export const me = () => async (dispatch) => {
         authorization: token,
       },
     });
-    const { data: orders } = await axios.get("/api/orders");
-    if (user)
-      user.openOrder =
-        orders.find((o) => o.userId === user.id && !o.completedTimestamp) || {};
     return dispatch(setAuth(user));
   }
 };

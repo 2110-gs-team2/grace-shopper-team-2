@@ -11,7 +11,7 @@ import CheckoutForm from "./CheckoutForm";
 import { cartSubTotal } from "./Cart";
 import AuthenticationModal from "./AuthenticationModal";
 import AddressView from "../Account/AddressView";
-
+import { convertCartToOrder } from "../../store/cart";
 const stripePromise = loadStripe(
   "pk_test_51KTcZ8G6iunwbpRu5GmvFjN92ftNqJy6Jo3rK2OgxD2EFLtBjPz9NyvpyKhGL8NBe79XEgEbWTXaVnZ5tBtP5EPP008ToSXphu"
 );

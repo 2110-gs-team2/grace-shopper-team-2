@@ -33,3 +33,13 @@ router.get("/user/:userId", async (req, res, next) => {
     next(error);
   }
 });
+
+// CREATE new order
+router.post("/", async (req, res, next) => {
+  try {
+    const newOrder = await Order.create(req.body);
+    res.send(newOrder);
+  } catch (error) {
+    next(error);
+  }
+});
