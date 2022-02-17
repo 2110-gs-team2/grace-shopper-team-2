@@ -51,7 +51,6 @@ const ProfileView = () => {
             dispatch(updateUser(values, currUser.id));
             setSuccess(true);
           } else {
-            console.log("woooooo");
             dispatch(createGuest(values));
           }
         }}

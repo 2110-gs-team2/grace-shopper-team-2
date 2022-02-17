@@ -135,7 +135,7 @@ export const convertCartToOrder = (userId, productId, orderId) => {
       // if you land on /checkout and you are authenticated
       // we can create an Order and OrderItems based on your localStorage('cart') data row
       const cart = JSON.parse(window.localStorage.getItem("cart"));
-      console.log(cart);
+      console.log(cart, "CAAAAART");
     } else {
       // if not, we give you an option to sign in, sign up, check out as guest (email input)
       //  we can create an Order and OrderItems based on your localStorage('cart') data row
