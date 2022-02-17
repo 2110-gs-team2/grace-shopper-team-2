@@ -7,12 +7,12 @@ import Main from "./components/HomePage/Main";
 import AllProducts from "./components/Products/AllProducts";
 import ByFeaturedType from "./components/Products/ByFeaturedType";
 import SingleProduct from "./components/Products/SingleProduct";
-import Cart from "./components/Purchase/Cart";
 import AdminView from "./components/Admin/AdminView";
 import StylizedProducts from "./components/Products/StylizedProducts";
 import CheckoutPage from "./components/Purchase/CheckoutPage";
 import StylizedProductPage from "./components/Products/StylizedProductPage";
 import TestQueryStrings from "./components/Products/TestQueryStrings";
+import Cart from "./components/Purchase/Cart";
 import { me } from "./store";
 
 class Routes extends Component {
@@ -42,8 +42,8 @@ class Routes extends Component {
           />
           <Route exact path="/test" component={TestQueryStrings} />
           <Route exact path="/products" component={AllProducts} />
-          <Route exact path="/products/:slug" component={SingleProduct} />
-          {/* <Route exact path="/products/:slug" component={StylizedProductPage} /> */}
+          {/* <Route exact path="/products/:slug" component={SingleProduct} /> */}
+          <Route exact path="/products/:slug" component={StylizedProductPage} />
           <Route path="/my-account/orders/:id">
             {!token ? <Redirect to="/login" /> : <MyAccount />}
           </Route>

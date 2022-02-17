@@ -1,37 +1,53 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, Fragment, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCart } from "../../store/cart";
 import { Transition, Dialog } from "@headlessui/react";
 import { Package, X } from "react-feather";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import CartCard from "./CartCard";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
+import includes from "lodash/includes";
 import axios from "axios";
+
+//subtotal function
+export const cartSubTotal = (arr) => {
+  return arr.reduce((acc, product) => {
+    acc += product.price * 1 * product.quantity;
+    return acc;
+  }, 0);
+};
 
 const Cart = (props) => {
   const [open, setOpen] = useState(false);
-
-  function closeSlideover() {
-    setOpen(false);
-  }
-  function openSlideOver() {
-    setOpen(true);
-  }
-
-  //redux hooks for cart store
-  const dispatch = useDispatch();
-  useEffect(() => dispatch(fetchCart()), []);
-
   const cart = useSelector((state) => {
     return state.cart;
   });
+  //redux hooks for cart store
+  const dispatch = useDispatch();
+  const prevCountRef = useRef(cart);
+  const location = useLocation();
 
-  //subtotal function
-  const cartSubTotal = (arr) => {
-    return arr.reduce((acc, product) => {
-      acc += product.price * 1 * product.quantity;
-      return acc;
-    }, 0);
+  useEffect(() => {
+    dispatch(fetchCart());
+  }, []);
+
+  useEffect(() => {
+    if (
+      prevCountRef.current.length !== 0 &&
+      prevCountRef !== cart &&
+      !includes(location.pathname, "checkout")
+    ) {
+      // opens slide when cart content changes
+      openSlideOver();
+    }
+    prevCountRef.current = cart;
+  }, [cart]);
+
+  const closeSlideover = () => {
+    setOpen(false);
+  };
+  const openSlideOver = () => {
+    setOpen(true);
   };
 
   return (
@@ -92,16 +108,16 @@ const Cart = (props) => {
                         ${cartSubTotal(cart).toFixed(2)}
                       </span>
                     </div>
-                    <button
+                    <Link
+                      to="/checkout"
                       onClick={async () => {
                         closeSlideover();
-                        window.location = "/checkout";
                       }}
                       className="py-3 px-5 shadow w-full text-base font-bold text-beige bg-forest-green uppercase rounded-full flex gap-2 justify-center"
                     >
                       Continue to checkout
                       <LockClosedIcon width={20} height={20} />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

@@ -1,13 +1,11 @@
-import React, { Fragment, useState } from "react";
-import { Formik, Form, ErrorMessage, Field } from "formik";
+import React, { useState } from "react";
+import { useFormik, Formik, Form, ErrorMessage, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../store";
 import { Check } from "react-feather";
 import * as Yup from "yup";
-import { useLocation } from "react-router-dom";
-import includes from "lodash/includes";
 
-const ProfileFormSchema = Yup.object().shape({
+const GuestFormSchema = Yup.object().shape({
   firstName: Yup.string("Invalid value")
     .min(2, "Too short!")
     .max(50, "Too long!")
@@ -19,32 +17,19 @@ const ProfileFormSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
 });
 
-const ProfileView = () => {
+const GuestForm = () => {
   const [success, setSuccess] = useState(false);
   const dispatch = useDispatch();
-  const location = useLocation();
   const currUser = useSelector((state) => state.auth);
   return (
     <div>
-      {!includes(location.pathname, "checkout") ? (
-        <Fragment>
-          <div className="text-5xl mb-5">My profile</div>
-          {success ? (
-            <div className="mt2 py-3 px-5 bg-forest-green flex gap-2 text-white rounded-lg">
-              <Check strokeWidth={1} />
-              Your account has been updated
-            </div>
-          ) : null}
-        </Fragment>
-      ) : null}
-
       <Formik
         initialValues={{
           firstName: `${currUser.firstName || ""}`,
           lastName: `${currUser.lastName || ""}`,
           email: `${currUser.email || ""}`,
         }}
-        validationSchema={ProfileFormSchema}
+        validationSchema={GuestFormSchema}
         onSubmit={(values) => {
           dispatch(updateUser(values, currUser.id));
           setSuccess(true);
@@ -101,7 +86,7 @@ const ProfileView = () => {
             <Field
               name="email"
               type="email"
-              className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
+              className="focus:outline-none py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
           "
             />
             <ErrorMessage
@@ -113,9 +98,9 @@ const ProfileView = () => {
           <div className="m-0">
             <button
               type="submit"
-              className="mt-5 block p-6 py-3 w-48 text-center rounded-full text-base font-bold text-beige bg-forest-green uppercase"
+              className="focus:outline-none mt-5 block p-6 py-3 w-48 text-center rounded-full text-base font-bold text-beige bg-forest-green uppercase"
             >
-              Save
+              Save information
             </button>
           </div>
         </Form>
@@ -124,4 +109,4 @@ const ProfileView = () => {
   );
 };
 
-export default ProfileView;
+export default GuestForm;
