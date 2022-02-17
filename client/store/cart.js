@@ -6,6 +6,7 @@ const ADD_TO_CART = "ADD_TO_CART";
 const DELETE_FROM_CART = "DELETE_FROM_CART";
 const ADD_TO_QUANTITY = "ADD_TO_QUANTITY";
 const SUB_FROM_QUANTITY = "SUB_FROM_QUANTITY";
+const RESET_CART = "RESET_CART";
 
 //action creators
 const _setCart = (cart) => {
@@ -39,6 +40,12 @@ const _subFromQuantity = (product) => {
   };
 };
 
+const _resetCart = () => {
+  return {
+    type: RESET_CART,
+  };
+};
+
 //thunks
 export const fetchCart = () => {
   return (dispatch) => {
@@ -62,7 +69,7 @@ export const addToCart = (id, productArray) => {
       cart.push(product);
       dispatch(_addToCart(product));
     } else {
-      return dispatch(addToQuantity(id));
+      console.log("Product already in cart");
     }
     //send cart back to localStorage
     const cartJSON = JSON.stringify(cart);
@@ -129,17 +136,55 @@ export const subFromQuantity = (id) => {
   };
 };
 
-export const convertCartToOrder = (userId, productId, orderId) => {
+export const convertCartToOrder = (user) => {
   return async (dispatch) => {
-    if (userId) {
-      // if you land on /checkout and you are authenticated
-      // we can create an Order and OrderItems based on your localStorage('cart') data row
+    // if authenticated we create or find an open order
+    if (user.id) {
+      const { data: userOrders } = await axios.get(
+        `/api/orders/user/${user.id}`
+      );
+      let incompleteOrder = userOrders.find(
+        (order) => !order.completedTimestamp
+      );
+
+      // if there is none, create one for them
+      if (!incompleteOrder) {
+        incompleteOrder = (await axios.post("/api/orders", { userId: user.id }))
+          .data;
+      }
+
+      // create OrderItems based on their localStorage('cart') data row
       const cart = JSON.parse(window.localStorage.getItem("cart"));
-      console.log(cart);
-    } else {
-      // if not, we give you an option to sign in, sign up, check out as guest (email input)
-      //  we can create an Order and OrderItems based on your localStorage('cart') data row
+
+      // get all items associated with order
+      const { data: currItems } = await axios.get(
+        `/api/order-items/order/${incompleteOrder.id}`
+      );
+
+      await Promise.all(
+        cart.map((item) => {
+          let itemInDb = currItems.find(
+            (currItem) => currItem.productId === item.id
+          );
+          if (!itemInDb) {
+            return axios.post("/api/order-items", {
+              orderId: incompleteOrder.id,
+              productId: item.id,
+              quantity: item.quantity,
+              price: item.price,
+            });
+          } else {
+            return axios.put(`/api/order-items/${itemInDb.id}`, {
+              quantity: item.quantity,
+              price: item.price,
+            });
+          }
+        })
+      );
     }
+
+    window.localStorage.removeItem("cart");
+    dispatch(_resetCart());
   };
 };
 
@@ -163,6 +208,9 @@ const cartReducer = (state = [], action) => {
     return state.map((product) =>
       product.id === action.product.id ? action.product : product
     );
+  }
+  if (action.type === RESET_CART) {
+    return [];
   }
   return state;
 };

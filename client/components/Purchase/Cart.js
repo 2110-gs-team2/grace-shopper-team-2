@@ -52,8 +52,9 @@ const Cart = (props) => {
 
   return (
     <Fragment>
-      <button onClick={openSlideOver}>
+      <button onClick={openSlideOver} className="focus:outline-none flex gap-1">
         <Package strokeWidth={1} width={30} height={30} />
+        <span className="text-lg">({cart.length})</span>
       </button>
       <Transition.Root appear show={open} as={Fragment}>
         <Dialog

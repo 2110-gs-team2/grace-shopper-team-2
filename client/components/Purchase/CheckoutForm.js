@@ -5,10 +5,14 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { LockClosedIcon } from "@heroicons/react/solid";
+import { convertCartToOrder } from "../../store/cart";
+import { useDispatch, useSelector } from "react-redux";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
+  const dispatch = useDispatch();
+  const currUser = useSelector((state) => state.auth);
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -47,11 +51,13 @@ const CheckoutForm = () => {
     if (!stripe || !elements) return;
     setIsLoading(true);
 
+    dispatch(convertCartToOrder(currUser));
+
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:8080/products",
+        return_url: "http://localhost:8080/thank-you",
       },
     });
 

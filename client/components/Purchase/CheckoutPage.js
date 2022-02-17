@@ -11,7 +11,7 @@ import CheckoutForm from "./CheckoutForm";
 import { cartSubTotal } from "./Cart";
 import AuthenticationModal from "./AuthenticationModal";
 import AddressView from "../Account/AddressView";
-
+import { convertCartToOrder } from "../../store/cart";
 const stripePromise = loadStripe(
   "pk_test_51KTcZ8G6iunwbpRu5GmvFjN92ftNqJy6Jo3rK2OgxD2EFLtBjPz9NyvpyKhGL8NBe79XEgEbWTXaVnZ5tBtP5EPP008ToSXphu"
 );
@@ -21,6 +21,8 @@ const CheckoutPage = () => {
   const dispatch = useDispatch();
   const currUser = useSelector((state) => state.auth);
   const cart = useSelector((state) => state.cart);
+
+  console.log(currUser, "currUse???");
 
   const items = [{ id: "xl-tshirt" }];
   useEffect(() => {
@@ -92,7 +94,7 @@ const CheckoutPage = () => {
               )}
             </div>
             <div className="bg-beige p-10 rounded-lg">
-              {!currUser.addressLine1 ? (
+              {!currUser.zipcode ? (
                 <div className="flex flex-col gap-2">
                   <div className="text-3xl flex gap-2 items-center">
                     <HelpCircle
@@ -112,33 +114,37 @@ const CheckoutPage = () => {
                     </div>
                     Your address
                   </div>
-                  <div className="text-xl">{currUser.addressLine1}</div>
-                  <div className="text-xl">{currUser.addressLine2}</div>
-                  <div className="text-xl">
-                    {currUser.city}, {currUser.state} {currUser.zipcode}
+                  <div>
+                    <div className="text-xl">{currUser.addressLine1}</div>
+                    <div className="text-xl">{currUser.addressLine2}</div>
+                    <div className="text-xl">
+                      {currUser.city}, {currUser.state} {currUser.zipcode}
+                    </div>
                   </div>
                 </div>
               )}
             </div>
-            <div className="bg-beige p-10 rounded-lg">
-              <div className="flex flex-col gap-2">
-                <div className="text-3xl flex gap-2 items-center">
-                  <div className="w-8 h-8 flex items-center justify-center bg-forest-green rounded-full">
-                    <MoreHorizontal className="text-white" />
+            {currUser.id && currUser.zipcode ? (
+              <div className="bg-beige p-10 rounded-lg">
+                <div className="flex flex-col gap-2">
+                  <div className="text-3xl flex gap-2 items-center">
+                    <div className="w-8 h-8 flex items-center justify-center bg-forest-green rounded-full">
+                      <MoreHorizontal className="text-white" />
+                    </div>
+                    Your payment method
                   </div>
-                  Your payment method
-                </div>
-                <div>
-                  {clientSecret && (
-                    <Elements options={options} stripe={stripePromise}>
-                      <CheckoutForm />
-                    </Elements>
-                  )}
+                  <div>
+                    {clientSecret && (
+                      <Elements options={options} stripe={stripePromise}>
+                        <CheckoutForm />
+                      </Elements>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : null}
           </div>
-          <div className="col-span-2 pb-52 px-10 bg-beige rounded-lg min-h-[60vh] max-h-[100vh] relative">
+          <div className="col-span-2 pb-52 px-10 bg-beige rounded-lg min-h-[60vh] max-h-[80vh] relative">
             <div className="text-3xl pt-5 pb-5">Your cart</div>
             <div className="overflow-x-hidden overflow-y-auto h-full">
               <div className="flex flex-col gap-5 ">
