@@ -68,12 +68,13 @@ export const addToCart = (id, productArray) => {
       product.quantity = 1;
       cart.push(product);
       dispatch(_addToCart(product));
+      //send cart back to localStorage
+      const cartJSON = JSON.stringify(cart);
+      window.localStorage.setItem("cart", cartJSON);
     } else {
-      console.log("Product already in cart");
+      //if item in cart already, increase quantity x 1
+      dispatch(addToQuantity(product.id));
     }
-    //send cart back to localStorage
-    const cartJSON = JSON.stringify(cart);
-    window.localStorage.setItem("cart", cartJSON);
   };
 };
 
@@ -92,7 +93,6 @@ export const removeFromCart = (id) => {
 };
 
 export const addToQuantity = (id) => {
-  // console.log(id, "what is id");
   return (dispatch) => {
     let productIdx = 0;
     //pull localStorage cart
