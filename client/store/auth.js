@@ -22,12 +22,16 @@ const _updateUser = (auth) => ({ type: UPDATE_USER, auth });
 export const me = () => async (dispatch) => {
   const token = window.localStorage.getItem(TOKEN);
   if (token) {
-    const res = await axios.get("/auth/me", {
+    const { data: user } = await axios.get("/auth/me", {
       headers: {
         authorization: token,
       },
     });
-    return dispatch(setAuth(res.data));
+    const { data: orders } = await axios.get("/api/orders");
+    if (user)
+      user.openOrder =
+        orders.find((o) => o.userId === user.id && !o.completedTimestamp) || {};
+    return dispatch(setAuth(user));
   }
 };
 
@@ -55,6 +59,13 @@ export const updateUser = (user, id) => {
   return async (dispatch) => {
     const { data: updatedUser } = await axios.put(`/api/users/${id}`, user);
     dispatch(_updateUser(updatedUser));
+  };
+};
+
+export const createGuest = (guest) => {
+  return async (dispatch) => {
+    const { data: newGuest } = await axios.post(`/api/users/`, guest);
+    dispatch(setAuth(newGuest));
   };
 };
 

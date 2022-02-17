@@ -37,7 +37,7 @@ const Navbar = ({ isLoggedIn, isAdmin }) => {
         <div className="text-lg font-medium relative hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green ">
           <ProductMenu />
         </div>
-        <Link to="/">
+        <Link to="/" className="">
           <img src="/img/logo.svg" className="w-36" alt="" />
         </Link>
 

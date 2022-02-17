@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useFormik, Formik, Form, ErrorMessage, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../store";
 import { Check } from "react-feather";
 import { states } from "./states";
 import * as Yup from "yup";
+import { useLocation } from "react-router-dom";
+import includes from "lodash/includes";
 
 const AddressFormSchema = Yup.object().shape({
   addressLine1: Yup.string().required("Street addresss is required"),
@@ -19,15 +21,22 @@ const AddressFormSchema = Yup.object().shape({
 const AddressView = () => {
   const [success, setSuccess] = useState(false);
   const dispatch = useDispatch();
+  const location = useLocation();
   const currUser = useSelector((state) => state.auth);
+
+  console.log(currUser, "whos the currUser?");
   return (
     <div>
-      <div className="text-5xl mb-5">My address</div>
-      {success ? (
-        <div className="mt2 py-3 px-5 bg-forest-green flex gap-2 text-white rounded-lg">
-          <Check strokeWidth={1} />
-          Your address has been updated
-        </div>
+      {!includes(location.pathname, "checkout") ? (
+        <Fragment>
+          <div className="text-5xl mb-5">My address</div>
+          {success ? (
+            <div className="mt2 py-3 px-5 bg-forest-green flex gap-2 text-white rounded-lg">
+              <Check strokeWidth={1} />
+              Your address has been updated
+            </div>
+          ) : null}
+        </Fragment>
       ) : null}
       <Formik
         initialValues={{

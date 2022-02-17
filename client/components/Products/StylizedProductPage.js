@@ -1,23 +1,19 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect, useState } from "react";
 import Carousel from "./Carousel";
-import {
-  Trash2,
-  Package,
-  Minus,
-  Plus,
-  ChevronDown,
-  Sun,
-  Frown,
-  Scissors,
-} from "react-feather";
+import { Minus, Plus, Sun, Frown, Scissors } from "react-feather";
 import { Disclosure, Transition } from "@headlessui/react";
 import ProductCard from "./ProductCard";
 import { getAllProducts } from "../../store/products";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useParams } from "react-router-dom";
+import { addToCart, subFromQuantity, addToQuantity } from "../../store/cart";
 
 const StylizedProductPage = () => {
+  let [count, setCount] = useState(1);
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
+  const params = useParams();
+  const product = products.find((p) => p.slug === params.slug) || {};
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -26,6 +22,7 @@ const StylizedProductPage = () => {
       behavior: "smooth",
     });
   }, []);
+
   return (
     <div className="min-h-[100vh] bg-beige">
       <div className="pt-28 p-20 max-w-[90vw] m-auto">
@@ -47,7 +44,9 @@ const StylizedProductPage = () => {
                   <button>
                     <Minus strokeWidth={2} width={18} />
                   </button>
-                  <span className="text-xl inline-block align-middle">1</span>
+                  <span className="text-xl inline-block align-middle">
+                    {count}
+                  </span>
                   <button>
                     <Plus strokeWidth={2} width={18} />
                   </button>
@@ -55,7 +54,10 @@ const StylizedProductPage = () => {
               </div>
             </div>
             <div>
-              <button className="transition-all duration-200 border-2 border-transparent hover:bg-beige hover:text-forest-green  hover:border-forest-green mt-5 block p-6 py-3 w-full text-center rounded-full text-base font-bold text-beige bg-forest-green uppercase">
+              <button
+                onClick={() => dispatch(addToCart(product.id, products))}
+                className="transition-all duration-200 border-2 border-transparent hover:bg-beige hover:text-forest-green  hover:border-forest-green mt-5 block p-6 py-3 w-full text-center rounded-full text-base font-bold text-beige bg-forest-green uppercase"
+              >
                 Add to cart
               </button>
             </div>
@@ -86,16 +88,7 @@ const StylizedProductPage = () => {
                     >
                       <Disclosure.Panel className="px-4 pt-4 pb-2">
                         <div className="flex items-center mb-3 text-lg">
-                          Ficus Audrey (Ficus benghalensis) gets your attention
-                          with her velvet green leaves. Pale green veins define
-                          the elliptical-shaped leaves. This plant is an
-                          epiphyte in the wild and puts out aerial roots to
-                          penetrate the ground. While they grow enormously in
-                          their native land, they'll be on its best behavior and
-                          be a statue of luxury in your home, reaching 10 feet
-                          tall and 3 feet wide typically. Audrey is not as fussy
-                          as her cousin Ficus lyrata and can recover quicker
-                          when stressed.
+                          {product.description}
                         </div>
                       </Disclosure.Panel>
                     </Transition>
@@ -156,9 +149,9 @@ const StylizedProductPage = () => {
             <>
               <div className="text-5xl mb-5">People also browsed...</div>
               <div className="flex flex-col md:grid md:grid-cols-3 gap-5">
-                <ProductCard product={products[0]} />
-                <ProductCard product={products[0]} />
-                <ProductCard product={products[0]} />
+                {products.slice(0, 3).map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
               </div>
             </>
           ) : null}

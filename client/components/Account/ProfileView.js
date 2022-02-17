@@ -1,9 +1,12 @@
-import React, { useState } from "react";
-import { useFormik, Formik, Form, ErrorMessage, Field } from "formik";
+import React, { Fragment, useState } from "react";
+import { Formik, Form, ErrorMessage, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../store";
 import { Check } from "react-feather";
 import * as Yup from "yup";
+import { useLocation } from "react-router-dom";
+import includes from "lodash/includes";
+import { createGuest } from "../../store";
 
 const ProfileFormSchema = Yup.object().shape({
   firstName: Yup.string("Invalid value")
@@ -20,16 +23,22 @@ const ProfileFormSchema = Yup.object().shape({
 const ProfileView = () => {
   const [success, setSuccess] = useState(false);
   const dispatch = useDispatch();
+  const location = useLocation();
   const currUser = useSelector((state) => state.auth);
   return (
     <div>
-      <div className="text-5xl mb-5">My profile</div>
-      {success ? (
-        <div className="mt2 py-3 px-5 bg-forest-green flex gap-2 text-white rounded-lg">
-          <Check strokeWidth={1} />
-          Your account has been updated
-        </div>
+      {!includes(location.pathname, "checkout") ? (
+        <Fragment>
+          <div className="text-5xl mb-5">My profile</div>
+          {success ? (
+            <div className="mt2 py-3 px-5 bg-forest-green flex gap-2 text-white rounded-lg">
+              <Check strokeWidth={1} />
+              Your account has been updated
+            </div>
+          ) : null}
+        </Fragment>
       ) : null}
+
       <Formik
         initialValues={{
           firstName: `${currUser.firstName || ""}`,
@@ -38,8 +47,13 @@ const ProfileView = () => {
         }}
         validationSchema={ProfileFormSchema}
         onSubmit={(values) => {
-          dispatch(updateUser(values, currUser.id));
-          setSuccess(true);
+          if (!includes(location.pathname, "checkout")) {
+            dispatch(updateUser(values, currUser.id));
+            setSuccess(true);
+          } else {
+            console.log("woooooo");
+            dispatch(createGuest(values));
+          }
         }}
       >
         <Form className="max-w-3xl flex flex-col">
