@@ -38,19 +38,19 @@ const ProductMenu = () => {
                         By category
                       </div>
                       <Link
-                        to="/products/categories/indoor"
+                        to="/products?type=indoor"
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Indoor plants
                       </Link>
                       <Link
-                        to="/products/categories/succulent"
+                        to="/products?type=succulent"
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Succulents
                       </Link>
                       <Link
-                        to="/products/categories/herb"
+                        to="/products?type=herb"
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Herbs
@@ -68,19 +68,19 @@ const ProductMenu = () => {
                         Featured
                       </div>
                       <Link
-                        to="/products/featured/pet-friendly"
+                        to="/products?isPetFriendly=true"
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Pet-friendly plants
                       </Link>
                       <Link
-                        to="/products/featured/beginners"
+                        to="/products?difficulty=easy"
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Best beginner plants
                       </Link>
                       <Link
-                        to="/products/featured/low-light"
+                        to="/products?light=low"
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Low light plants
