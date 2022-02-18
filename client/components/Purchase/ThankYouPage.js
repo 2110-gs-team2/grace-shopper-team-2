@@ -9,7 +9,7 @@ const ThankYouPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(completeOrder(params.orderId));
+    if (params.orderId) dispatch(completeOrder(params.orderId));
   }, []);
 
   return (

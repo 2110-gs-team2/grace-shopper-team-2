@@ -148,6 +148,11 @@ export const completeOrder = (orderId) => {
         `/api/order-items/order/${orderId}`
       );
 
+      // complete the order by putting a timestamp
+      await axios.put(`/api/orders/${orderId}`, {
+        completedTimestamp: new Date(),
+      });
+
       await Promise.all(
         cart.map((item) => {
           let itemInDb = currItems.find(
@@ -170,8 +175,8 @@ export const completeOrder = (orderId) => {
       );
     }
 
-    window.localStorage.removeItem("cart");
-    dispatch(_setCart());
+    window.localStorage.setItem("cart", "[]");
+    dispatch(_resetCart());
   };
 };
 
