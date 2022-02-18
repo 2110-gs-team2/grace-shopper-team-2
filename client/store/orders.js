@@ -12,15 +12,15 @@ const _fetchOrders = (orders) => {
 export const fetchOrders = (userId) => {
   return async (dispatch) => {
     const { data: orders } = await axios.get(`/api/orders/user/${userId}`);
-    const itemResults = await Promise.all(
+    let itemResults = await Promise.all(
       orders.map((o) => axios.get(`/api/order-items/order/${o.id}`))
     );
-    orders.forEach((o) => {
-      const items = itemResults.filter((item) => {
-        const itemArr = item.data;
-        return itemArr[0].orderId === o.id;
-      });
-      o.items = items[0].data;
+    itemResults = itemResults.map((i) => i.data);
+    await orders.forEach((o) => {
+      const itemArray = itemResults.find(
+        (arr) => arr[0] && arr[0].orderId === o.id
+      );
+      o.items = itemArray || [];
     });
 
     dispatch(_fetchOrders(orders));

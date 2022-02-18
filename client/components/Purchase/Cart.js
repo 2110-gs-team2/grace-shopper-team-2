@@ -37,16 +37,23 @@ const Cart = (props) => {
     dispatch(fetchCart());
   }, []);
 
+  // console.log("whats the prevCartRef", prevCartRef);
+  // console.log("whats the cart", cart);
   useEffect(() => {
     if (
-      (prevCartRef.current.length !== 0 || cart.length === 1) &&
-      prevCartRef.current !== cart &&
       !includes(location.pathname, "checkout") &&
       !includes(location.pathname, "thank-you")
     ) {
-      // opens slide when cart content changes
-      openSlideOver();
+      if (
+        prevCartRef.current.length !== 0 &&
+        prevCartRef.current !== cart
+        // || (prevCartRef.current.length === 0 && cart.length === 1)
+      ) {
+        // opens slide when cart content changes
+        openSlideOver();
+      }
     }
+
     prevCartRef.current = cart;
   }, [cart]);
 
