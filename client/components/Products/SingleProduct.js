@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { isArray } from "lodash";
 
 import Carousel from "./Carousel";
-import { Minus, Plus, Sun, Frown, Scissors } from "react-feather";
+import { Minus, Plus, Sun, Frown, Scissors, Smile } from "react-feather";
 import { Disclosure, Transition } from "@headlessui/react";
 import ProductCard from "./ProductCard";
 import { getAllProducts } from "../../store/products";
@@ -154,16 +154,45 @@ class SingleProduct extends Component {
                             <div className="flex justify-between">
                               <Sun strokeWidth={1} />
                               <div className="text-lg">
-                                Low to bright indirect light
+                                {product.light === "LOW"
+                                  ? "Low to bright indirect light"
+                                  : null}
+                                {product.light === "INDIRECT"
+                                  ? "Bright indirect light"
+                                  : null}
+                                {product.light === "DIRECT"
+                                  ? "Direct sunlight"
+                                  : null}
                               </div>
                             </div>
-                            <div className="flex justify-between">
-                              <Frown strokeWidth={1} />
-                              <div className="text-lg">Toxic for pets</div>
-                            </div>
+                            {product.isPetFriendly ? (
+                              <div className="flex justify-between">
+                                <Smile strokeWidth={1} />
+                                <div className="text-lg">
+                                  Non-toxic and pet-friendly
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="flex justify-between">
+                                <Frown strokeWidth={1} />
+                                <div className="text-lg">Toxic for pets</div>
+                              </div>
+                            )}
+
                             <div className="flex justify-between">
                               <Scissors strokeWidth={1} />
-                              <div className="text-lg">Easy to care</div>
+                              <div className="text-lg">
+                                {" "}
+                                {product.difficulty === "EASY"
+                                  ? "Easy to care"
+                                  : null}
+                                {product.difficulty === "MODERATE"
+                                  ? "Relatively low maintenance"
+                                  : null}
+                                {product.difficulty === "EXPERT"
+                                  ? "Diva plant -- needs extra care"
+                                  : null}
+                              </div>
                             </div>
                           </div>
                         </Disclosure.Panel>
@@ -208,7 +237,5 @@ const mapDispatchToProps = (dispatch) => {
     },
   };
 };
-
-// const mapDispatchToProps = { getSingleProduct, getAllProducts };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);
