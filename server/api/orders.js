@@ -24,6 +24,19 @@ router.get("/:orderId", async (req, res, next) => {
   }
 });
 
+// UPDATE existing order
+router.put("/:orderId", async (req, res, next) => {
+  try {
+    const updatedOrder = await Order.findOne({
+      where: { id: req.params.orderId },
+    });
+    updatedOrder.update(req.body);
+    res.send(updatedOrder);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // GET individual user's set of orders
 router.get("/user/:userId", async (req, res, next) => {
   try {

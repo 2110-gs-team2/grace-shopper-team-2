@@ -27,7 +27,7 @@ const OrderRows = ({ orders, auth }) => {
               </td>
               <td className="py-4 whitespace-nowrap">
                 <div className="">
-                  {format(new Date(o.createdAt), "MMM dd, yyy")}
+                  {format(new Date(o.completedTimestamp), "MMM dd, yyy")}
                 </div>
               </td>
               <td className="py-4 whitespace-nowrap">

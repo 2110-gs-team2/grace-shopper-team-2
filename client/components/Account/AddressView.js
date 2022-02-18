@@ -140,6 +140,9 @@ const AddressView = () => {
                   className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
           "
                 >
+                  <option value="" disabled>
+                    State
+                  </option>
                   {states.map((s, idx) => (
                     <option key={s} value={s}>
                       {s}

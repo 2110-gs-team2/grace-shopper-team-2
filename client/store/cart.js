@@ -136,30 +136,22 @@ export const subFromQuantity = (id) => {
   };
 };
 
-export const convertCartToOrder = (user) => {
+export const completeOrder = (orderId) => {
   return async (dispatch) => {
     // if authenticated we create or find an open order
-    if (user.id) {
-      const { data: userOrders } = await axios.get(
-        `/api/orders/user/${user.id}`
-      );
-      let incompleteOrder = userOrders.find(
-        (order) => !order.completedTimestamp
-      );
-
-      // if there is none, create one for them
-      if (!incompleteOrder) {
-        incompleteOrder = (await axios.post("/api/orders", { userId: user.id }))
-          .data;
-      }
-
+    if (orderId) {
       // create OrderItems based on their localStorage('cart') data row
       const cart = JSON.parse(window.localStorage.getItem("cart"));
 
       // get all items associated with order
       const { data: currItems } = await axios.get(
-        `/api/order-items/order/${incompleteOrder.id}`
+        `/api/order-items/order/${orderId}`
       );
+
+      // complete the order by putting a timestamp
+      await axios.put(`/api/orders/${orderId}`, {
+        completedTimestamp: new Date(),
+      });
 
       await Promise.all(
         cart.map((item) => {
@@ -168,7 +160,7 @@ export const convertCartToOrder = (user) => {
           );
           if (!itemInDb) {
             return axios.post("/api/order-items", {
-              orderId: incompleteOrder.id,
+              orderId,
               productId: item.id,
               quantity: item.quantity,
               price: item.price,
@@ -183,7 +175,7 @@ export const convertCartToOrder = (user) => {
       );
     }
 
-    window.localStorage.removeItem("cart");
+    window.localStorage.setItem("cart", "[]");
     dispatch(_resetCart());
   };
 };

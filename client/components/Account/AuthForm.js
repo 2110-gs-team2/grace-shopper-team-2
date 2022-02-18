@@ -1,16 +1,62 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { authenticate } from "../../store";
-
+import history from "../../history";
+import { useLocation } from "react-router-dom";
+import includes from "lodash/includes";
 /**
  * COMPONENT
  */
 const AuthForm = (props) => {
+  const location = useLocation();
   const { name, displayName, handleSubmit, error } = props;
+
+  const returnToHome = () => {
+    history.push("/");
+  };
 
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name} className="flex flex-col">
+      <form
+        onSubmit={(evt) => {
+          handleSubmit(evt);
+          if (!includes(location.pathname, "checkout")) returnToHome();
+        }}
+        name={name}
+        className="flex flex-col"
+      >
+        {name === "signup" ? (
+          <div className="flex m-0 gap-5 w-full">
+            <div className="m-0 grow">
+              <label
+                htmlFor="firstName"
+                className="text-sm font-bold uppercase pt-5 pb-3"
+              >
+                First Name
+              </label>
+              <input
+                name="firstName"
+                type="text"
+                className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
+          "
+              />
+            </div>
+            <div className="m-0 grow">
+              <label
+                htmlFor="lastName"
+                className="text-sm font-bold uppercase pt-5 pb-3"
+              >
+                Last Name
+              </label>
+              <input
+                name="lastName"
+                type="text"
+                className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
+          "
+              />
+            </div>
+          </div>
+        ) : null}
         <label
           htmlFor="email"
           className="text-sm font-bold uppercase pt-5 pb-3"
@@ -70,7 +116,9 @@ const AuthForm = (props) => {
           </Fragment>
         ) : null}
 
-        {error && error.response && <div> {error.response.data} </div>}
+        {error && error.response && (
+          <div className="text-red-700"> {error.response.data} </div>
+        )}
       </form>
     </div>
   );
@@ -100,13 +148,19 @@ const mapSignup = (state) => {
 };
 
 const mapDispatch = (dispatch) => {
+  let firstName = "";
+  let lastName = "";
   return {
     handleSubmit(evt) {
       evt.preventDefault();
+      if (evt.target.name === "signup") {
+        firstName = evt.target.firstName.value;
+        lastName = evt.target.lastName.value;
+      }
       const formName = evt.target.name;
       const username = evt.target.email.value;
       const password = evt.target.password.value;
-      dispatch(authenticate(username, password, formName));
+      dispatch(authenticate(username, password, firstName, lastName, formName));
     },
   };
 };
