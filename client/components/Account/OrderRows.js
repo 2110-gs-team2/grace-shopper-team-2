@@ -57,6 +57,7 @@ const OrderRows = ({ orders, auth }) => {
 };
 
 const mapState = ({ auth, orders, products }) => {
+  console.log(orders, "what is orders");
   orders.forEach((o) => {
     const total = o.items.reduce((acc, item) => {
       acc += 1 * item.quantity * item.price;

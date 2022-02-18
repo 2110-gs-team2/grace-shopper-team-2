@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { getSingleProduct } from "../../store/products";
 import { isArray } from "lodash";
 
 import Carousel from "./Carousel";
@@ -9,9 +7,7 @@ import { Minus, Plus, Sun, Frown, Scissors } from "react-feather";
 import { Disclosure, Transition } from "@headlessui/react";
 import ProductCard from "./ProductCard";
 import { getAllProducts } from "../../store/products";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
-import { addToCart, subFromQuantity, addToQuantity } from "../../store/cart";
+import { addToCart } from "../../store/cart";
 
 class SingleProduct extends Component {
   constructor() {
