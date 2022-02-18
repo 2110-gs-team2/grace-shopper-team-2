@@ -47,8 +47,8 @@ class Routes extends Component {
           <Route exact path="/testqs" component={Test_SetQueryStrings} />
           {/* Testing end */}
           <Route exact path="/products" component={AllProducts} />
-          {/* <Route exact path="/products/:slug" component={SingleProduct} /> */}
-          <Route exact path="/products/:slug" component={StylizedProductPage} />
+          <Route exact path="/products/:slug" component={SingleProduct} />
+          {/* <Route exact path="/products/:slug" component={StylizedProductPage} /> */}
           <Route path="/my-account/orders/:id">
             {!token ? <Redirect to="/login" /> : <MyAccount />}
           </Route>
