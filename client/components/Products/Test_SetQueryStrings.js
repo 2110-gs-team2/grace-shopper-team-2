@@ -11,7 +11,7 @@ class Test_SetQueryStrings extends Component {
     super();
     this.state = {
       type: "indoor",
-      difficulty: "beginners",
+      difficulty: "easy",
       size: "small"
     };
   }

@@ -1,5 +1,5 @@
 import React, { Component, useEffect } from "react";
-import { Check, ChevronDown, MoreHorizontal } from "react-feather";
+import { Check, ChevronDown, MoreHorizontal, TrendingUp } from "react-feather";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "../../store";
 import products, { getAllProducts } from "../../store/products";
@@ -13,8 +13,14 @@ import {
 import { useParams } from "react-router-dom";
 import startCase from "lodash/startcase";
 import ProductCard from "./ProductCard";
+import queryString from "query-string";
 
-const StylizedProducts = () => {
+const StylizedProducts = (props) => {
+  let queryObj = {};
+  if (props.location.search.includes("?")) {
+    queryObj = queryString.parse(props.location.search);
+    console.log(queryObj, "Query object"); // Remove after testing
+  }
   const dispatch = useDispatch();
   const params = useParams();
   const currProducts = useSelector((state) => {
@@ -35,7 +41,7 @@ const StylizedProducts = () => {
       <div className="min-h-[100vh] bg-beige">
         <div className="min-h-[120vh] pt-28 p-20 max-w-[90vw] m-auto">
           <div className="flex justify-between mb-5">
-            <div className="text-5xl">{startCase(params.type)}s</div>
+            <div className="text-4xl">{startCase(params.type)}Filter</div>
             <select className="focus:outline-none block p-6 py-3  text-center rounded-full text-base font-bold bg-forest-green text-beige uppercase">
               <option value="">Sort by</option>
             </select>
@@ -63,7 +69,13 @@ const StylizedProducts = () => {
                             name={type}
                             type="checkbox"
                             value={type}
-                            defaultChecked={false}
+                            defaultChecked={
+                              Object.values(queryObj).includes(
+                                type.toLowerCase()
+                              )
+                                ? true
+                                : false
+                            }
                             className="h-8 w-8 border-2 rounded-lg border-forest-green  focus:text-forest-green focus:ring-forest-green focus:outline-none checked:hover:bg-forest-green checked:bg-forest-green bg-beige"
                           />
                           <label
@@ -99,7 +111,13 @@ const StylizedProducts = () => {
                             name={size}
                             type="checkbox"
                             value={size}
-                            defaultChecked={false}
+                            defaultChecked={
+                              Object.values(queryObj).includes(
+                                size.toLowerCase()
+                              )
+                                ? true
+                                : false
+                            }
                             className="h-8 w-8 border-2 rounded-lg border-forest-green  focus:text-forest-green focus:ring-forest-green focus:outline-none checked:hover:bg-forest-green checked:bg-forest-green bg-beige"
                           />
                           <label
@@ -135,7 +153,13 @@ const StylizedProducts = () => {
                             name={light}
                             type="checkbox"
                             value={light}
-                            defaultChecked={false}
+                            defaultChecked={
+                              Object.values(queryObj).includes(
+                                light.toLowerCase()
+                              )
+                                ? true
+                                : false
+                            }
                             className="h-8 w-8 border-2 rounded-lg border-forest-green  focus:text-forest-green focus:ring-forest-green focus:outline-none checked:hover:bg-forest-green checked:bg-forest-green bg-beige"
                           />
                           <label
@@ -171,7 +195,13 @@ const StylizedProducts = () => {
                             name={difficulty}
                             type="checkbox"
                             value={difficulty}
-                            defaultChecked={false}
+                            defaultChecked={
+                              Object.values(queryObj).includes(
+                                difficulty.toLowerCase()
+                              )
+                                ? true
+                                : false
+                            }
                             className="h-8 w-8 border-2 rounded-lg border-forest-green  focus:text-forest-green focus:ring-forest-green focus:outline-none checked:hover:bg-forest-green checked:bg-forest-green bg-beige"
                           />
                           <label
@@ -203,7 +233,11 @@ const StylizedProducts = () => {
                           name="petFriendly"
                           type="checkbox"
                           value={false}
-                          defaultChecked={false}
+                          defaultChecked={
+                            Object.keys(queryObj).includes("isPetFriendly")
+                              ? true
+                              : false
+                          }
                           className="h-8 w-8 border-2 rounded-lg border-forest-green  focus:text-forest-green focus:ring-forest-green focus:outline-none checked:hover:bg-forest-green checked:bg-forest-green bg-beige"
                         />
                         <label

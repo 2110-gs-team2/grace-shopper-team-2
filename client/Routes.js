@@ -4,7 +4,6 @@ import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { LoginPage, SignupPage } from "./components/Account/AuthPage";
 import MyAccount from "./components/Account/MyAccount";
 import Main from "./components/HomePage/Main";
-import AllProducts from "./components/Products/AllProducts";
 import ByFeaturedType from "./components/Products/ByFeaturedType";
 import SingleProduct from "./components/Products/SingleProduct";
 import AdminView from "./components/Admin/AdminView";
@@ -33,20 +32,28 @@ class Routes extends Component {
           <Route path="/cart" exact component={Cart} />
           <Route
             exact
-            path="/products/categories/:type"
-            component={StylizedProducts}
+            path="/products"
+            component={withRouter(StylizedProducts)}
           />
           <Route
             exact
+            path="/products/:slug"
+            component={SingleProduct}
+          />
+          {/* <Route
+            exact
+            path="/products/categories/:type"
+            component={withRouter(StylizedProducts)}
+          /> */}
+          {/* <Route
+            exact
             path="/products/featured/:type"
             component={withRouter(ByFeaturedType)}
-          />
+          /> */}
           {/* Testing */}
           <Route exact path="/test" component={Test_GetQueryStrings} />
           <Route exact path="/testqs" component={Test_SetQueryStrings} />
           {/* Testing end */}
-          <Route exact path="/products" component={AllProducts} />
-          <Route exact path="/products/:slug" component={SingleProduct} />
           <Route path="/my-account/orders/:id">
             {!token ? <Redirect to="/login" /> : <MyAccount />}
           </Route>
