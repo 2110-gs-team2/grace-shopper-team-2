@@ -67,7 +67,33 @@ export const updateUser = (user, id) => {
 export const createGuest = (guest) => {
   return async (dispatch) => {
     const { data: newGuest } = await axios.post(`/api/users/`, guest);
+    // create openOrder
+    let incompleteOrder = (
+      await axios.post("/api/orders", { userId: newGuest.id })
+    ).data;
+    newGuest.openOrder = incompleteOrder;
     dispatch(setAuth(newGuest));
+  };
+};
+
+export const setOpenOrder = (user) => {
+  return async (dispatch) => {
+    if (user.id) {
+      const { data: userOrders } = await axios.get(
+        `/api/orders/user/${user.id}`
+      );
+      let incompleteOrder = userOrders.find(
+        (order) => !order.completedTimestamp
+      );
+
+      // if there is none, create one for them
+      if (!incompleteOrder) {
+        incompleteOrder = (await axios.post("/api/orders", { userId: user.id }))
+          .data;
+      }
+      user.openOrder = incompleteOrder;
+      dispatch(setAuth(user));
+    }
   };
 };
 

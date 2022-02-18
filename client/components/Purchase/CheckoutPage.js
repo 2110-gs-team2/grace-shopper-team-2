@@ -1,8 +1,6 @@
-import { LockClosedIcon } from "@heroicons/react/solid";
-import React, { Component, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Check, MoreHorizontal, HelpCircle, Edit3 } from "react-feather";
 import { useDispatch, useSelector } from "react-redux";
-import { me } from "../../store";
 import CartCard from "./CartCard";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
@@ -11,7 +9,6 @@ import CheckoutForm from "./CheckoutForm";
 import { cartSubTotal } from "./Cart";
 import AuthenticationModal from "./AuthenticationModal";
 import AddressView from "../Account/AddressView";
-import { convertCartToOrder } from "../../store/cart";
 const stripePromise = loadStripe(
   "pk_test_51KTcZ8G6iunwbpRu5GmvFjN92ftNqJy6Jo3rK2OgxD2EFLtBjPz9NyvpyKhGL8NBe79XEgEbWTXaVnZ5tBtP5EPP008ToSXphu"
 );
@@ -21,6 +18,7 @@ const CheckoutPage = () => {
   const dispatch = useDispatch();
   const currUser = useSelector((state) => state.auth);
   const cart = useSelector((state) => state.cart);
+  const prevUserRef = useRef(currUser);
 
   const items = [{ id: "xl-tshirt" }];
   useEffect(() => {
@@ -29,15 +27,13 @@ const CheckoutPage = () => {
       let clientSecret = data.clientSecret;
       setClientSecret(clientSecret);
     }
-
     getClientSecret();
-    dispatch(me());
   }, []);
 
   const appearance = {
     theme: "stripe",
     variables: {
-      colorPrimary: "#2D4323",
+      colorPrimary: "#FFFFFF",
       colorBackground: "#FFFFFF",
       colorText: "#30313d",
       colorDanger: "#B91C1C",

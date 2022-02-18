@@ -14,6 +14,7 @@ import StylizedProductPage from "./components/Products/StylizedProductPage";
 import Test_GetQueryStrings from "./components/Products/Test_GetQueryStrings";
 import Test_SetQueryStrings from "./components/Products/Test_SetQueryStrings";
 import Cart from "./components/Purchase/Cart";
+import ThankYouPage from "./components/Purchase/ThankYouPage";
 import { me } from "./store";
 
 class Routes extends Component {
@@ -57,6 +58,7 @@ class Routes extends Component {
           <Route path="/login" exact component={LoginPage} />
           <Route path="/signup" exact component={SignupPage} />
           <Route path="/checkout" exact component={CheckoutPage} />
+          <Route path="/thank-you/:orderId" component={ThankYouPage} />
           <Route path="/manage" exact>
             {!isAdmin ? <Redirect to="/" /> : <AdminView />}
           </Route>

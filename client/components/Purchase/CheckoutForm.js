@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   PaymentElement,
   useStripe,
@@ -7,6 +7,7 @@ import {
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { convertCartToOrder } from "../../store/cart";
 import { useDispatch, useSelector } from "react-redux";
+import { setOpenOrder } from "../../store";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -15,6 +16,13 @@ const CheckoutForm = () => {
   const currUser = useSelector((state) => state.auth);
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const prevUserRef = useRef(currUser);
+
+  useEffect(() => {
+    if (!prevUserRef.current.openOrder || !prevUserRef.current.id)
+      dispatch(setOpenOrder(currUser));
+    prevUserRef.current = currUser;
+  }, [currUser]);
 
   useEffect(() => {
     if (!stripe) return;
@@ -55,14 +63,10 @@ const CheckoutForm = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        // return_url: "http://localhost:8080/thank-you",
+        return_url: `http://localhost:8080/thank-you/${currUser.openOrder.id}`,
       },
     });
 
-    if (!error) {
-      console.log("no errors were returned!");
-      dispatch(convertCartToOrder(currUser));
-    }
 
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);

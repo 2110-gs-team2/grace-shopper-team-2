@@ -5,9 +5,8 @@ import { Transition, Dialog } from "@headlessui/react";
 import { Package, X } from "react-feather";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import CartCard from "./CartCard";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import includes from "lodash/includes";
-import axios from "axios";
 
 //subtotal function
 export const cartSubTotal = (arr) => {
@@ -31,7 +30,7 @@ const Cart = (props) => {
   });
   //redux hooks for cart store
   const dispatch = useDispatch();
-  const prevCountRef = useRef(cart);
+  const prevCartRef = useRef(cart);
   const location = useLocation();
 
   useEffect(() => {
@@ -40,14 +39,15 @@ const Cart = (props) => {
 
   useEffect(() => {
     if (
-      prevCountRef.current.length !== 0 &&
-      prevCountRef !== cart &&
-      !includes(location.pathname, "checkout")
+      prevCartRef.current.length !== 0 &&
+      prevCartRef !== cart &&
+      !includes(location.pathname, "checkout") &&
+      !includes(location.pathname, "thank-you")
     ) {
       // opens slide when cart content changes
       openSlideOver();
     }
-    prevCountRef.current = cart;
+    prevCartRef.current = cart;
   }, [cart]);
 
   const closeSlideover = () => {
