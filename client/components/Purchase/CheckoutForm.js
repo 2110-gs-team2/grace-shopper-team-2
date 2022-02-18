@@ -55,11 +55,14 @@ const CheckoutForm = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:8080/thank-you",
+        // return_url: "http://localhost:8080/thank-you",
       },
     });
 
-    if (!error) dispatch(convertCartToOrder(currUser));
+    if (!error) {
+      console.log("no errors were returned!");
+      dispatch(convertCartToOrder(currUser));
+    }
 
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);

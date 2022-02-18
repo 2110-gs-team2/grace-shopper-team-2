@@ -22,8 +22,6 @@ const CheckoutPage = () => {
   const currUser = useSelector((state) => state.auth);
   const cart = useSelector((state) => state.cart);
 
-  console.log(currUser, "currUse???");
-
   const items = [{ id: "xl-tshirt" }];
   useEffect(() => {
     async function getClientSecret() {
@@ -73,7 +71,7 @@ const CheckoutPage = () => {
                       strokeWidth="1"
                       className="text-beige w-9 h-9"
                     />
-                    Login
+                    Provide your info
                   </div>
                   <div className="flex justify-between gap-5">
                     <AuthenticationModal operation="LOGIN" />
