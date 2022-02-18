@@ -16,8 +16,11 @@ export const fetchOrders = (userId) => {
       orders.map((o) => axios.get(`/api/order-items/order/${o.id}`))
     );
     orders.forEach((o) => {
-      const items = itemResults.find((item) => item.data[0].orderId === o.id);
-      o.items = items.data;
+      const items = itemResults.filter((item) => {
+        const itemArr = item.data;
+        return itemArr[0].orderId === o.id;
+      });
+      o.items = items[0].data;
     });
 
     dispatch(_fetchOrders(orders));

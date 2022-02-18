@@ -39,8 +39,8 @@ const Cart = (props) => {
 
   useEffect(() => {
     if (
-      prevCartRef.current.length !== 0 &&
-      prevCartRef !== cart &&
+      (prevCartRef.current.length !== 0 || cart.length === 1) &&
+      prevCartRef.current !== cart &&
       !includes(location.pathname, "checkout") &&
       !includes(location.pathname, "thank-you")
     ) {

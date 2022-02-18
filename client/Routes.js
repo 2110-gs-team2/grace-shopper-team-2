@@ -10,7 +10,6 @@ import SingleProduct from "./components/Products/SingleProduct";
 import AdminView from "./components/Admin/AdminView";
 import StylizedProducts from "./components/Products/StylizedProducts";
 import CheckoutPage from "./components/Purchase/CheckoutPage";
-import StylizedProductPage from "./components/Products/StylizedProductPage";
 import Test_GetQueryStrings from "./components/Products/Test_GetQueryStrings";
 import Test_SetQueryStrings from "./components/Products/Test_SetQueryStrings";
 import Cart from "./components/Purchase/Cart";
@@ -47,8 +46,7 @@ class Routes extends Component {
           <Route exact path="/testqs" component={Test_SetQueryStrings} />
           {/* Testing end */}
           <Route exact path="/products" component={AllProducts} />
-          {/* <Route exact path="/products/:slug" component={SingleProduct} /> */}
-          <Route exact path="/products/:slug" component={StylizedProductPage} />
+          <Route exact path="/products/:slug" component={SingleProduct} />
           <Route path="/my-account/orders/:id">
             {!token ? <Redirect to="/login" /> : <MyAccount />}
           </Route>

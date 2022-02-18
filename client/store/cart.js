@@ -55,7 +55,7 @@ export const fetchCart = () => {
     dispatch(_setCart(JSON.parse(window.localStorage.getItem("cart"))));
   };
 };
-export const addToCart = (id, productArray) => {
+export const addToCart = (id, productArray, quantity) => {
   return (dispatch) => {
     //pull localStorage cart
     const cart = JSON.parse(window.localStorage.getItem("cart"));
@@ -65,7 +65,8 @@ export const addToCart = (id, productArray) => {
     const productCheck = cart.find((product) => product.id === id);
     //if not in cart, push to cart, update quantity, & dispatch to store
     if (!productCheck) {
-      product.quantity = 1;
+      if (!quantity) quantity = 1;
+      product.quantity = quantity;
       cart.push(product);
       dispatch(_addToCart(product));
       //send cart back to localStorage
@@ -73,7 +74,7 @@ export const addToCart = (id, productArray) => {
       window.localStorage.setItem("cart", cartJSON);
     } else {
       //if item in cart already, increase quantity x 1
-      dispatch(addToQuantity(product.id));
+      dispatch(addToQuantity(product.id, quantity));
     }
   };
 };
@@ -92,7 +93,7 @@ export const removeFromCart = (id) => {
   };
 };
 
-export const addToQuantity = (id) => {
+export const addToQuantity = (id, quantity) => {
   return (dispatch) => {
     let productIdx = 0;
     //pull localStorage cart
@@ -105,7 +106,8 @@ export const addToQuantity = (id) => {
       }
     });
     //increment product quantity by 1 via assigned index value
-    cart[productIdx].quantity = cart[productIdx].quantity + 1;
+    if (!quantity) quantity = 1;
+    cart[productIdx].quantity = cart[productIdx].quantity + quantity;
     //send updated cart back to localStorage
     const cartJSON = JSON.stringify(cart);
     window.localStorage.setItem("cart", cartJSON);
