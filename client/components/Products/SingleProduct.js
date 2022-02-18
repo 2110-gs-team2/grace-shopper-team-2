@@ -89,7 +89,7 @@ class SingleProduct extends Component {
               </div>
               <div>
                 <button
-                  onClick={() => addToCart(product.id, products)}
+                  onClick={() => addToCart(product.id, products, count)}
                   className="transition-all duration-200 border-2 border-transparent hover:bg-beige hover:text-forest-green  hover:border-forest-green mt-5 block p-6 py-3 w-full text-center rounded-full text-base font-bold text-beige bg-forest-green uppercase"
                 >
                   Add to cart
@@ -207,8 +207,8 @@ const mapDispatchToProps = (dispatch) => {
     getAllProducts: () => {
       dispatch(getAllProducts());
     },
-    addToCart: (productId, products) => {
-      dispatch(addToCart(productId, products));
+    addToCart: (productId, products, count) => {
+      dispatch(addToCart(productId, products, count));
     },
   };
 };
