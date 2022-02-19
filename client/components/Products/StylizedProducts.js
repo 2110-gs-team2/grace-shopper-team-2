@@ -10,10 +10,17 @@ import {
   sizes,
   types,
 } from "../Admin/SingleInventoryForm";
-import { useParams } from "react-router-dom";
 import startCase from "lodash/startcase";
 import ProductCard from "./ProductCard";
 import queryString from "query-string";
+
+/* To-do
+- If products are already loaded in redux store, should we keep calling same thunk?
+- Filter products according to query strings (currently only works for one filter)
+- Create a clearFilters function
+- Modify url if user manually adds any filters
+- Add sort-by options and create function
+*/
 
 const StylizedProducts = (props) => {
   let queryObj = {};
@@ -21,27 +28,61 @@ const StylizedProducts = (props) => {
     queryObj = queryString.parse(props.location.search);
     console.log(queryObj, "Query object"); // Remove after testing
   }
+
   const dispatch = useDispatch();
-  const params = useParams();
-  const currProducts = useSelector((state) => {
-    if (params.type) {
-      return state.products.filter(
-        (product) => product.type === params.type.toUpperCase()
-      );
-    }
-    return state.products;
-  });
   useEffect(() => {
     dispatch(getAllProducts());
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
+
+  //---This only works with one filter criteria---
+  // const currProducts = useSelector((state) => {
+  //   if (Object.keys(queryObj).length) {
+  //     for (const [key, value] of Object.entries(queryObj)) {
+  //       if (key === "isPetFriendly") {
+  //         const myBool = (value === "true");
+  //         return state.products.filter(
+  //           (product) => product[key] === myBool
+  //         );
+  //       } else {
+  //         return state.products.filter(
+  //           (product) => product[key] === value.toUpperCase()
+  //         );
+  //       }
+  //     }
+  //   }
+  //   return state.products;
+  // });
+
+  /*
+  ***In progress...probably need recursion***
+  Idea - Function takes in array of object.keys from the filters and array of objects to filter. Pop first key from obj.keys arr, filter objects array with it, if obj.keys array still not empty return a call to the same func. Passing in the obj.keys( minus the one just used ) and the filtered array. Else return the filtered array
+  */
+  const currProducts = useSelector((state) => {
+    if (Object.keys(queryObj).length) {
+      for (const [key, value] of Object.entries(queryObj)) {
+        if (key === "isPetFriendly") {
+          const myBool = (value === "true");
+          return state.products.filter(
+            (product) => product[key] === myBool
+          );
+        } else {
+          return state.products.filter(
+            (product) => product[key] === value.toUpperCase()
+          );
+        }
+      }
+    }
+    return state.products;
+  });
+  console.log(currProducts, "CurrProducts"); // Remove after testing
 
   return (
     <div>
       <div className="min-h-[100vh] bg-beige">
         <div className="min-h-[120vh] pt-28 p-20 max-w-[90vw] m-auto">
           <div className="flex justify-between mb-5">
-            <div className="text-4xl">{startCase(params.type)}Filter</div>
+            <div className="text-4xl">Filter</div>
             <select className="focus:outline-none block p-6 py-3  text-center rounded-full text-base font-bold bg-forest-green text-beige uppercase">
               <option value="">Sort by</option>
             </select>
