@@ -58,8 +58,12 @@ export const logout = () => {
 };
 
 export const updateUser = (user, id) => {
+  const token = window.localStorage.getItem(TOKEN);
   return async (dispatch) => {
-    const { data: updatedUser } = await axios.put(`/api/users/${id}`, user);
+    const { data: updatedUser } = await axios.put(`/api/users/${id}`, {
+      user,
+      token,
+    });
     dispatch(_updateUser(updatedUser));
   };
 };
@@ -77,10 +81,17 @@ export const createGuest = (guest) => {
 };
 
 export const setOpenOrder = (user) => {
+  const token = window.localStorage.getItem(TOKEN);
+
   return async (dispatch) => {
     if (user.id) {
       const { data: userOrders } = await axios.get(
-        `/api/orders/user/${user.id}`
+        `/api/orders/user/${user.id}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
       );
       let incompleteOrder = userOrders.find(
         (order) => !order.completedTimestamp

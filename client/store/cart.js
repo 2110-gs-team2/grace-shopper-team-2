@@ -55,6 +55,8 @@ export const fetchCart = () => {
     dispatch(_setCart(JSON.parse(window.localStorage.getItem("cart"))));
   };
 };
+
+
 export const addToCart = (id, productArray, quantity) => {
   return (dispatch) => {
     //pull localStorage cart

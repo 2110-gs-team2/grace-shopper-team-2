@@ -1,5 +1,8 @@
 import axios from "axios";
 
+// Get token
+const token = window.localStorage.getItem("token");
+
 // Action types
 const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 const GET_SINGLE_PRODUCT = "GET_SINGLE_PRODUCT";
@@ -28,7 +31,10 @@ export const getSingleProduct = (id) => {
 };
 export const addProduct = (product) => {
   return async (dispatch) => {
-    const { data: newProduct } = await axios.post(`/api/products/`, product);
+    const { data: newProduct } = await axios.post(`/api/products/`, {
+      product,
+      token,
+    });
     dispatch(_updateProduct(newProduct));
   };
 };
@@ -37,7 +43,7 @@ export const updateProduct = (product) => {
   return async (dispatch) => {
     const { data: updatedProduct } = await axios.put(
       `/api/products/${product.id}`,
-      product
+      { product, token }
     );
     dispatch(_updateProduct(updatedProduct));
   };
@@ -45,7 +51,11 @@ export const updateProduct = (product) => {
 
 export const deleteProduct = (id) => {
   return async (dispatch) => {
-    await axios.delete(`/api/products/${id}`);
+    await axios.delete(`/api/products/${id}`, {
+      headers: {
+        authorization: token,
+      },
+    });
     dispatch(_deleteProduct(id));
   };
 };
