@@ -10,8 +10,13 @@ const _fetchUsers = (users) => {
 };
 
 export const fetchUsers = () => {
+  const token = window.localStorage.getItem("token");
   return async (dispatch) => {
-    const { data: users } = await axios.get(`/api/users`);
+    const { data: users } = await axios.get(`/api/users`, {
+      headers: {
+        authorization: token,
+      },
+    });
     dispatch(_fetchUsers(users));
   };
 };

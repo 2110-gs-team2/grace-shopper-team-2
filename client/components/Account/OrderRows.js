@@ -5,7 +5,6 @@ import { fetchOrders } from "../../store/orders";
 import format from "date-fns/format";
 import isPast from "date-fns/isPast";
 import { getAllProducts } from "../../store/products";
-import { me } from "../../store";
 
 const OrderRows = ({ orders, auth }) => {
   const dispatch = useDispatch();
@@ -57,7 +56,6 @@ const OrderRows = ({ orders, auth }) => {
 };
 
 const mapState = ({ auth, orders, products }) => {
-  console.log(orders, "what is orders");
   orders.forEach((o) => {
     const total = o.items.reduce((acc, item) => {
       acc += 1 * item.quantity * item.price;

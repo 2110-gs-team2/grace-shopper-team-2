@@ -13,11 +13,18 @@ import Test_GetQueryStrings from "./components/Products/Test_GetQueryStrings";
 import Test_SetQueryStrings from "./components/Products/Test_SetQueryStrings";
 import Cart from "./components/Purchase/Cart";
 import ThankYouPage from "./components/Purchase/ThankYouPage";
+import { setOpenOrder } from "./store";
 import { me } from "./store";
 
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevProps.isLoggedIn && this.props.isLoggedIn) {
+      this.props.setOpenOrder(this.props.auth);
+      console.log("youre logged in!");
+    }
   }
 
   render() {
@@ -35,11 +42,7 @@ class Routes extends Component {
             path="/products"
             component={withRouter(StylizedProducts)}
           />
-          <Route
-            exact
-            path="/products/:slug"
-            component={SingleProduct}
-          />
+          <Route exact path="/products/:slug" component={SingleProduct} />
           {/* <Route
             exact
             path="/products/categories/:type"
@@ -84,6 +87,10 @@ const mapState = ({ auth }) => {
 
 const mapDispatch = (dispatch) => {
   return {
+    setOpenOrder: (user) => {
+      dispatch(setOpenOrder(user));
+    },
+
     loadInitialData() {
       dispatch(me());
     },

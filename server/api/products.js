@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {
-  models: { Product },
+  models: { Product, User },
 } = require("../db");
 const { isUUID } = require("../utils");
 module.exports = router;
@@ -35,8 +35,15 @@ router.get("/:id", async (req, res, next) => {
 // ADD new product
 router.post("/", async (req, res, next) => {
   try {
-    const newProduct = await Product.create(req.body);
-    res.send(newProduct);
+    const user = await User.findByToken(req.body.token);
+    if (user && user.role === "ADMIN") {
+      const newProduct = await Product.create(req.body.product);
+      res.send(newProduct);
+    } else {
+      const error = Error("Not authorized to perform this action.");
+      error.status = 401;
+      throw error;
+    }
   } catch (error) {
     next(error);
   }
@@ -45,11 +52,18 @@ router.post("/", async (req, res, next) => {
 // UPDATE an individual product's information
 router.put("/:id", async (req, res, next) => {
   try {
+    const user = await User.findByToken(req.body.token);
     const product = await Product.findOne({
       where: { id: req.params.id },
     });
-    product.update(req.body);
-    res.send(product);
+    if (user && user.role === "ADMIN") {
+      product.update(req.body);
+      res.send(product);
+    } else {
+      const error = Error("Not authorized to perform this action.");
+      error.status = 401;
+      throw error;
+    }
   } catch (error) {
     next(error);
   }
@@ -58,9 +72,16 @@ router.put("/:id", async (req, res, next) => {
 // DELETE an individual product
 router.delete("/:id", async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.params.id);
-    await product.destroy();
-    res.sendStatus(204);
+    const user = await User.findByToken(req.headers.authorization);
+    if (user && user.role === "ADMIN") {
+      const product = await Product.findByPk(req.params.id);
+      await product.destroy();
+      res.sendStatus(204);
+    } else {
+      const error = Error("Not authorized to perform this action.");
+      error.status = 401;
+      throw error;
+    }
   } catch (error) {
     next(error);
   }

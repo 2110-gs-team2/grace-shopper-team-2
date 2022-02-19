@@ -4,8 +4,20 @@ const {
 } = require("../db");
 module.exports = router;
 
+//middleware
+const requireToken = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    const user = await User.findByToken(token);
+    req.user = user;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
 // GET all users
-router.get("/", async (req, res, next) => {
+router.get("/", requireToken, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and username fields - even though
@@ -32,11 +44,11 @@ router.get("/:userId", async (req, res, next) => {
 // UPDATE an individual user's information
 router.put("/:id", async (req, res, next) => {
   try {
-    const user = await User.findOne({
-      where: { id: req.params.id },
-    });
-    user.update(req.body);
-    res.send(user);
+    const user = await User.findByToken(req.body.token);
+    if (user) {
+      user.update(req.body.user);
+      res.send(user);
+    }
   } catch (error) {
     next(error);
   }

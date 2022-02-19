@@ -1,5 +1,6 @@
 import axios from "axios";
 
+const TOKEN = "token";
 const FETCH_ORDERS = "FETCH_ORDERS";
 
 const _fetchOrders = (orders) => {
@@ -10,8 +11,13 @@ const _fetchOrders = (orders) => {
 };
 
 export const fetchOrders = (userId) => {
+  const token = window.localStorage.getItem(TOKEN);
   return async (dispatch) => {
-    const { data: orders } = await axios.get(`/api/orders/user/${userId}`);
+    const { data: orders } = await axios.get(`/api/orders/user/${userId}`, {
+      headers: {
+        authorization: token,
+      },
+    });
     let itemResults = await Promise.all(
       orders.map((o) => axios.get(`/api/order-items/order/${o.id}`))
     );
