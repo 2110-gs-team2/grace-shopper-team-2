@@ -15,7 +15,8 @@ const CartCard = (props) => {
 
   return (
     <div className="flex flex-row gap-5 pr-1">
-      <img src="/img/HomePage-1.jpg" className=" object-contain w-24" alt="" />
+      <img src={product.imageUrl} className=" object-contain w-24" alt="" />
+      {/* <img src="/img/HomePage-1.jpg" className=" object-contain w-24" alt="" /> */}
       <div className="flex grow flex-col justify-between">
         <div className="flex flex-col">
           <div className="flex flex-row justify-between">

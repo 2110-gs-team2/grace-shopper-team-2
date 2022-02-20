@@ -7,6 +7,55 @@ const petFriendly = [true, false];
 const price = [59, 85, 108, 99, 49, 80, 45, 130, 50, 79, 83];
 const quantity = [35, 90, 80, 40, 50, 30, 105, 43, 94, 48, 24];
 
+const imageUrls = [
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_arrowhead-white-butterfly_medium_grant_cream_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_bird-of-paradise_large_variant_growpot_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_birds-nest-fern_variant_small_acadia_white_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_bromeliad-pink-antonio-small_bryant-black_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_bromeliad-vriesea-vogue_small_bryant_black_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_coffee-plant_variant_small_upcycled_stonewash_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_dracaena-marginata_medium_grant_cream_1_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_dracaena_large_growpot_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_draceana_large_growpot_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_easy-care-bundle_growpot_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_echeveria-lola_mini_upcycled-planter_cream_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_fan-palm_large_growpot_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_large-fiddle-leaf-fig-bush_variant_01_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_large-monstera_gallery_01_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_large-snake-plant-laurentii_variant_01_70374093-6cce-4e5b-8d95-37ceac4926bd_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_large-zz-plant_variant_01_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_majesty-palm_gallery_01_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_monstera-adansonii_large_variant_growpot_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_monstera-adansonii_variant_small_grant_black_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_monstera-ginny_medium_hyde_black_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_monstera-hoya-bundle_hyde_black_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_monstera_variant_medium_grant_cream_5b593882-bf40-445c-be26-e8cd6b3ddbe1_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_parlor-palm_variant_medium_grant_cream_bb04b58f-0427-4f81-8c14-663676bbec67_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_peperomia-green_variant_medium_grant_cream_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_peperomia-green_variant_small_upcycled_stonewash_900x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_petite-orange-orchid_varient_x-small_bryant_cream_720x.png.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_petite-pink-orchid_varient_x-small_bryant_cream_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_philodendron-birkin_small_upcycled-stonewash_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_philodendron-green_variant_small_acadia_peach_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_pilea_variant_small_grant_black_900x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_pink-anthurium_small_bryant_black_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_pink-orchid_small-bryant-black_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_red-anthurium_small-bryant_black_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_ric-rac-cactus_medium_grant_cream_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_schefflera-arboricola_large_growpot_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_silver-satin_small_upcycled-stonewash_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_snake-plant-laurentii_variant_medium_grant_light_pink_900x.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_spotted-orchid_small_bryant_black_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_string-of-hearts_small_grant_black_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_watercolor-blue-orchid_varient_small_bryant_blush_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_watercolor-pink-orchid_varient_small_bryant_cream_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_watercolor-purple-orchid_small_bryant_black_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_white-orchid_small_bryant_black_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_white-orchid_variant_x-small_bryant_blush_720x.jpg.webp',
+  'https://poshleaf-images.s3.amazonaws.com/the-sill_xerographica-airplant_featured_720x.jpg.webp'
+]
+
+
 const products = [
   {
     name: "Anthurium Plant",
@@ -243,6 +292,7 @@ products.forEach((p) => {
   p.isPetFriendly = petFriendly[random(0, petFriendly.length - 1)];
   p.quantity = quantity[random(0, quantity.length - 1)];
   p.slug = p.name.replace(/\s+/g,'-').toLowerCase();
+  p.imageUrl = imageUrls[random(0, imageUrls.length - 1)];
 });
 
 module.exports = products;
