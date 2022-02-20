@@ -46,6 +46,12 @@ const Product = db.define("product", {
   },
   difficulty: {
     type: ENUM(["EASY", "MODERATE", "EXPERT"]),
+  },
+  imageUrl: {
+    type: STRING,
+    validate: {
+      isUrl: true
+    }
   }
 });
 
