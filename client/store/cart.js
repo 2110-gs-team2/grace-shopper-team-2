@@ -41,8 +41,6 @@ const _subFromQuantity = (product) => {
 };
 
 export const _resetCart = () => {
-  console.log("reset cart");
-
   return {
     type: RESET_CART,
   };

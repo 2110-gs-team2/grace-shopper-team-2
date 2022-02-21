@@ -5,8 +5,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { LockClosedIcon } from "@heroicons/react/solid";
-import { useDispatch, useSelector } from "react-redux";
-import { Loader } from "react-feather";
+import { useSelector } from "react-redux";
 
 const CheckoutForm = () => {
   const stripe = useStripe();

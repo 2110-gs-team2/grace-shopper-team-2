@@ -10,7 +10,6 @@ const ThankYouPage = () => {
   const products = useSelector((state) => state.products);
 
   useEffect(() => {
-    console.log("thank you page was rendered");
     if (params.orderId) dispatch(completeOrder(params.orderId, products));
     // dispatch(fetchCart(currUser, products));
   }, []);

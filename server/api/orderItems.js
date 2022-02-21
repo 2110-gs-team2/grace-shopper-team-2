@@ -36,7 +36,6 @@ router.put("/:id", async (req, res, next) => {
       where: { id: req.params.id },
     });
     updatedItem.update(req.body);
-    console.log(updatedItem, "upated tiem");
     res.send(updatedItem);
   } catch (error) {
     next(error);
