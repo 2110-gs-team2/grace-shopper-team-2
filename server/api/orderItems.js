@@ -29,12 +29,14 @@ router.get("/order/:orderId", async (req, res, next) => {
   }
 });
 
+// UPDATE orderItem
 router.put("/:id", async (req, res, next) => {
   try {
     const updatedItem = await OrderItem.findOne({
       where: { id: req.params.id },
     });
     updatedItem.update(req.body);
+    console.log(updatedItem, "upated tiem");
     res.send(updatedItem);
   } catch (error) {
     next(error);
@@ -46,6 +48,17 @@ router.post("/", async (req, res, next) => {
   try {
     const newOrderItem = await OrderItem.create(req.body);
     res.send(newOrderItem);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// DELETE an orderItem
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const orderItemToDelete = await OrderItem.findByPk(req.params.id);
+    await orderItemToDelete.destroy();
+    res.sendStatus(204);
   } catch (error) {
     next(error);
   }

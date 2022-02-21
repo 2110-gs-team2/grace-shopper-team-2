@@ -29,6 +29,7 @@ export const getSingleProduct = (id) => {
     dispatch(_getSingleProduct(product));
   };
 };
+
 export const addProduct = (product) => {
   return async (dispatch) => {
     const { data: newProduct } = await axios.post(`/api/products/`, {

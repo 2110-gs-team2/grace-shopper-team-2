@@ -47,51 +47,129 @@ const _resetCart = () => {
 };
 
 //thunks
-export const fetchCart = () => {
-  return (dispatch) => {
-    window.localStorage.cart
-      ? dispatch(_setCart(JSON.parse(window.localStorage.getItem("cart"))))
-      : window.localStorage.setItem("cart", JSON.stringify([]));
-    dispatch(_setCart(JSON.parse(window.localStorage.getItem("cart"))));
-  };
-};
+export const fetchCart = (user, products) => {
+  return async (dispatch) => {
+    // if its a guest, the source of truth is localstorage
+    if (!user.id) {
+      window.localStorage.cart
+        ? dispatch(_setCart(JSON.parse(window.localStorage.getItem("cart"))))
+        : window.localStorage.setItem("cart", JSON.stringify([]));
+      dispatch(_setCart(JSON.parse(window.localStorage.getItem("cart"))));
+    }
+    // if its an authenticated user, its in the users cart and therefore should not be accessible by anyone else
+    else {
+      // get all items associated with order
+      const { data: currItems } = await axios.get(
+        `/api/order-items/order/${user.openOrder.id}`
+      );
 
+      let currCart = currItems.reduce((acc, item) => {
+        const product = products.find((p) => p.id === item.productId);
+        item = {
+          ...item,
+          name: product.name,
+          size: product.size,
+          type: product.type,
+        };
+        acc.push(item);
+        return acc;
+      }, []);
 
-export const addToCart = (id, productArray, quantity) => {
-  return (dispatch) => {
-    //pull localStorage cart
-    const cart = JSON.parse(window.localStorage.getItem("cart"));
-    //find product to add from store
-    const product = productArray.find((product) => id === product.id);
-    //find & discover if product already in cart
-    const productCheck = cart.find((product) => product.id === id);
-    //if not in cart, push to cart, update quantity, & dispatch to store
-    if (!productCheck) {
-      if (!quantity) quantity = 1;
-      product.quantity = quantity;
-      cart.push(product);
-      dispatch(_addToCart(product));
-      //send cart back to localStorage
-      const cartJSON = JSON.stringify(cart);
-      window.localStorage.setItem("cart", cartJSON);
-    } else {
-      //if item in cart already, increase quantity x 1
-      dispatch(addToQuantity(product.id, quantity));
+      dispatch(_setCart(currCart));
     }
   };
 };
 
-export const removeFromCart = (id) => {
-  return (dispatch) => {
-    //pull localStorage cart
-    const cart = JSON.parse(window.localStorage.getItem("cart"));
-    //filter out product
-    const filterdCart = cart.filter((product) => product.id !== id);
-    //send filteredCart back to localStorage
-    const cartJSON = JSON.stringify(filterdCart);
-    window.localStorage.setItem("cart", cartJSON);
-    //send product id to be removed from state
-    dispatch(_deleteFromCart(id));
+export const addToCart = (user, product, productArray, quantity) => {
+  return async (dispatch) => {
+    if (!user.id) {
+      //pull localStorage cart
+      const cart = JSON.parse(window.localStorage.getItem("cart"));
+      //find product to add from store
+      const productToAdd = productArray.find((p) => product.id === p.id);
+      //find & discover if product already in cart
+      const productCheck = cart.find((p) => product.id === p.id);
+      //if not in cart, push to cart, update quantity, & dispatch to store
+      if (!productCheck) {
+        if (!quantity) quantity = 1;
+        productToAdd.quantity = quantity;
+        cart.push(productToAdd);
+        dispatch(_addToCart(productToAdd));
+        //send cart back to localStorage
+        const cartJSON = JSON.stringify(cart);
+        window.localStorage.setItem("cart", cartJSON);
+      } else {
+        //if item in cart already, increase quantity x 1
+        dispatch(addToQuantity(product.id, quantity));
+      }
+    }
+    // if user is authenticated
+    else {
+      const openOrderId = user.openOrder.id;
+      // get all items associated with users openOrder
+      let { data: currItems } = await axios.get(
+        `/api/order-items/order/${openOrderId}`
+      );
+      // find if product is already in openOrder
+      let existingItem = currItems.filter(
+        (item) => item.productId === product.id
+      )[0];
+      // if it doesnt exist, create new orderItem; if it does, update
+      if (!existingItem) {
+        const { data: newOrderItem } = await axios.post("/api/order-items", {
+          orderId: openOrderId,
+          productId: product.id,
+          quantity,
+          price: product.price,
+        });
+        currItems = [...currItems, newOrderItem];
+      } else {
+        existingItem = (
+          await axios.put(`/api/order-items/${existingItem.id}`, {
+            quantity: existingItem.quantity + quantity,
+            price: product.price,
+          })
+        ).data;
+        currItems = [
+          ...currItems.filter((i) => i.id !== existingItem.id),
+          existingItem,
+        ];
+      }
+
+      //update currItems so it has critical info about the product
+      currItems = currItems.reduce((acc, item) => {
+        const product = productArray.find((p) => p.id === item.productId);
+        item = {
+          ...item,
+          name: product.name,
+          size: product.size,
+          type: product.type,
+        };
+        acc.push(item);
+        return acc;
+      }, []);
+
+      dispatch(_setCart(currItems));
+    }
+  };
+};
+
+export const removeFromCart = (user, id) => {
+  return async (dispatch) => {
+    if (!user.id) {
+      //pull localStorage cart
+      const cart = JSON.parse(window.localStorage.getItem("cart"));
+      //filter out product
+      const filterdCart = cart.filter((product) => product.id !== id);
+      //send filteredCart back to localStorage
+      const cartJSON = JSON.stringify(filterdCart);
+      window.localStorage.setItem("cart", cartJSON);
+      //send product id to be removed from state
+      dispatch(_deleteFromCart(id));
+    } else {
+      await axios.delete(`/api/order-items/${id}`);
+      dispatch(_deleteFromCart(id));
+    }
   };
 };
 
@@ -118,25 +196,40 @@ export const addToQuantity = (id, quantity) => {
   };
 };
 
-export const subFromQuantity = (id) => {
-  return (dispatch) => {
-    let productIdx = 0;
-    //pull localStorage cart
-    const cart = JSON.parse(window.localStorage.getItem("cart"));
-    //find product to update & assign cart product array index
-    const product = cart.find((product, idx) => {
-      if (product.id === id) {
-        productIdx = idx;
-        return product;
-      }
-    });
-    //decrement product quantity by 1 via assigned index value
-    cart[productIdx].quantity -= 1;
-    //send updated cart back to localStorage
-    const cartJSON = JSON.stringify(cart);
-    window.localStorage.setItem("cart", cartJSON);
-    //update redux store
-    dispatch(_subFromQuantity(product));
+export const subFromQuantity = (user, productToUpdate, products) => {
+  return async (dispatch) => {
+    if (!user.id) {
+      let productIdx = 0;
+      //pull localStorage cart
+      const cart = JSON.parse(window.localStorage.getItem("cart"));
+      //find product to update & assign cart product array index
+      const product = cart.find((product, idx) => {
+        if (product.id === productToUpdate.id) {
+          productIdx = idx;
+          return product;
+        }
+      });
+      //decrement product quantity by 1 via assigned index value
+      cart[productIdx].quantity -= 1;
+      //send updated cart back to localStorage
+      const cartJSON = JSON.stringify(cart);
+      window.localStorage.setItem("cart", cartJSON);
+      //update redux store
+      dispatch(_subFromQuantity(product));
+    } else {
+      const { data: finalProduct } = await axios.put(
+        `/api/order-items/${productToUpdate.id}`,
+        {
+          quantity: productToUpdate.quantity - 1,
+        }
+      );
+      const product = products.find((p) => p.id === finalProduct.productId);
+      finalProduct.name = product.name;
+      finalProduct.size = product.size;
+      finalProduct.type = product.type;
+
+      dispatch(_subFromQuantity(finalProduct));
+    }
   };
 };
 

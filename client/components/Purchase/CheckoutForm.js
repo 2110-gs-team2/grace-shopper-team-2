@@ -20,8 +20,8 @@ const CheckoutForm = () => {
 
   useEffect(() => {
     if (!prevUserRef.current.openOrder || !prevUserRef.current.id)
-      dispatch(setOpenOrder(currUser));
-    prevUserRef.current = currUser;
+      // dispatch(setOpenOrder(currUser));
+      prevUserRef.current = currUser;
   }, [currUser]);
 
   useEffect(() => {
@@ -66,7 +66,6 @@ const CheckoutForm = () => {
         return_url: `http://localhost:8080/thank-you/${currUser.openOrder.id}`,
       },
     });
-
 
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);

@@ -13,16 +13,23 @@ import Test_GetQueryStrings from "./components/Products/Test_GetQueryStrings";
 import Test_SetQueryStrings from "./components/Products/Test_SetQueryStrings";
 import Cart from "./components/Purchase/Cart";
 import ThankYouPage from "./components/Purchase/ThankYouPage";
-import { setOpenOrder } from "./store";
+// import { setOpenOrder } from "./store";
+import { convertOrder } from "./store";
+import { fetchCart } from "./store/cart";
 import { me } from "./store";
+import { getAllProducts } from "./store/products";
 
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
+    this.props.getAllProducts();
   }
   componentDidUpdate(prevProps, prevState) {
     if (!prevProps.isLoggedIn && this.props.isLoggedIn) {
-      this.props.setOpenOrder(this.props.auth);
+      // this.props.setOpenOrder(this.props.auth);
+      this.props.convertOrder(this.props.auth, this.props.products);
+      if (this.props.auth.openOrder)
+        this.props.fetchCart(this.props.auth, this.props.products);
       console.log("youre logged in!");
     }
   }
@@ -76,23 +83,29 @@ class Routes extends Component {
   }
 }
 
-const mapState = ({ auth }) => {
+const mapState = ({ auth, products }) => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!auth.id,
     auth,
+    products,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    setOpenOrder: (user) => {
-      dispatch(setOpenOrder(user));
+    fetchCart: (user, products) => {
+      dispatch(fetchCart(user, products));
     },
-
+    convertOrder: (user, products) => {
+      dispatch(convertOrder(user, products));
+    },
     loadInitialData() {
       dispatch(me());
+    },
+    getAllProducts: () => {
+      dispatch(getAllProducts());
     },
   };
 };

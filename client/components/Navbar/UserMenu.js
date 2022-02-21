@@ -4,15 +4,16 @@ import { Menu, Transition } from "@headlessui/react";
 import { logout } from "../../store";
 import { useDispatch } from "react-redux";
 import { connect } from "react-redux";
+import { fetchCart } from "../../store/cart";
 
-const UserMenu = ({ styleChange, userName }) => {
+const UserMenu = ({ styleChange, currUser }) => {
   const dispatch = useDispatch();
   return (
     <Menu className="relative z-50" as="div">
       <Menu.Button className="flex items-center focus:outline-none rounded-lg focus:ring-2 ring-offset-2 ring-offset-forest-green ring-beige ring-opacity-60">
         <div className="text-lg text-medium px-3 py-1 rounded-lg flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-forest-green"></div>
-          <span>Hi, {userName}</span>
+          <span>Hi, {currUser.firstName}</span>
         </div>
         {/* <User strokeWidth={1} width={30} height={30} /> */}
       </Menu.Button>
@@ -61,6 +62,7 @@ const UserMenu = ({ styleChange, userName }) => {
                   }  group flex rounded-md items-center w-full px-2 py-2 text-medium uppercase`}
                   onClick={() => {
                     dispatch(logout());
+                    // dispatch(fetchCart(currUser));
                   }}
                 >
                   Log out
@@ -76,7 +78,7 @@ const UserMenu = ({ styleChange, userName }) => {
 
 const mapState = (state) => {
   return {
-    userName: state.auth.firstName,
+    currUser: state.auth,
   };
 };
 

@@ -26,12 +26,12 @@ const StylizedProducts = (props) => {
   let queryObj = {};
   if (props.location.search.includes("?")) {
     queryObj = queryString.parse(props.location.search);
-    console.log(queryObj, "Query object"); // Remove after testing
+    // console.log(queryObj, "Query object"); // Remove after testing
   }
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllProducts());
+    // dispatch(getAllProducts());
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
@@ -62,10 +62,8 @@ const StylizedProducts = (props) => {
     if (Object.keys(queryObj).length) {
       for (const [key, value] of Object.entries(queryObj)) {
         if (key === "isPetFriendly") {
-          const myBool = (value === "true");
-          return state.products.filter(
-            (product) => product[key] === myBool
-          );
+          const myBool = value === "true";
+          return state.products.filter((product) => product[key] === myBool);
         } else {
           return state.products.filter(
             (product) => product[key] === value.toUpperCase()
@@ -75,7 +73,7 @@ const StylizedProducts = (props) => {
     }
     return state.products;
   });
-  console.log(currProducts, "CurrProducts"); // Remove after testing
+  // console.log(currProducts, "CurrProducts"); // Remove after testing
 
   return (
     <div>
