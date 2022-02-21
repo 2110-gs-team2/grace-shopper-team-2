@@ -63,17 +63,19 @@ export const fetchCart = (user, products) => {
         `/api/order-items/order/${user.openOrder.id}`
       );
 
-      let currCart = currItems.reduce((acc, item) => {
-        const product = products.find((p) => p.id === item.productId);
-        item = {
-          ...item,
-          name: product.name,
-          size: product.size,
-          type: product.type,
-        };
-        acc.push(item);
-        return acc;
-      }, []);
+      let currCart = currItems
+        .reduce((acc, item) => {
+          const product = products.find((p) => p.id === item.productId);
+          item = {
+            ...item,
+            name: product.name,
+            size: product.size,
+            type: product.type,
+          };
+          acc.push(item);
+          return acc;
+        }, [])
+        .sort((a, b) => a.id - b.id);
 
       dispatch(_setCart(currCart));
     }
@@ -137,17 +139,19 @@ export const addToCart = (user, product, productArray, quantity) => {
       }
 
       //update currItems so it has critical info about the product
-      currItems = currItems.reduce((acc, item) => {
-        const product = productArray.find((p) => p.id === item.productId);
-        item = {
-          ...item,
-          name: product.name,
-          size: product.size,
-          type: product.type,
-        };
-        acc.push(item);
-        return acc;
-      }, []);
+      currItems = currItems
+        .reduce((acc, item) => {
+          const product = productArray.find((p) => p.id === item.productId);
+          item = {
+            ...item,
+            name: product.name,
+            size: product.size,
+            type: product.type,
+          };
+          acc.push(item);
+          return acc;
+        }, [])
+        .sort((a, b) => a.id - b.id);
 
       dispatch(_setCart(currItems));
     }

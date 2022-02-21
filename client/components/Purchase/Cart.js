@@ -42,8 +42,8 @@ const Cart = (props) => {
   // console.log("whats the prevCartRef", prevCartRef.current);
   // console.log("whats the cart", cart);
 
-  console.log("whats the prevUserRef", prevUserRef.current);
-  console.log("whats the currUser", currUser);
+  // console.log("whats the prevUserRef", prevUserRef.current.id);
+  // console.log("whats the currUser", currUser.id);
   useEffect(() => {
     // opens slide when cart content changes in certain scenarios
     if (
@@ -52,11 +52,10 @@ const Cart = (props) => {
     ) {
       if (
         !(prevCartRef.current.length === 0 && cart.length !== 0) &&
-        prevCartRef.current.length !== cart.length
+        prevCartRef.current.length !== cart.length &&
+        prevUserRef.current.id === currUser.id
       ) {
-        if (prevUserRef.current.id === currUser.id) {
-          return openSlideOver();
-        }
+        return openSlideOver();
       }
       if (
         prevCartRef.current.length === 1 &&
@@ -66,7 +65,9 @@ const Cart = (props) => {
         return openSlideOver();
       }
 
-      // if (prevCartRef.current )
+      if (!prevCartRef.current.id && !currUser.id && cart.length === 1) {
+        openSlideOver();
+      }
     }
 
     prevCartRef.current = cart;

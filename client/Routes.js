@@ -30,7 +30,6 @@ class Routes extends Component {
       this.props.convertOrder(this.props.auth, this.props.products);
       if (this.props.auth.openOrder)
         this.props.fetchCart(this.props.auth, this.props.products);
-      console.log("youre logged in!");
     }
   }
 
