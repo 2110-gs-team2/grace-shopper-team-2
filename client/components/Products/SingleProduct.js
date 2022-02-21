@@ -31,16 +31,24 @@ class SingleProduct extends Component {
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     const { products } = this.props;
     const { product } = this.state;
     const { slug } = this.props.match.params;
     if (!Object.keys(product).length) {
       if (isArray(products) && products.length) {
-        this.setState({
+        console.log("cdu ran");
+        return this.setState({
           product: products.find((product) => slug === product.slug),
         });
       }
+    }
+
+    if (prevProps.match.params.slug !== this.props.match.params.slug) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return this.setState({
+        product: products.find((product) => slug === product.slug),
+      });
     }
   }
 

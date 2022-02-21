@@ -4,21 +4,29 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 export default class Carousel extends Component {
+  constructor() {
+    super();
+    this.state = {
+      currentSlide: 0,
+    };
+  }
   render() {
     const { product } = this.props;
     const imgs = product.imageUrl;
-    console.log(imgs, "this is rpodcut");
+
     const settings = {
       dots: true,
       infinite: true,
-      className: "max-w-2xl h-full",
+      className: "pl-10 max-w-2xl h-full",
       slidesToShow: 1,
       speed: 500,
       centerMode: false,
       swipeToSlide: true,
-      // dotsClass: "text-red-200 slick-dots",
       centerPadding: "100px",
-      arrows: true,
+      arrows: false,
+      beforeChange: (prev, next) => {
+        this.setState({ currentSlide: next });
+      },
       responsive: [
         {
           breakpoint: 600,
@@ -28,79 +36,70 @@ export default class Carousel extends Component {
           },
         },
       ],
-      // appendDots: (dots) => (
-      //   <div
-      //     style={{
-      //       width: "100px",
-      //       top: "0px",
-      //       bottom: "0px",
-      //       left: "-4rem",
-      //     }}
-      //     className=""
-      //   >
-      //     <ul style={{ margin: "0px" }} className="flex flex-col gap-5">
-      //       {dots}
-      //     </ul>
-      //   </div>
-      // ),
-      // customPaging: (i) => {
-      //   return (
-      //     <div
-      //       style={{
-      //         width: "50px",
-      //         color: "blue",
-      //         height: "50px",
-      //         borderRadius: "100%",
-      //         backgroundSize: "cover",
-      //         backgroundImage: "url('/img/homePage-1.jpg')",
-      //       }}
-      //     ></div>
-      //   );
-      // },
+      appendDots: (dots) => (
+        <div style={{ top: "0px", bottom: "0px", left: "-4rem" }}>
+          <ul style={{ margin: "0px" }} className="flex flex-col">
+            {dots.map((item, index) => {
+              return (
+                <li key={index} style={{ height: "70px", width: "100px" }}>
+                  {item.props.children}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ),
+      customPaging: (i) => {
+        return (
+          <div
+            style={
+              i === this.state.currentSlide
+                ? {
+                    borderColor: "#2D4323",
+                    borderWidth: "2px",
+                    width: "80px",
+                    color: "blue",
+                    height: "80px",
+                    borderRadius: "100%",
+                    backgroundSize: "cover",
+                    backgroundImage: `url(${imgs[i]})`,
+                  }
+                : {
+                    width: "80px",
+                    color: "blue",
+                    height: "80px",
+                    borderRadius: "100%",
+                    backgroundSize: "cover",
+                    backgroundImage: `url(${imgs[i]})`,
+                  }
+            }
+          ></div>
+        );
+      },
     };
 
     return (
       <div>
         {imgs ? (
           <Slider {...settings}>
-            <div
-              className="min-h-[80vh] bg-cover bg-no-repeat"
-              style={{ backgroundImage: `url(${imgs[0]})` }}
-            >
-              <h3>1</h3>
-            </div>
-            <div>
-              <h3>2</h3>
-            </div>
-            <div>
-              <h3>3</h3>
-            </div>
-            <div>
-              <h3>4</h3>
-            </div>
-            <div>
-              <h3>5</h3>
-            </div>
-            <div>
-              <h3>6</h3>
-            </div>
+            {imgs
+              ? imgs.map((img, idx) => {
+                  return (
+                    <div key={idx}>
+                      <div
+                        className="min-h-[80vh] bg-cover bg-bottom bg-no-repeat"
+                        style={{
+                          backgroundImage: `url(${img})`,
+                        }}
+                      >
+                        <span className="opacity-0">{idx}</span>
+                      </div>
+                    </div>
+                  );
+                })
+              : null}
           </Slider>
         ) : null}
-        {/* <Slider {...settings}>
-          {imgs
-            ? imgs.map((img, idx) => {
-                console.log(img);
-                return (
-                  <div key={idx}>
-                    <div
-                      className="min-h-[80vh] bg-cover bg-no-repeat"
-                      style={{ backgroundImage: `url('${img}')` }}
-                    ></div>
-                  </div>
-                );
-              })
-            : null}
-        </Slider> */}
       </div>
     );
   }
