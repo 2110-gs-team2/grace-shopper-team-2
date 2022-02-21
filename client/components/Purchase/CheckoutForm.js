@@ -5,14 +5,11 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { LockClosedIcon } from "@heroicons/react/solid";
-import { convertCartToOrder } from "../../store/cart";
 import { useDispatch, useSelector } from "react-redux";
-import { setOpenOrder } from "../../store";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
-  const dispatch = useDispatch();
   const currUser = useSelector((state) => state.auth);
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,8 +17,8 @@ const CheckoutForm = () => {
 
   useEffect(() => {
     if (!prevUserRef.current.openOrder || !prevUserRef.current.id)
-      dispatch(setOpenOrder(currUser));
-    prevUserRef.current = currUser;
+      // dispatch(setOpenOrder(currUser));
+      prevUserRef.current = currUser;
   }, [currUser]);
 
   useEffect(() => {
@@ -66,7 +63,6 @@ const CheckoutForm = () => {
         return_url: `http://localhost:8080/thank-you/${currUser.openOrder.id}`,
       },
     });
-
 
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);

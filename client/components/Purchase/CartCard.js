@@ -1,14 +1,11 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { Trash2, Package, Minus, Plus } from "react-feather";
-import {
-  removeFromCart,
-  addToQuantity,
-  subFromQuantity,
-} from "../../store/cart";
+import { useDispatch, useSelector } from "react-redux";
+import { Trash2, Minus, Plus } from "react-feather";
+import { removeFromCart, subFromQuantity, addToCart } from "../../store/cart";
 
 const CartCard = (props) => {
-  const { product } = props;
+  const { product, products } = props;
+  const currUser = useSelector((state) => state.auth);
 
   //redux hooks
   const dispatch = useDispatch();
@@ -23,7 +20,7 @@ const CartCard = (props) => {
             <span className="text-xl font-medium">{product.name}</span>
             <button
               onClick={() => {
-                dispatch(removeFromCart(product.id));
+                dispatch(removeFromCart(currUser, product.id));
               }}
             >
               <Trash2 strokeWidth={1} width={20} height={20} />
@@ -43,7 +40,7 @@ const CartCard = (props) => {
             <button
               disabled={product.quantity < 2}
               onClick={() => {
-                dispatch(subFromQuantity(product.id));
+                dispatch(subFromQuantity(currUser, product, products));
               }}
             >
               <Minus strokeWidth={2} width={18} />
@@ -53,7 +50,10 @@ const CartCard = (props) => {
             </span>
             <button
               onClick={() => {
-                dispatch(addToQuantity(product.id));
+                const productInfo = products.filter(
+                  (p) => p.id === product.productId
+                )[0];
+                dispatch(addToCart(currUser, productInfo, products, 1));
               }}
             >
               <Plus strokeWidth={2} width={18} />

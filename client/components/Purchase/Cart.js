@@ -1,6 +1,6 @@
 import React, { useState, Fragment, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import cartReducer, { fetchCart } from "../../store/cart";
+import { fetchCart } from "../../store/cart";
 import { Transition, Dialog } from "@headlessui/react";
 import { Package, X } from "react-feather";
 import { LockClosedIcon } from "@heroicons/react/solid";
@@ -25,36 +25,52 @@ export const getCartQuantity = (arr) => {
 
 const Cart = (props) => {
   const [open, setOpen] = useState(false);
-  const cart = useSelector((state) => {
-    return state.cart;
-  });
+  const cart = useSelector((state) => state.cart);
+  const currUser = useSelector((state) => state.auth);
+  const products = useSelector((state) => state.products);
+  const prevCartRef = useRef(cart);
+  const prevUserRef = useRef(currUser);
+
   //redux hooks for cart store
   const dispatch = useDispatch();
-  const prevCartRef = useRef(cart);
   const location = useLocation();
 
   useEffect(() => {
-    dispatch(fetchCart());
+    dispatch(fetchCart(currUser, products));
   }, []);
 
-  // console.log("whats the prevCartRef", prevCartRef);
+  // console.log("whats the prevCartRef", prevCartRef.current);
   // console.log("whats the cart", cart);
+
+  console.log("whats the prevUserRef", prevUserRef.current);
+  console.log("whats the currUser", currUser);
   useEffect(() => {
+    // opens slide when cart content changes in certain scenarios
     if (
       !includes(location.pathname, "checkout") &&
       !includes(location.pathname, "thank-you")
     ) {
       if (
-        prevCartRef.current.length !== 0 &&
-        prevCartRef.current !== cart
-        // || (prevCartRef.current.length === 0 && cart.length === 1)
+        !(prevCartRef.current.length === 0 && cart.length !== 0) &&
+        prevCartRef.current.length !== cart.length
       ) {
-        // opens slide when cart content changes
-        openSlideOver();
+        if (prevUserRef.current.id === currUser.id) {
+          return openSlideOver();
+        }
       }
+      if (
+        prevCartRef.current.length === 1 &&
+        cart.length === 1 &&
+        prevCartRef.current[0].quantity !== cart[0].quantity
+      ) {
+        return openSlideOver();
+      }
+
+      // if (prevCartRef.current )
     }
 
     prevCartRef.current = cart;
+    prevUserRef.current = currUser;
   }, [cart]);
 
   const closeSlideover = () => {
@@ -118,7 +134,13 @@ const Cart = (props) => {
                   <div className="mt-6 overflow-x-hidden overflow-y-auto max-h-[80vh] pb-16">
                     <div className="flex flex-col gap-5 ">
                       {cart.map((product) => {
-                        return <CartCard key={product.id} product={product} />;
+                        return (
+                          <CartCard
+                            key={product.id}
+                            product={product}
+                            products={products}
+                          />
+                        );
                       })}
                     </div>
                   </div>

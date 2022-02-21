@@ -5,9 +5,9 @@ import { isArray } from "lodash";
 import Carousel from "./Carousel";
 import { Minus, Plus, Sun, Frown, Scissors, Smile } from "react-feather";
 import { Disclosure, Transition } from "@headlessui/react";
-import ProductCard from "./ProductCard";
+import ProductCard, { INCREMENT, DECREMENT } from "./ProductCard";
 import { getAllProducts } from "../../store/products";
-import { addToCart } from "../../store/cart";
+import { addToCart, updateCartAuth } from "../../store/cart";
 
 class SingleProduct extends Component {
   constructor() {
@@ -26,6 +26,7 @@ class SingleProduct extends Component {
     const { slug } = this.props.match.params;
     /* If user navigates to a single product from the all products page, there is no need to call another thunk since data is already in redux store */
     if (products.length) {
+      // debugger;
       this.setState({
         product: products.find((product) => slug === product.slug),
       });
@@ -35,9 +36,12 @@ class SingleProduct extends Component {
   componentDidUpdate() {
     const { products } = this.props;
     const { product } = this.state;
+    const { slug } = this.props.match.params;
     if (!Object.keys(product).length) {
       if (isArray(products) && products.length) {
-        this.setState({ product: products[0] });
+        this.setState({
+          product: products.find((product) => slug === product.slug),
+        });
       }
     }
   }
@@ -51,8 +55,9 @@ class SingleProduct extends Component {
 
   render() {
     const { product, count } = this.state;
-    const { products, addToCart } = this.props;
+    const { products, addToCart, updateCartAuth, currUser } = this.props;
     const { changeQuantity } = this;
+
     return (
       <div className="min-h-[100vh] bg-beige">
         <div className="pt-28 p-20 max-w-[90vw] m-auto">
@@ -71,13 +76,13 @@ class SingleProduct extends Component {
                 <div className="text-lg uppercase font-bold">Quantity</div>
                 <div>
                   <div className="flex items-center justify-between w-28 px-2 py-1 text-base font-bold text-forest-green border-2 border-forest-green uppercase rounded-full">
-                    <button onClick={() => changeQuantity("DECREMENT")}>
+                    <button onClick={() => changeQuantity(DECREMENT)}>
                       <Minus strokeWidth={2} width={18} />
                     </button>
                     <div className="text-xl text items-center flex">
                       {count}
                     </div>
-                    <button onClick={() => changeQuantity("INCREMENT")}>
+                    <button onClick={() => changeQuantity(INCREMENT)}>
                       <Plus strokeWidth={2} width={18} />
                     </button>
                   </div>
@@ -85,7 +90,9 @@ class SingleProduct extends Component {
               </div>
               <div>
                 <button
-                  onClick={() => addToCart(product.id, products, count)}
+                  onClick={() => {
+                    addToCart(currUser, product, products, count);
+                  }}
                   className="transition-all duration-200 border-2 border-transparent hover:bg-beige hover:text-forest-green  hover:border-forest-green mt-5 block p-6 py-3 w-full text-center rounded-full text-base font-bold text-beige bg-forest-green uppercase"
                 >
                   Add to cart
@@ -221,9 +228,10 @@ class SingleProduct extends Component {
   }
 }
 
-const mapStateToProps = ({ products }) => {
+const mapStateToProps = ({ products, auth }) => {
   return {
     products,
+    currUser: auth,
   };
 };
 
@@ -232,8 +240,11 @@ const mapDispatchToProps = (dispatch) => {
     getAllProducts: () => {
       dispatch(getAllProducts());
     },
-    addToCart: (productId, products, count) => {
-      dispatch(addToCart(productId, products, count));
+    addToCart: (user, productId, products, count) => {
+      dispatch(addToCart(user, productId, products, count));
+    },
+    updateCartAuth: (user, product, quantity, operation) => {
+      dispatch(updateCartAuth(user, product, quantity, operation));
     },
   };
 };

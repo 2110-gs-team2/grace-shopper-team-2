@@ -1,18 +1,24 @@
-import React, { Component, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { addToCart } from "../../store/cart";
 import { useDispatch, useSelector } from "react-redux";
+
+export const DECREMENT = "DECREMENT";
+export const INCREMENT = "INCREMENT";
 
 const ProductCard = ({ product }) => {
   // const [hover, setHover] = useState(false);
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
+  const currUser = useSelector((state) => state.auth);
 
   return (
     <div className="">
       <div className="flex flex-col group relative h-full">
         <button
-          onClick={() => dispatch(addToCart(product.id, products))}
+          onClick={() => {
+            dispatch(addToCart(currUser, product, products, 1));
+          }}
           className="uppercase py-2 border-2 border-forest-green inset-x-5 bottom-20 z-20 absolute rounded-full text-base font-bold bg-beige text-forest-green hidden group-hover:block"
         >
           Add to cart

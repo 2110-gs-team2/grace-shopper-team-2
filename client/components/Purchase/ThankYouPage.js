@@ -1,11 +1,10 @@
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { completeOrder } from "../../store/cart";
 
 const ThankYouPage = () => {
   const params = useParams();
-  const location = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 import axios from "axios";
 import history from "../history";
+import { fetchCart } from "./cart";
 
 const TOKEN = "token";
 
@@ -27,6 +28,25 @@ export const me = () => async (dispatch) => {
         authorization: token,
       },
     });
+
+    const { data: userOrders } = await axios.get(
+      `/api/orders/user/${user.id}`,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    let incompleteOrder = userOrders.find((order) => !order.completedTimestamp);
+
+    // if there is none, create one for them
+    if (!incompleteOrder) {
+      incompleteOrder = (await axios.post("/api/orders", { userId: user.id }))
+        .data;
+    }
+
+    user.openOrder = incompleteOrder;
+
     return dispatch(setAuth(user));
   }
 };
@@ -54,6 +74,7 @@ export const logout = () => {
     await axios.get("/logout");
     history.push("/");
     dispatch(_logout());
+    dispatch(fetchCart({}));
   };
 };
 
@@ -80,30 +101,41 @@ export const createGuest = (guest) => {
   };
 };
 
-export const setOpenOrder = (user) => {
-  const token = window.localStorage.getItem(TOKEN);
+export const convertOrder = (user, products) => {
+  const cart = JSON.parse(window.localStorage.getItem("cart"));
 
   return async (dispatch) => {
     if (user.id) {
-      const { data: userOrders } = await axios.get(
-        `/api/orders/user/${user.id}`,
-        {
-          headers: {
-            authorization: token,
-          },
-        }
-      );
-      let incompleteOrder = userOrders.find(
-        (order) => !order.completedTimestamp
+      // get all items associated with incomplete order
+      const { data: currItems } = await axios.get(
+        `/api/order-items/order/${user.openOrder.id}`
       );
 
-      // if there is none, create one for them
-      if (!incompleteOrder) {
-        incompleteOrder = (await axios.post("/api/orders", { userId: user.id }))
-          .data;
-      }
-      user.openOrder = incompleteOrder;
-      dispatch(setAuth(user));
+      // make sure current cart syncs up with the openOrder
+      await Promise.all(
+        cart.map((item) => {
+          let itemInDb = currItems.find(
+            (currItem) => currItem.productId === item.id
+          );
+          if (!itemInDb) {
+            return axios.post("/api/order-items", {
+              orderId: user.openOrder.id,
+              productId: item.id,
+              quantity: item.quantity,
+              price: item.price,
+            });
+          } else {
+            return axios.put(`/api/order-items/${itemInDb.id}`, {
+              quantity: item.quantity,
+              price: item.price,
+            });
+          }
+        })
+      );
+
+      window.localStorage.setItem("cart", JSON.stringify([]));
+      dispatch(me());
+      dispatch(fetchCart(user, products));
     }
   };
 };
