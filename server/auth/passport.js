@@ -1,17 +1,17 @@
-const { parsed: env } = require("dotenv").config();
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
 const {
   models: { User },
 } = require("../db");
+require("dotenv").config();
 
 module.exports = function (passport) {
   passport.use(
     new GoogleStrategy(
       {
-        clientID: env.GOOGLE_CLIENT_ID,
-        clientSecret: env.GOOGLE_CLIENT_SECRET,
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: "/auth/redirect/google",
       },
       async function (accessToken, refreshToken, profile, done) {
@@ -38,8 +38,8 @@ module.exports = function (passport) {
   passport.use(
     new FacebookStrategy(
       {
-        clientID: env.FACEBOOK_CLIENT_ID,
-        clientSecret: env.FACEBOOK_CLIENT_SECRET,
+        clientID: process.env.FACEBOOK_CLIENT_ID,
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
         callbackURL: "/auth/redirect/facebook",
         profileFields: [
           "id",
