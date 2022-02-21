@@ -39,11 +39,11 @@ const Cart = (props) => {
     dispatch(fetchCart(currUser, products));
   }, []);
 
-  console.log("whats the prevCartRef", prevCartRef.current);
-  console.log("whats the cart", cart);
+  // console.log("whats the prevCartRef", prevCartRef.current);
+  // console.log("whats the cart", cart);
 
-  console.log("whats the prevUserRef", prevUserRef.current.id);
-  console.log("whats the currUser", currUser.id);
+  // console.log("whats the prevUserRef", prevUserRef.current.id);
+  // console.log("whats the currUser", currUser.id);
   useEffect(() => {
     // opens slide when cart content changes in certain scenarios
     if (

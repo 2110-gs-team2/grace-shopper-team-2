@@ -68,7 +68,8 @@ const ProfileView = () => {
                 <Field
                   name="firstName"
                   type="text"
-                  className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
+                  className="py-3 px-5 border-forest-green border-2 block w-full rounded-full bg-beige
+                  focus:border-forest-green focus:ring-2 focus:ring-xlight-green
           "
                 />
                 <ErrorMessage
@@ -87,7 +88,8 @@ const ProfileView = () => {
                 <Field
                   name="lastName"
                   type="text"
-                  className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
+                  className="py-3 px-5 border-forest-green border-2 block w-full rounded-full bg-beige
+                  focus:border-forest-green focus:ring-2 focus:ring-xlight-green
           "
                 />
                 <ErrorMessage
@@ -107,7 +109,8 @@ const ProfileView = () => {
               <Field
                 name="email"
                 type="email"
-                className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
+                className="py-3 px-5 border-forest-green border-2 block w-full rounded-full bg-beige
+                focus:border-forest-green focus:ring-2 focus:ring-xlight-green
           "
               />
               <ErrorMessage

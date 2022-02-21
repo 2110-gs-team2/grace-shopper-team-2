@@ -79,8 +79,8 @@ const AddressView = () => {
                 <Field
                   name="addressLine1"
                   type="text"
-                  className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
-          "
+                  className="py-3 px-5 border-forest-green border-2 block w-full rounded-full bg-beige
+                  focus:border-forest-green focus:ring-2 focus:ring-xlight-green"
                 />
                 <ErrorMessage
                   name="addressLine1"
@@ -98,8 +98,8 @@ const AddressView = () => {
                 <Field
                   name="addressLine2"
                   type="text"
-                  className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
-          "
+                  className="py-3 px-5 border-forest-green border-2 block w-full rounded-full bg-beige
+                  focus:border-forest-green focus:ring-2 focus:ring-xlight-green"
                 />
                 <ErrorMessage
                   name="addressLine2"
@@ -120,8 +120,8 @@ const AddressView = () => {
                 <Field
                   name="city"
                   type="text"
-                  className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
-          "
+                  className="py-3 px-5 border-forest-green border-2  block w-full rounded-full bg-beige
+                  focus:border-forest-green focus:ring-2 focus:ring-xlight-green"
                 />
                 <ErrorMessage
                   name="city"
@@ -139,8 +139,8 @@ const AddressView = () => {
                 <Field
                   as="select"
                   name="state"
-                  className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
-          "
+                  className="py-3 px-5 border-forest-green border-2 block w-full rounded-full bg-beige
+                  focus:border-forest-green focus:ring-2 focus:ring-xlight-green "
                 >
                   <option value="" disabled>
                     State
@@ -167,8 +167,8 @@ const AddressView = () => {
                 <Field
                   name="zipcode"
                   type="text"
-                  className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
-          "
+                  className="py-3 px-5 border-forest-green border-2 block w-full rounded-full bg-beige
+                  focus:border-forest-green focus:ring-2 focus:ring-xlight-green"
                 />
                 <ErrorMessage
                   name="zipcode"

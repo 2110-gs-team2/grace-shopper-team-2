@@ -80,7 +80,6 @@ export const logout = () => {
 
 export const updateUser = (user, id) => {
   const token = window.localStorage.getItem(TOKEN);
-  console.log("updateUser is being called");
   return async (dispatch) => {
     const { data: updatedUser } = await axios.put(`/api/users/${id}`, {
       user,
@@ -149,7 +148,8 @@ export default function (state = {}, action) {
     case SET_AUTH:
       return action.auth;
     case UPDATE_USER:
-      return action.auth;
+      const newUser = { ...state, ...action.auth };
+      return newUser;
     default:
       return state;
   }
