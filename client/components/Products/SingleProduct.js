@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { isArray } from "lodash";
-
 import Carousel from "./Carousel";
 import { Minus, Plus, Sun, Frown, Scissors, Smile } from "react-feather";
 import { Disclosure, Transition } from "@headlessui/react";
 import ProductCard, { INCREMENT, DECREMENT } from "./ProductCard";
 import { getAllProducts } from "../../store/products";
-import { addToCart, updateCartAuth } from "../../store/cart";
+import { addToCart } from "../../store/cart";
 
 class SingleProduct extends Component {
   constructor() {
@@ -24,9 +23,8 @@ class SingleProduct extends Component {
     this.props.getAllProducts();
     const { products } = this.props;
     const { slug } = this.props.match.params;
-    /* If user navigates to a single product from the all products page, there is no need to call another thunk since data is already in redux store */
+
     if (products.length) {
-      // debugger;
       this.setState({
         product: products.find((product) => slug === product.slug),
       });
