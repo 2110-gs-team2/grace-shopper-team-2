@@ -68,7 +68,8 @@ const SingleInventoryForm = ({ product, operation }) => {
             <Field
               name="name"
               type="text"
-              className="py-2 px-4 w-2/3 border-forest-green border-2 focus:ring-forest-green block rounded-full bg-beige
+              className="py-2 px-4 w-2/3 border-forest-green border-2 block rounded-full bg-beige
+              focus:border-forest-green focus:ring-2 focus:ring-xlight-green
           "
             />
           </div>
@@ -91,7 +92,8 @@ const SingleInventoryForm = ({ product, operation }) => {
               as="textarea"
               type="text"
               rows="5"
-              className="py-2 px-4 w-2/3 border-forest-green border-2 focus:ring-forest-green block rounded-lg bg-beige
+              className="py-2 px-4 w-2/3 border-forest-green border-2 block rounded-lg bg-beige
+              focus:border-forest-green focus:ring-2 focus:ring-xlight-green
           "
             />
           </div>
@@ -109,7 +111,8 @@ const SingleInventoryForm = ({ product, operation }) => {
             <Field
               name="quantity"
               type="number"
-              className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
+              className="py-2 px-4 border-forest-green border-2 block w-2/3 rounded-full bg-beige
+              focus:border-forest-green focus:ring-2 focus:ring-xlight-green
           "
             />
           </div>
@@ -127,7 +130,8 @@ const SingleInventoryForm = ({ product, operation }) => {
             <Field
               name="price"
               type="text"
-              className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
+              className="py-2 px-4 border-forest-green border-2 block w-2/3 rounded-full bg-beige
+              focus:border-forest-green focus:ring-2 focus:ring-xlight-green
           "
             />
           </div>
@@ -146,7 +150,8 @@ const SingleInventoryForm = ({ product, operation }) => {
             <Field
               as="select"
               name="type"
-              className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
+              className="py-2 px-4 border-forest-green border-2 block w-2/3 rounded-full bg-beige
+              focus:border-forest-green focus:ring-2 focus:ring-xlight-green
           "
             >
               <option value="">Pick a type</option>
@@ -171,7 +176,8 @@ const SingleInventoryForm = ({ product, operation }) => {
             <Field
               as="select"
               name="size"
-              className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
+              className="py-2 px-4 border-forest-green border-2 block w-2/3 rounded-full bg-beige
+              focus:border-forest-green focus:ring-2 focus:ring-xlight-green
           "
             >
               <option value="">Pick a size</option>
@@ -196,7 +202,8 @@ const SingleInventoryForm = ({ product, operation }) => {
             <Field
               as="select"
               name="difficulty"
-              className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
+              className="py-2 px-4 border-forest-green border-2 block w-2/3 rounded-full bg-beige
+              focus:border-forest-green focus:ring-2 focus:ring-xlight-green
           "
             >
               <option value="">Pick a difficulty level</option>
@@ -221,7 +228,8 @@ const SingleInventoryForm = ({ product, operation }) => {
             <Field
               as="select"
               name="light"
-              className="py-2 px-4 border-forest-green border-2 focus:ring-forest-green block w-2/3 rounded-full bg-beige
+              className="py-2 px-4 border-forest-green border-2 block w-2/3 rounded-full bg-beige
+              focus:border-forest-green focus:ring-2 focus:ring-xlight-green
           "
             >
               <option value="">Pick a light level</option>
@@ -249,7 +257,9 @@ const SingleInventoryForm = ({ product, operation }) => {
             <Field
               name="isPetFriendly"
               type="checkbox"
-              className="pr-4 block bg-beige h-6 w-6 border-2 rounded-lg border-forest-green  focus:text-forest-green focus:ring-forest-green focus:outline-none checked:hover:bg-forest-green checked:bg-forest-green "
+              className="pr-4 block bg-beige h-6 w-6 border-2 rounded-lg border-forest-green  checked:hover:bg-forest-green checked:bg-forest-green 
+              focus:border-forest-green focus:ring-2 focus:ring-xlight-green
+              "
             />
           </div>
           <ErrorMessage

@@ -92,6 +92,7 @@ export const updateUser = (user, id) => {
 export const createGuest = (guest) => {
   return async (dispatch) => {
     const { data: newGuest } = await axios.post(`/api/users/`, guest);
+    console.log(newGuest, "what is newGuets");
     // create openOrder
     let incompleteOrder = (
       await axios.post("/api/orders", { userId: newGuest.id })
@@ -148,7 +149,8 @@ export default function (state = {}, action) {
     case SET_AUTH:
       return action.auth;
     case UPDATE_USER:
-      return action.auth;
+      const newUser = { ...state, ...action.auth };
+      return newUser;
     default:
       return state;
   }

@@ -19,33 +19,35 @@ const AddressFormSchema = Yup.object().shape({
 });
 
 const AddressView = () => {
-  const [msg, setMsg] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(false);
+  const [successMsg, setSuccessMsg] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
   const currUser = useSelector((state) => state.auth);
 
+  console.log(currUser, "who is currUser??");
   return (
     <div>
-      {!includes(location.pathname, "checkout") ? (
+      {includes(location.pathname, "checkout") ? (
         <Fragment>
-          <div className="text-5xl mb-5">My address</div>
-          {msg ? (
-            <div className="mt2 py-3 px-5 bg-forest-green flex gap-2 text-white rounded-lg">
-              <Check strokeWidth={1} />
-              Your address has been updated
-            </div>
-          ) : null}
-        </Fragment>
-      ) : (
-        <Fragment>
-          {msg ? (
+          {errorMsg ? (
             <div className="mt2 py-3 px-5 bg-red-700 flex gap-2 text-white rounded-lg">
               <AlertTriangle strokeWidth={1} className="text-white" />
               Please sign in before you save your address
             </div>
           ) : null}
         </Fragment>
+      ) : (
+        <div className="text-5xl mb-5">My address</div>
       )}
+      <Fragment>
+        {successMsg ? (
+          <div className="mt2 py-3 px-5 bg-forest-green flex gap-2 text-white rounded-lg">
+            <Check strokeWidth={1} />
+            Your address has been updated
+          </div>
+        ) : null}
+      </Fragment>
       <Formik
         initialValues={{
           addressLine1: `${currUser.addressLine1 || ""}`,
@@ -77,8 +79,8 @@ const AddressView = () => {
                 <Field
                   name="addressLine1"
                   type="text"
-                  className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
-          "
+                  className="py-3 px-5 border-forest-green border-2 block w-full rounded-full bg-beige
+                  focus:border-forest-green focus:ring-2 focus:ring-xlight-green"
                 />
                 <ErrorMessage
                   name="addressLine1"
@@ -96,8 +98,8 @@ const AddressView = () => {
                 <Field
                   name="addressLine2"
                   type="text"
-                  className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
-          "
+                  className="py-3 px-5 border-forest-green border-2 block w-full rounded-full bg-beige
+                  focus:border-forest-green focus:ring-2 focus:ring-xlight-green"
                 />
                 <ErrorMessage
                   name="addressLine2"
@@ -118,8 +120,8 @@ const AddressView = () => {
                 <Field
                   name="city"
                   type="text"
-                  className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
-          "
+                  className="py-3 px-5 border-forest-green border-2  block w-full rounded-full bg-beige
+                  focus:border-forest-green focus:ring-2 focus:ring-xlight-green"
                 />
                 <ErrorMessage
                   name="city"
@@ -137,8 +139,8 @@ const AddressView = () => {
                 <Field
                   as="select"
                   name="state"
-                  className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
-          "
+                  className="py-3 px-5 border-forest-green border-2 block w-full rounded-full bg-beige
+                  focus:border-forest-green focus:ring-2 focus:ring-xlight-green "
                 >
                   <option value="" disabled>
                     State
@@ -165,8 +167,8 @@ const AddressView = () => {
                 <Field
                   name="zipcode"
                   type="text"
-                  className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
-          "
+                  className="py-3 px-5 border-forest-green border-2 block w-full rounded-full bg-beige
+                  focus:border-forest-green focus:ring-2 focus:ring-xlight-green"
                 />
                 <ErrorMessage
                   name="zipcode"

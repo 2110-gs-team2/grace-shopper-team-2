@@ -44,9 +44,21 @@ router.get("/:userId", async (req, res, next) => {
 // UPDATE an individual user's information
 router.put("/:id", async (req, res, next) => {
   try {
-    const user = await User.findByToken(req.body.token);
-    if (user) {
+    if (req.body.token) {
+      let user = await User.findByToken(req.body.token);
       user.update(req.body.user);
+      res.send(user);
+    }
+    // if user is guest only let them change non critical info
+    else {
+      let user = await User.findByPk(req.params.id);
+      user.update({
+        addressLine1: req.body.user.addressLine1,
+        addressLine2: req.body.user.addressLine2,
+        city: req.body.user.city,
+        state: req.body.user.state,
+        zipcode: req.body.user.zipcode,
+      });
       res.send(user);
     }
   } catch (error) {
@@ -57,7 +69,8 @@ router.put("/:id", async (req, res, next) => {
 // CREATE a guest user
 router.post("/", async (req, res, next) => {
   try {
-    const user = await User.create({ ...req.body, role: "CUSTOMER" });
+    let user = await User.findOne({ where: { email: req.body.email } });
+    if (!user) user = await User.create({ ...req.body, role: "CUSTOMER" });
     res.send(user);
   } catch (error) {
     next(error);
