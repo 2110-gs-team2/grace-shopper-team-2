@@ -88,12 +88,13 @@ class SingleProduct extends Component {
               </div>
               <div>
                 <button
+                  disabled={!product.quantity}
                   onClick={() => {
                     addToCart(currUser, product, products, count);
                   }}
-                  className="transition-all duration-200 border-2 border-transparent hover:bg-beige hover:text-forest-green  hover:border-forest-green mt-5 block p-6 py-3 w-full text-center rounded-full text-base font-bold text-beige bg-forest-green uppercase"
+                  className="disabled:bg-stone-300 disabled:hover:text-beige disabled:hover:border-stone-300 transition-all duration-200 border-2 border-transparent hover:bg-beige hover:text-forest-green  hover:border-forest-green mt-5 block p-6 py-3 w-full text-center rounded-full text-base font-bold text-beige bg-forest-green uppercase"
                 >
-                  Add to cart
+                  {product.quantity ? "Add to cart" : "Out of Stock"}
                 </button>
               </div>
               <div className="flex flex-col gap-1">

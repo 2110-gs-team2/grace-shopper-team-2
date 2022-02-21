@@ -71,6 +71,7 @@ export const fetchCart = (user, products) => {
             name: product.name,
             size: product.size,
             type: product.type,
+            imageUrl: product.imageUrl,
           };
           acc.push(item);
           return acc;
@@ -88,7 +89,7 @@ export const addToCart = (user, product, productArray, quantity) => {
       //pull localStorage cart
       const cart = JSON.parse(window.localStorage.getItem("cart"));
       //find product to add from store
-      const productToAdd = productArray.find((p) => product.id === p.id);
+      const productToAdd = { ...productArray.find((p) => product.id === p.id) };
       //find & discover if product already in cart
       const productCheck = cart.find((p) => product.id === p.id);
       //if not in cart, push to cart, update quantity, & dispatch to store
@@ -147,6 +148,7 @@ export const addToCart = (user, product, productArray, quantity) => {
             name: product.name,
             size: product.size,
             type: product.type,
+            imageUrl: product.imageUrl,
           };
           acc.push(item);
           return acc;
@@ -221,7 +223,7 @@ export const subFromQuantity = (user, productToUpdate, products) => {
       //update redux store
       dispatch(_subFromQuantity(product));
     } else {
-      const { data: finalProduct } = await axios.put(
+      let { data: finalProduct } = await axios.put(
         `/api/order-items/${productToUpdate.id}`,
         {
           quantity: productToUpdate.quantity - 1,
@@ -231,6 +233,7 @@ export const subFromQuantity = (user, productToUpdate, products) => {
       finalProduct.name = product.name;
       finalProduct.size = product.size;
       finalProduct.type = product.type;
+      finalProduct.imageUrl = product.imageUrl;
 
       dispatch(_subFromQuantity(finalProduct));
     }
