@@ -17,7 +17,7 @@ const Product = db.define("product", {
   },
   slug: {
     type: STRING,
-    unique: true
+    unique: true,
   },
   description: {
     type: TEXT,
@@ -50,9 +50,23 @@ const Product = db.define("product", {
   imageUrl: {
     type: ARRAY(Sequelize.TEXT),
     validate: {
-      isUrl: true
-    }
-  }
+      isUrl: true,
+    },
+  },
+  imageUrl: {
+    type: ARRAY(Sequelize.TEXT),
+    validate: {
+      isUrl: true,
+    },
+  },
+  isNew: {
+    type: BOOLEAN,
+    defaultValue: false,
+  },
+  isStaffFavorite: {
+    type: BOOLEAN,
+    defaultValue: false,
+  },
 });
 
 module.exports = Product;

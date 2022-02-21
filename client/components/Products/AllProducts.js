@@ -144,14 +144,15 @@ const AllProducts = (props) => {
             <select
               defaultValue=""
               onChange={(evt) => changeSort(evt)}
-              className="focus:outline-none block p-6 py-3  text-center rounded-full text-base font-bold bg-forest-green text-beige"
+              className="focus:outline-none block p-6 py-3  text-center rounded-full text-base font-bold bg-forest-green text-beige
+               focus:border-forest-green focus:ring-2 focus:ring-xlight-green"
             >
               <option value="" disabled>
                 SORT BY
               </option>
-              <option value="name">Name</option>
-              <option value="price">Price</option>
-              <option value="size">Size</option>
+              <option value="name">Name (A → Z)</option>
+              <option value="price">Price (lowest → highest) </option>
+              <option value="size">Size (small → big)</option>
             </select>
           </div>
           <div className="grid grid-cols-4 m-auto h-full gap-5 my-5">
@@ -359,7 +360,7 @@ const AllProducts = (props) => {
                 Clear filters
               </button>
             </div>
-            <div className="col-span-3  bg-beige rounded-lg px-5 ">
+            <div className="col-span-3  bg-beige rounded-lg pl-5 ">
               <div className="flex flex-col md:grid md:grid-cols-3 gap-5">
                 {currProducts.length
                   ? currProducts.map((product) => (
