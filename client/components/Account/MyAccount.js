@@ -47,7 +47,7 @@ const MyAccount = () => {
             </Link>
           </div>
         </div>
-        <div className="col-span-3 p-10 bg-beige rounded-lg">
+        <div className="col-span-3 p-10 bg-beige rounded-lg overflow-y-auto">
           {includes(location.pathname, "profile") ? <ProfileView /> : null}
           {includes(location.pathname, "orders") ? (
             location.pathname === "/my-account/orders" ? (
