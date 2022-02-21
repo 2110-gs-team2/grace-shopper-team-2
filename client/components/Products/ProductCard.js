@@ -16,12 +16,13 @@ const ProductCard = ({ product }) => {
     <div className="">
       <div className="flex flex-col group relative h-full">
         <button
+          disabled={!product.quantity}
           onClick={() => {
             dispatch(addToCart(currUser, product, products, 1));
           }}
           className="uppercase py-2 border-2 border-forest-green inset-x-5 bottom-20 z-20 absolute rounded-full text-base font-bold bg-beige text-forest-green hidden group-hover:block"
         >
-          Add to cart
+          {product.quantity ? "Add to cart" : "Out of Stock"}
         </button>
         <Link to={`/products/${product.slug}`}>
           <div className="relative">
