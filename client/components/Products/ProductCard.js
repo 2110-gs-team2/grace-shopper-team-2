@@ -19,7 +19,7 @@ const ProductCard = ({ product }) => {
         </button>
         <Link to={`/products/${product.slug}`}>
           <div className="relative">
-            <img src="/img/FicusDanielle.jpeg" alt="" />
+            <img src={product.imageUrl} alt="" />
           </div>
         </Link>
         <div className="flex justify-between items-center mt-2">
