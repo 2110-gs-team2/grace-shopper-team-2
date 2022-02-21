@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize");
 const pkg = require("../../package.json");
 
-const databaseName =
-  pkg.name + (process.env.NODE_ENV === "test" ? "_test" : "");
+const databaseName = pkg.name;
+// pkg.name + (process.env.NODE_ENV === "test" ? "_test" : "");
 
 const config = {
   logging: false,
@@ -11,6 +11,8 @@ const config = {
 if (process.env.LOGGING === "true") {
   delete config.logging;
 }
+
+console.log(process.env.DATABASE_URL, "what is database urL?");
 
 //https://stackoverflow.com/questions/61254851/heroku-postgres-sequelize-no-pg-hba-conf-entry-for-host
 if (process.env.DATABASE_URL) {
