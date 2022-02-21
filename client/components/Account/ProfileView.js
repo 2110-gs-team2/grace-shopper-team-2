@@ -25,6 +25,7 @@ const ProfileView = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const currUser = useSelector((state) => state.auth);
+  const products = useSelector((state) => state.products);
   return (
     <div>
       {!includes(location.pathname, "checkout") ? (
@@ -51,7 +52,7 @@ const ProfileView = () => {
             dispatch(updateUser(values, currUser.id));
             setSuccess(true);
           } else {
-            dispatch(createGuest(values));
+            dispatch(createGuest(values, products));
           }
         }}
       >
