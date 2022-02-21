@@ -5,14 +5,11 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { LockClosedIcon } from "@heroicons/react/solid";
-import { convertCartToOrder } from "../../store/cart";
 import { useDispatch, useSelector } from "react-redux";
-import { setOpenOrder } from "../../store";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
-  const dispatch = useDispatch();
   const currUser = useSelector((state) => state.auth);
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);

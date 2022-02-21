@@ -1,8 +1,6 @@
-import React, { Component, useEffect } from "react";
-import { Check, ChevronDown, MoreHorizontal, TrendingUp } from "react-feather";
+import React, { useEffect } from "react";
+import { ChevronDown } from "react-feather";
 import { useDispatch, useSelector } from "react-redux";
-import { me } from "../../store";
-import products, { getAllProducts } from "../../store/products";
 import { Disclosure } from "@headlessui/react";
 import {
   difficultyLevels,

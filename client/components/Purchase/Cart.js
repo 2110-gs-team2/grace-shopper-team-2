@@ -1,6 +1,6 @@
 import React, { useState, Fragment, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import cartReducer, { fetchCart } from "../../store/cart";
+import { fetchCart } from "../../store/cart";
 import { Transition, Dialog } from "@headlessui/react";
 import { Package, X } from "react-feather";
 import { LockClosedIcon } from "@heroicons/react/solid";

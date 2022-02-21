@@ -1,7 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { useState, Fragment } from "react";
 import { X } from "react-feather";
-import { useDispatch } from "react-redux";
 import { Login, Signup } from "../Account/AuthForm";
 import ProfileView from "../Account/ProfileView";
 

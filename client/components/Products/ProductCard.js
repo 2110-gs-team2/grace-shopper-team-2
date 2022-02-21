@@ -1,6 +1,6 @@
-import React, { Component, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { addToCart, updateCartAuth } from "../../store/cart";
+import { addToCart } from "../../store/cart";
 import { useDispatch, useSelector } from "react-redux";
 
 export const DECREMENT = "DECREMENT";
