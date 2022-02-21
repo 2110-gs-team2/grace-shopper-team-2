@@ -92,6 +92,7 @@ export const updateUser = (user, id) => {
 export const createGuest = (guest) => {
   return async (dispatch) => {
     const { data: newGuest } = await axios.post(`/api/users/`, guest);
+    console.log(newGuest, "what is newGuets");
     // create openOrder
     let incompleteOrder = (
       await axios.post("/api/orders", { userId: newGuest.id })

@@ -69,7 +69,8 @@ router.put("/:id", async (req, res, next) => {
 // CREATE a guest user
 router.post("/", async (req, res, next) => {
   try {
-    const user = await User.create({ ...req.body, role: "CUSTOMER" });
+    let user = await User.findOne({ where: { email: req.body.email } });
+    if (!user) user = await User.create({ ...req.body, role: "CUSTOMER" });
     res.send(user);
   } catch (error) {
     next(error);
