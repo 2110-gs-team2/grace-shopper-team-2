@@ -40,7 +40,9 @@ const _subFromQuantity = (product) => {
   };
 };
 
-const _resetCart = () => {
+export const _resetCart = () => {
+  console.log("reset cart");
+
   return {
     type: RESET_CART,
   };
@@ -277,7 +279,6 @@ export const completeOrder = (orderId) => {
     }
 
     window.localStorage.setItem("cart", "[]");
-    dispatch(_resetCart());
   };
 };
 

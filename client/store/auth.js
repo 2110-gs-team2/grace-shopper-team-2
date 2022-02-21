@@ -1,6 +1,6 @@
 import axios from "axios";
 import history from "../history";
-import { fetchCart } from "./cart";
+import { fetchCart, _resetCart } from "./cart";
 
 const TOKEN = "token";
 
@@ -20,7 +20,8 @@ const _updateUser = (auth) => ({ type: UPDATE_USER, auth });
 /**
  * THUNK CREATORS
  */
-export const me = () => async (dispatch) => {
+export const me = (products) => async (dispatch) => {
+  console.log("me was RUN!");
   const token = window.localStorage.getItem(TOKEN);
   if (token) {
     const { data: user } = await axios.get("/auth/me", {
@@ -47,7 +48,8 @@ export const me = () => async (dispatch) => {
 
     user.openOrder = incompleteOrder;
 
-    return dispatch(setAuth(user));
+    dispatch(setAuth(user));
+    if (products) dispatch(fetchCart(user, products));
   }
 };
 
@@ -135,8 +137,7 @@ export const convertOrder = (user, products) => {
       );
 
       window.localStorage.setItem("cart", JSON.stringify([]));
-      dispatch(me());
-      dispatch(fetchCart(user, products));
+      dispatch(me(products));
     }
   };
 };

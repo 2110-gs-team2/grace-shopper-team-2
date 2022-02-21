@@ -1,14 +1,18 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, useLocation } from "react-router-dom";
-import { completeOrder } from "../../store/cart";
+import { completeOrder, fetchCart } from "../../store/cart";
 
 const ThankYouPage = () => {
   const params = useParams();
   const dispatch = useDispatch();
+  const currUser = useSelector((state) => state.auth);
+  const products = useSelector((state) => state.products);
 
   useEffect(() => {
-    if (params.orderId) dispatch(completeOrder(params.orderId));
+    console.log("thank you page was rendered");
+    if (params.orderId) dispatch(completeOrder(params.orderId, products));
+    // dispatch(fetchCart(currUser, products));
   }, []);
 
   return (

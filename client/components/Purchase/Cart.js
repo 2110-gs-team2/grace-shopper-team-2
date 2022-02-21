@@ -36,6 +36,7 @@ const Cart = (props) => {
   const location = useLocation();
 
   useEffect(() => {
+    console.log("cart has been rendered");
     dispatch(fetchCart(currUser, products));
   }, []);
 
