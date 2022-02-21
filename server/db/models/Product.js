@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const { STRING, ENUM, TEXT, DECIMAL, INTEGER, UUID, UUIDV4, BOOLEAN } =
+const { STRING, ENUM, TEXT, DECIMAL, INTEGER, UUID, UUIDV4, BOOLEAN, ARRAY } =
   Sequelize;
 const db = require("../db");
 
@@ -48,7 +48,7 @@ const Product = db.define("product", {
     type: ENUM(["EASY", "MODERATE", "EXPERT"]),
   },
   imageUrl: {
-    type: STRING,
+    type: ARRAY(Sequelize.TEXT),
     validate: {
       isUrl: true
     }

@@ -292,7 +292,8 @@ products.forEach((p) => {
   p.isPetFriendly = petFriendly[random(0, petFriendly.length - 1)];
   p.quantity = quantity[random(0, quantity.length - 1)];
   p.slug = p.name.replace(/\s+/g,'-').toLowerCase();
-  p.imageUrl = imageUrls[random(0, imageUrls.length - 1)];
+  const imageArr = new Array(3).fill(0);
+  p.imageUrl = imageArr.map(elem => elem = imageUrls[random(0, imageUrls.length - 1)]); 
 });
 
 module.exports = products;
