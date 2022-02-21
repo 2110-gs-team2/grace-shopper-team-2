@@ -6,6 +6,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
+import { Loader } from "react-feather";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -79,11 +80,11 @@ const CheckoutForm = () => {
       <button
         disabled={isLoading || !stripe || !elements}
         id="submit"
-        className="py-3 px-5 shadow w-48 text-base font-bold text-beige bg-forest-green uppercase rounded-full flex gap-2 justify-center"
+        className="py-3 px-5 shadow w-48 text-base font-bold text-beige bg-forest-green uppercase rounded-full flex gap-2 justify-center items-center"
       >
-        <span id="button-text">
+        <span id="button-text" className="flex flex-col justify-center">
           {isLoading ? (
-            <div className="spinner" id="spinner"></div>
+            <span className="inline-block animate-spin my-1 h-4 w-4 border-b-0 border-r-0 border-2 border-beige rounded-full"></span>
           ) : (
             <div className="m-0 p-0 flex justify-around">
               <span className="mr-2"> Place order</span>
