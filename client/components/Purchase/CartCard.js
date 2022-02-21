@@ -53,7 +53,11 @@ const CartCard = (props) => {
                 const productInfo = products.filter(
                   (p) => p.id === product.productId
                 )[0];
-                dispatch(addToCart(currUser, productInfo, products, 1));
+                if (currUser.id) {
+                  dispatch(addToCart(currUser, productInfo, products, 1));
+                } else {
+                  dispatch(addToCart(currUser, product, products, 1));
+                }
               }}
             >
               <Plus strokeWidth={2} width={18} />
