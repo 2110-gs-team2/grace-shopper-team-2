@@ -37,7 +37,8 @@ const AuthForm = (props) => {
               <input
                 name="firstName"
                 type="text"
-                className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
+                className="py-3 px-5 border-forest-green border-2 block w-full rounded-full bg-beige
+                focus:border-forest-green focus:ring-2 focus:ring-xlight-green
           "
               />
             </div>
@@ -51,7 +52,8 @@ const AuthForm = (props) => {
               <input
                 name="lastName"
                 type="text"
-                className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
+                className="py-3 px-5 border-forest-green border-2 block w-full rounded-full bg-beige
+                focus:border-forest-green focus:ring-2 focus:ring-xlight-green
           "
               />
             </div>
@@ -59,14 +61,15 @@ const AuthForm = (props) => {
         ) : null}
         <label
           htmlFor="email"
-          className="text-sm font-bold uppercase pt-5 pb-3"
+          className="text-sm font-bold uppercase pt-5 pb-3 "
         >
           Email
         </label>
         <input
           name="email"
           type="text"
-          className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full bg-beige
+          className="py-3 px-5 border-forest-green border-2  block w-full rounded-full bg-beige
+         focus:border-forest-green focus:ring-2 focus:ring-xlight-green
           "
         />
 
@@ -79,7 +82,8 @@ const AuthForm = (props) => {
         <input
           name="password"
           type="password"
-          className="py-3 px-5 border-forest-green border-2 focus:ring-forest-green block w-full rounded-full  bg-beige
+          className="py-3 px-5 border-forest-green border-2 block w-full rounded-full  bg-beige
+          focus:border-forest-green focus:ring-2 focus:ring-xlight-green
           "
         />
         <button

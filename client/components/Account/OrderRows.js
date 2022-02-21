@@ -1,6 +1,6 @@
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { fetchOrders } from "../../store/orders";
 import format from "date-fns/format";
 import isPast from "date-fns/isPast";
@@ -57,12 +57,14 @@ const OrderRows = ({ orders, auth }) => {
 
 const mapState = ({ auth, orders, products }) => {
   orders.forEach((o) => {
-    const total = o.items.reduce((acc, item) => {
+    const total = o.orderItems.reduce((acc, item) => {
       acc += 1 * item.quantity * item.price;
       return acc;
     }, 0);
     o.total = total;
   });
+
+  orders = orders.filter((o) => !!o.completedTimestamp);
   return { auth, orders, products };
 };
 

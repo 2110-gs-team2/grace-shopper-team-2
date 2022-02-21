@@ -39,11 +39,11 @@ const Cart = (props) => {
     dispatch(fetchCart(currUser, products));
   }, []);
 
-  // console.log("whats the prevCartRef", prevCartRef.current);
-  // console.log("whats the cart", cart);
+  console.log("whats the prevCartRef", prevCartRef.current);
+  console.log("whats the cart", cart);
 
-  // console.log("whats the prevUserRef", prevUserRef.current.id);
-  // console.log("whats the currUser", currUser.id);
+  console.log("whats the prevUserRef", prevUserRef.current.id);
+  console.log("whats the currUser", currUser.id);
   useEffect(() => {
     // opens slide when cart content changes in certain scenarios
     if (
@@ -55,6 +55,7 @@ const Cart = (props) => {
         prevCartRef.current.length !== cart.length &&
         prevUserRef.current.id === currUser.id
       ) {
+        console.log("condition 1");
         return openSlideOver();
       }
       if (
@@ -62,11 +63,18 @@ const Cart = (props) => {
         cart.length === 1 &&
         prevCartRef.current[0].quantity !== cart[0].quantity
       ) {
+        console.log("condition 2");
         return openSlideOver();
       }
 
-      if (!prevCartRef.current.id && !currUser.id && cart.length === 1) {
-        openSlideOver();
+      if (
+        !prevCartRef.current.id &&
+        !currUser.id &&
+        cart.length === 1 &&
+        prevCartRef.current.length !== 0
+      ) {
+        console.log("condition 3");
+        return openSlideOver();
       }
     }
 

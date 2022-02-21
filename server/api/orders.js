@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Order, User },
+  models: { Order, User, OrderItem, Product },
 } = require("../db");
 module.exports = router;
 
@@ -29,7 +29,10 @@ router.get("/", async (req, res, next) => {
 // GET individual order
 router.get("/:orderId", async (req, res, next) => {
   try {
-    const order = await Order.findByPk(req.params.orderId);
+    const order = await Order.findOne({
+      where: { id: req.params.orderId },
+      include: [OrderItem],
+    });
     res.json(order);
   } catch (error) {
     next(error);
@@ -52,7 +55,10 @@ router.put("/:orderId", async (req, res, next) => {
 // GET individual user's set of orders
 router.get("/user/:userId", requireToken, async (req, res, next) => {
   try {
-    const order = await Order.findAll({ where: { userId: req.user.id } });
+    const order = await Order.findAll({
+      where: { userId: req.user.id },
+      include: [OrderItem],
+    });
     res.json(order);
   } catch (error) {
     next(error);

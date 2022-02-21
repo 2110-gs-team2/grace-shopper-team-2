@@ -18,17 +18,6 @@ export const fetchOrders = (userId) => {
         authorization: token,
       },
     });
-    let itemResults = await Promise.all(
-      orders.map((o) => axios.get(`/api/order-items/order/${o.id}`))
-    );
-    itemResults = itemResults.map((i) => i.data);
-    await orders.forEach((o) => {
-      const itemArray = itemResults.find(
-        (arr) => arr[0] && arr[0].orderId === o.id
-      );
-      o.items = itemArray || [];
-    });
-
     dispatch(_fetchOrders(orders));
   };
 };

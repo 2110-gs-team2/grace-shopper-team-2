@@ -80,6 +80,7 @@ export const logout = () => {
 
 export const updateUser = (user, id) => {
   const token = window.localStorage.getItem(TOKEN);
+  console.log("updateUser is being called");
   return async (dispatch) => {
     const { data: updatedUser } = await axios.put(`/api/users/${id}`, {
       user,
