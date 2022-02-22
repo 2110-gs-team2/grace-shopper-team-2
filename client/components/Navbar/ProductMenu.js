@@ -7,7 +7,7 @@ const ProductMenu = () => {
   return (
     <div className="w-full max-w-sm">
       <Popover className="relative">
-        {({ open }) => (
+        {({ open, close }) => (
           <>
             <Popover.Button>
               <div
@@ -39,24 +39,28 @@ const ProductMenu = () => {
                       </div>
                       <Link
                         to="/products?type=indoor"
+                        onClick={() => close()}
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Indoor plants
                       </Link>
                       <Link
                         to="/products?type=succulent"
+                        onClick={() => close()}
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Succulents
                       </Link>
                       <Link
                         to="/products?type=herb"
+                        onClick={() => close()}
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Herbs
                       </Link>
                       <Link
                         to="/products"
+                        onClick={() => close()}
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Shop all
@@ -69,18 +73,21 @@ const ProductMenu = () => {
                       </div>
                       <Link
                         to="/products?isPetFriendly=true"
+                        onClick={() => close()}
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Pet-friendly plants
                       </Link>
                       <Link
                         to="/products?difficulty=easy"
+                        onClick={() => close()}
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Best beginner plants
                       </Link>
                       <Link
                         to="/products?light=low"
+                        onClick={() => close()}
                         className="hover:bg-xlight-green p-1 px-3 rounded-md"
                       >
                         Low light plants
