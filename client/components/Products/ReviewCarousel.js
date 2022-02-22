@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ArrowLeft, ArrowRight } from "react-feather";
+import { ArrowLeft, ArrowRight, Check } from "react-feather";
 
 const PrevArrow = (props) => {
   const { className, style, onClick } = props;
@@ -37,6 +37,7 @@ export default class ReviewCarousel extends Component {
   }
 
   render() {
+    const { reviews } = this.props;
     const settings = {
       dots: true,
       infinite: true,
@@ -94,38 +95,27 @@ export default class ReviewCarousel extends Component {
       <div>
         <div className="text-5xl mb-5 px-40">What our customers say</div>
         <Slider {...settings}>
-          <div className="h-60 p-5">
-            <div className="border-2 p-5 border-forest-green rounded-lg w-full h-full">
-              <div className="text-lg">
-                Asperiores aut et delectus eos blanditiis atque nostrum modi.
-                Doloremque earum modi quia placeat.
+          {reviews.map((review) => {
+            console.log(review);
+            return (
+              <div className=" p-5" key={review.id}>
+                <div className="min-h-[300px] border-2 p-5 border-forest-green rounded-lg w-full h-auto flex flex-col justify-between">
+                  <div className="text-lg">{review.reviewText}</div>
+                  <div className="flex flex-col">
+                    <div className="flex flex-row items-center gap-2">
+                      <div className="text-md font-bold uppercase">
+                        {review.user.firstName} {review.user.lastName}
+                      </div>
+                      <div className="w-5 h-5 p-1  flex items-center justify-center bg-forest-green rounded-full">
+                        <Check className="text-white" />
+                      </div>
+                    </div>
+                    <div className="text-sm">Verified buyer</div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div className="h-60 p-5">
-            <div className="border-2 p-5 border-forest-green rounded-lg w-full h-full">
-              <div>
-                Asperiores aut et delectus eos blanditiis atque nostrum modi.
-                Doloremque earum modi quia placeat.
-              </div>
-            </div>
-          </div>
-          <div className="h-60 p-5">
-            <div className="border-2 p-5 border-forest-green rounded-lg w-full h-full">
-              <div>
-                Asperiores aut et delectus eos blanditiis atque nostrum modi.
-                Doloremque earum modi quia placeat.
-              </div>
-            </div>
-          </div>
-          <div className="h-60 p-5">
-            <div className="border-2 p-5 border-forest-green rounded-lg w-full h-full">
-              <div>
-                Asperiores aut et delectus eos blanditiis atque nostrum modi.
-                Doloremque earum modi quia placeat.
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </Slider>
       </div>
     );

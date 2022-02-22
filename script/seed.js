@@ -42,7 +42,7 @@ async function seed() {
 
   // Creating Reviews
   const reviews = await Promise.all(
-    new Array(100).fill("-").map((review) => {
+    new Array(200).fill("-").map((review) => {
       return Review.create({
         reviewText: faker.lorem.sentences(),
         userId: users[random(0, users.length - 1)].id,

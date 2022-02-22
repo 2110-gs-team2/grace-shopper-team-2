@@ -14,7 +14,7 @@ class SingleProduct extends Component {
   constructor() {
     super();
     this.state = {
-      product: {},
+      // product: {},
       reviews: [],
       count: 1,
     };
@@ -22,40 +22,34 @@ class SingleProduct extends Component {
 
   componentDidMount() {
     window.scrollTo({ top: 0, behavior: "smooth" });
-
     this.props.getAllProducts();
-    const { products } = this.props;
-    const { slug } = this.props.match.params;
 
-    if (products.length) {
-      console.log("this??");
-      this.setState({
-        product: products.find((product) => slug === product.slug),
-      });
-      console.log("this state.product", this.state.product);
-      // this.props.fetchReviews(this.state.product);
-    }
+    // if (products.length) {
+    //   this.setState({
+    //     product: products.find((product) => slug === product.slug),
+    //   });
+    // }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { products } = this.props;
-    const { product } = this.state;
-    const { slug } = this.props.match.params;
-    if (!Object.keys(product).length) {
-      if (isArray(products) && products.length) {
-        this.setState({
-          product: products.find((product) => slug === product.slug),
-        });
-        // this.props.fetchReviews(this.state.product);
-      }
+    if (!prevProps.product && prevProps.product !== this.props.product) {
+      this.props.fetchReviews(this.props.product);
     }
+
+    // const { product } = this.state;
+    // const { slug } = this.props.match.params;
+    // if (!Object.keys(product).length) {
+    //   if (isArray(products) && products.length) {
+    //     this.setState({
+    //       product: products.find((product) => slug === product.slug),
+    //     });
+    // this.props.fetchReviews(this.state.product);
+    //   }
+    // }
 
     if (prevProps.match.params.slug !== this.props.match.params.slug) {
       window.scrollTo({ top: 0, behavior: "smooth" });
-      this.setState({
-        product: products.find((product) => slug === product.slug),
-      });
-      // this.props.fetchReviews(this.state.product);
+      this.props.fetchReviews(this.props.product);
     }
   }
 
@@ -67,9 +61,10 @@ class SingleProduct extends Component {
   };
 
   render() {
-    const { product, count } = this.state;
-    const { products, addToCart, currUser } = this.props;
+    const { count } = this.state;
+    const { products, addToCart, currUser, reviews } = this.props;
     const { changeQuantity } = this;
+    const product = this.props.product || {};
 
     return (
       <div className="min-h-[100vh] bg-beige">
@@ -224,7 +219,7 @@ class SingleProduct extends Component {
               </div>
             </div>
           </div>
-          <ReviewCarousel />
+          <ReviewCarousel reviews={reviews} />
           <div className="p-20 max-w-[90vw] m-auto">
             {products.length ? (
               <>
@@ -243,10 +238,16 @@ class SingleProduct extends Component {
   }
 }
 
-const mapStateToProps = ({ products, auth }) => {
+const mapStateToProps = ({ products, auth, reviews }, otherProps) => {
+  const slug = otherProps.match.params.slug;
+  const product = products.find((product) => slug === product.slug);
+
   return {
     products,
     currUser: auth,
+    slug,
+    product,
+    reviews,
   };
 };
 

@@ -156,9 +156,9 @@ const Cart = (props) => {
                                   150 - subtotal
                                 } away from free shipping!`}
                           </div>
-                          <div className="w-full bg-forest-green rounded-full h-1.5 dark:bg-xlight-green my-3">
+                          <div className="w-full dark:bg-forest-green rounded-full h-1.5 bg-xlight-green my-3">
                             <div
-                              className=" h-1.5 bg-xlight-green rounded-full dark:bg-forest-green transition-all"
+                              className=" h-1.5 dark:bg-xlight-green rounded-full bg-forest-green transition-all"
                               style={{ width: `${freeShippingProgress}` }}
                             ></div>
                           </div>
