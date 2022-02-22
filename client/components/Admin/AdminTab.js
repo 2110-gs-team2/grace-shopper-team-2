@@ -5,6 +5,8 @@ import { getAllProducts } from "../../store/products";
 import { fetchUsers } from "../../store/users";
 import SingleInventory from "./SingleInventory";
 import WarningModal from "./WarningModal";
+import toast, { Toaster } from "react-hot-toast";
+import { Check } from "react-feather";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -20,8 +22,24 @@ const AdminTab = () => {
     dispatch(fetchUsers());
   }, []);
 
+  const deleteNotify = () =>
+    toast((t) => {
+      return (
+        <div className="flex flex-row gap-2 w-full items-center border-2">
+          <div className="w-5 h-5 p-1  flex items-center justify-center bg-forest-green rounded-full">
+            <Check className="text-white" />
+          </div>
+          <div className="text-base">Successfully deleted</div>
+        </div>
+      );
+    });
+
   return (
     <div className="w-full px-2  sm:px-0">
+      <div>
+        <Toaster />
+      </div>
+
       <Tab.Group>
         <Tab.List className="flex p-1 space-x-1 bg-forest-green rounded-xl">
           {categories.map((category) => (
@@ -74,7 +92,10 @@ const AdminTab = () => {
                         <div>{p.size}</div>
                       </div>
                       <SingleInventory product={p} />
-                      <WarningModal productId={p.id} />
+                      <WarningModal
+                        productId={p.id}
+                        deleteNotify={deleteNotify}
+                      />
                     </div>
                   </div>
                 </li>
