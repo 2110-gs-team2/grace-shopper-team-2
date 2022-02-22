@@ -4,7 +4,7 @@ import { X } from "react-feather";
 import { useDispatch } from "react-redux";
 import SingleInventoryForm from "./SingleInventoryForm";
 
-const SingleInventory = ({ product }) => {
+const SingleInventory = ({ product, triggerBanner }) => {
   const [open, setOpen] = useState(false);
   function closeModal() {
     setOpen(false);
@@ -73,6 +73,8 @@ const SingleInventory = ({ product }) => {
                     <SingleInventoryForm
                       product={product}
                       operation={"update"}
+                      triggerBanner={triggerBanner}
+                      closeModal={closeModal}
                     />
                   </div>
                 </div>

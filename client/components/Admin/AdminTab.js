@@ -22,14 +22,14 @@ const AdminTab = () => {
     dispatch(fetchUsers());
   }, []);
 
-  const deleteNotify = () =>
+  const triggerBanner = (operation) =>
     toast((t) => {
       return (
-        <div className="flex flex-row gap-2 w-full items-center border-2">
-          <div className="w-5 h-5 p-1  flex items-center justify-center bg-forest-green rounded-full">
-            <Check className="text-white" />
+        <div className="flex flex-row gap-2 w-full items-center">
+          <div className="w-5 h-5 p-1  flex items-center justify-center bg-beige rounded-full">
+            <Check className="text-forest-green" />
           </div>
-          <div className="text-base">Successfully deleted</div>
+          <div className="text-base">Successfully {`${operation}`}d</div>
         </div>
       );
     });
@@ -37,9 +37,14 @@ const AdminTab = () => {
   return (
     <div className="w-full px-2  sm:px-0">
       <div>
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            className: "bg-forest-green text-white",
+          }}
+        />
       </div>
 
+      <button onClick={() => triggerBanner('delete')}>click me!</button>
       <Tab.Group>
         <Tab.List className="flex p-1 space-x-1 bg-forest-green rounded-xl">
           {categories.map((category) => (
@@ -91,10 +96,13 @@ const AdminTab = () => {
                         <div>Size</div>
                         <div>{p.size}</div>
                       </div>
-                      <SingleInventory product={p} />
+                      <SingleInventory
+                        product={p}
+                        triggerBanner={triggerBanner}
+                      />
                       <WarningModal
                         productId={p.id}
-                        deleteNotify={deleteNotify}
+                        triggerBanner={triggerBanner}
                       />
                     </div>
                   </div>

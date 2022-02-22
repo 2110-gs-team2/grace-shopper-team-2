@@ -11,7 +11,12 @@ export const sizes = ["X-SMALL", "SMALL", "MEDIUM", "LARGE"];
 export const lightLevels = ["LOW", "INDIRECT", "DIRECT"];
 export const difficultyLevels = ["EASY", "MODERATE", "EXPERT"];
 
-const SingleInventoryForm = ({ product, operation }) => {
+const SingleInventoryForm = ({
+  product,
+  operation,
+  triggerBanner,
+  closeModal,
+}) => {
   const [success, setSuccess] = useState(false);
   const dispatch = useDispatch();
 
@@ -56,7 +61,9 @@ const SingleInventoryForm = ({ product, operation }) => {
           values.slug = values.name.replace(/\s+/g, "-").toLowerCase();
           dispatch(addProduct(values));
         }
-        setSuccess(true);
+        triggerBanner(operation);
+        closeModal();
+        // setSuccess(true);
       }}
     >
       <Form className="flex flex-col gap-3">
