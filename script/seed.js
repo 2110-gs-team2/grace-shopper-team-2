@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, Order, OrderItem, Product },
+  models: { User, Order, OrderItem, Product, Review },
 } = require("../server/db");
 // const users = JSON.parse(fs.readFileSync(path.join(__dirname, 'users.json')));
 const faker = require("faker");
@@ -39,6 +39,17 @@ async function seed() {
 
   // Creating Products
   const products = await Promise.all(productData.map((p) => Product.create(p)));
+
+  // Creating Reviews
+  const reviews = await Promise.all(
+    new Array(100).fill("-").map((review) => {
+      return Review.create({
+        reviewText: faker.lorem.sentences(),
+        userId: users[random(0, users.length - 1)].id,
+        productId: products[random(0, products.length - 1)].id,
+      });
+    })
+  );
 
   // Creating Orders
   let orders = await Promise.all(
@@ -107,6 +118,7 @@ async function seed() {
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${products.length} products`);
   console.log(`seeded ${orders.length} orders`);
+  console.log(`seeded ${reviews.length} reviews`);
   console.log(`seeded successfully`);
   return {
     users: {
