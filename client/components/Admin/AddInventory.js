@@ -3,6 +3,7 @@ import React, { useState, Fragment } from "react";
 import { X } from "react-feather";
 import { useDispatch } from "react-redux";
 import SingleInventoryForm from "./SingleInventoryForm";
+import { triggerBanner } from "./AdminTab";
 
 const AddInventory = () => {
   const [open, setOpen] = useState(false);
@@ -61,7 +62,12 @@ const AddInventory = () => {
                 </div>
                 <div className="bg-beige p-7 pt-14 rounded-md">
                   <div className="flex flex-col">
-                    <SingleInventoryForm product={{}} operation={"add"} />
+                    <SingleInventoryForm
+                      product={{}}
+                      operation={"add"}
+                      triggerBanner={triggerBanner}
+                      closeModal={closeModal}
+                    />
                   </div>
                 </div>
               </div>
