@@ -110,7 +110,7 @@ const Main = () => {
         style={{ backgroundImage: "url(/img/HomePage-2.png)" }}
       >
         <div className="text-5xl">Ready to buy?</div>
-        <div className="text-xl">Enjoy free shipping on $50+ orders</div>
+        <div className="text-xl">Enjoy free shipping on $150+ orders</div>
         <Link
           to="/products"
           className="block mt-5 p-6 py-3 w-48 text-center rounded-full text-base font-bold bg-forest-green text-beige uppercase"

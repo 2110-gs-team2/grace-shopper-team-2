@@ -30,6 +30,11 @@ const Cart = (props) => {
   const products = useSelector((state) => state.products);
   const prevCartRef = useRef(cart);
   const prevUserRef = useRef(currUser);
+  const subtotal = cartSubTotal(cart).toFixed(2);
+  let shippingProgress = Math.floor((subtotal / 150) * 100);
+  if (shippingProgress > 100) shippingProgress = 100;
+  const [freeShippingProgress, setFreeShippingProgress] = useState("0%");
+  console.log("cart is rendered");
 
   //redux hooks for cart store
   const dispatch = useDispatch();
@@ -38,6 +43,10 @@ const Cart = (props) => {
   useEffect(() => {
     dispatch(fetchCart(currUser, products));
   }, []);
+
+  useEffect(() => {
+    setFreeShippingProgress(`${shippingProgress}%`);
+  }, [cart]);
 
   // console.log("whats the prevCartRef", prevCartRef.current);
   // console.log("whats the cart", cart);
@@ -138,6 +147,23 @@ const Cart = (props) => {
                   <div className="">
                     <Dialog.Title className="text-3xl">
                       Your cart ({getCartQuantity(cart)})
+                      {cart && cart.length !== 0 ? (
+                        <div className="mt-3">
+                          <div className="text-sm">
+                            {freeShippingProgress === "100%"
+                              ? "Congrats, you scored free shipping!"
+                              : `You're $${
+                                  150 - subtotal
+                                } away from free shipping!`}
+                          </div>
+                          <div className="w-full bg-forest-green rounded-full h-1.5 dark:bg-xlight-green my-3">
+                            <div
+                              className=" h-1.5 bg-xlight-green rounded-full dark:bg-forest-green transition-all"
+                              style={{ width: `${freeShippingProgress}` }}
+                            ></div>
+                          </div>
+                        </div>
+                      ) : null}
                     </Dialog.Title>
                   </div>
                   <div className="mt-6 overflow-x-hidden overflow-y-auto max-h-[80vh] pb-16">
@@ -193,7 +219,7 @@ const Cart = (props) => {
                         Subtotal:
                       </span>
                       <span className="font-bold uppercase leading-5 text-xl">
-                        ${cartSubTotal(cart).toFixed(2)}
+                        ${subtotal}
                       </span>
                     </div>
                     <Link
