@@ -1,17 +1,23 @@
 import React, { Component, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { ArrowDown } from "react-feather";
 
 const Main = () => {
   const products = useSelector((state) => state.products);
+
   return (
     <div>
       <div
-        className={` h-screen w-full bg-cover bg-center bg-no-repeat`}
+        className={`h-screen w-full bg-cover bg-center bg-no-repeat relative`}
         style={{
           backgroundImage: "url(/img/above-the-fold.jpg)",
         }}
-      ></div>
+      >
+        <div className="animate-bounce w-12 h-12 bg-beige bg-opacity-70 flex justify-center items-center rounded-full absolute bottom-10 left-1/2 -translate-x-1/2">
+          <ArrowDown className="text-forest-green" strokeWidth={2} />
+        </div>
+      </div>
       <div className=" bg-beige py-10 px-5 md:px-10 md:py-20">
         <div className="w-full md:w-9/12 m-auto">
           <div className="text-5xl">Browse our plants</div>
