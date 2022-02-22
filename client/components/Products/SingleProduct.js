@@ -9,6 +9,8 @@ import ProductCard, { INCREMENT, DECREMENT } from "./ProductCard";
 import { getAllProducts } from "../../store/products";
 import { addToCart } from "../../store/cart";
 import { fetchReviews } from "../../store/reviews";
+import Ratings from "./Ratings";
+import mean from "lodash/mean";
 
 class SingleProduct extends Component {
   constructor() {
@@ -65,6 +67,9 @@ class SingleProduct extends Component {
     const { products, addToCart, currUser, reviews } = this.props;
     const { changeQuantity } = this;
     const product = this.props.product || {};
+    const avgRating = mean(reviews.map((review) => review.rating));
+
+    console.log(avgRating, "average");
 
     return (
       <div className="min-h-[100vh] bg-beige">
@@ -74,6 +79,9 @@ class SingleProduct extends Component {
             <div className="grid-cols-1 flex flex-col gap-3 basis-1/3">
               <div className="flex flex-col gap-2 pb-5 border-b-2 border-forest-green">
                 <div className="text-5xl">{product.name}</div>
+                {!isNaN(avgRating) ? (
+                  <Ratings rating={avgRating} starDimension="25px" />
+                ) : null}
                 <div className="text-3xl font-bold">${product.price}</div>
               </div>
               <div className="flex justify-between mt-5">

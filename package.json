@@ -47,6 +47,7 @@
     "query-string": "^7.1.1",
     "react-feather": "^2.0.9",
     "react-slick": "^0.28.1",
+    "react-star-ratings": "^2.3.0",
     "sequelize": "^6.3.5",
     "slick-carousel": "^1.8.1",
     "stripe": "^8.203.0",

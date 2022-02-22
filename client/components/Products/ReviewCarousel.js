@@ -3,9 +3,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ArrowLeft, ArrowRight, Check } from "react-feather";
+import Ratings from "./Ratings";
 
-const PrevArrow = (props) => {
-  const { className, style, onClick } = props;
+const PrevArrow = ({ onClick }) => {
   return (
     <div
       className="w-12 h-12 bg-xlight-green rounded-full bg-opacity-70 hover:bg-opacity-100 flex justify-center items-center absolute top-1/2 -translate-y-1/2 z-10"
@@ -16,8 +16,7 @@ const PrevArrow = (props) => {
   );
 };
 
-const NextArrow = (props) => {
-  const { className, style, onClick } = props;
+const NextArrow = ({ onClick }) => {
   return (
     <div
       className="w-12 h-12 bg-xlight-green rounded-full bg-opacity-70 hover:bg-opacity-100 flex justify-center items-center absolute right-0 top-1/2 -translate-y-1/2 z-10"
@@ -96,11 +95,14 @@ export default class ReviewCarousel extends Component {
         <div className="text-5xl mb-5 px-40">What our customers say</div>
         <Slider {...settings}>
           {reviews.map((review) => {
-            console.log(review);
             return (
-              <div className=" p-5" key={review.id}>
-                <div className="min-h-[300px] border-2 p-5 border-forest-green rounded-lg w-full h-auto flex flex-col justify-between">
-                  <div className="text-lg">{review.reviewText}</div>
+              <div className="p-5" key={review.id}>
+                <div className="min-h-[300px] border-2 p-5 border-forest-green rounded-lg w-full h-auto flex flex-col justify-between gap-5">
+                  <div className="flex flex-col">
+                    <div className="text-lg">{review.reviewText}</div>
+                    <Ratings rating={review.rating} starDimension="15px" />
+                  </div>
+
                   <div className="flex flex-col">
                     <div className="flex flex-row items-center gap-2">
                       <div className="text-md font-bold uppercase">
