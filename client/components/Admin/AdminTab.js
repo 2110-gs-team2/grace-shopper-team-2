@@ -43,8 +43,6 @@ const AdminTab = () => {
           }}
         />
       </div>
-
-      <button onClick={() => triggerBanner('delete')}>click me!</button>
       <Tab.Group>
         <Tab.List className="flex p-1 space-x-1 bg-forest-green rounded-xl">
           {categories.map((category) => (
