@@ -11,6 +11,7 @@ import { addToCart } from "../../store/cart";
 import { fetchReviews } from "../../store/reviews";
 import Ratings from "./Ratings";
 import mean from "lodash/mean";
+import random from "lodash/random";
 
 class SingleProduct extends Component {
   constructor() {
@@ -68,8 +69,7 @@ class SingleProduct extends Component {
     const { changeQuantity } = this;
     const product = this.props.product || {};
     const avgRating = mean(reviews.map((review) => review.rating));
-
-    console.log(avgRating, "average");
+    const startIndex = random(0, products.length - 4);
 
     return (
       <div className="min-h-[100vh] bg-beige">
@@ -233,9 +233,12 @@ class SingleProduct extends Component {
               <>
                 <div className="text-5xl mb-5">People also browsed...</div>
                 <div className="flex flex-col md:grid md:grid-cols-3 gap-5">
-                  {products.slice(0, 3).map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                  ))}
+                  {products
+                    .filter((p) => p.id !== product.id)
+                    .slice(startIndex, startIndex + 3)
+                    .map((product) => (
+                      <ProductCard key={product.id} product={product} />
+                    ))}
                 </div>
               </>
             ) : null}

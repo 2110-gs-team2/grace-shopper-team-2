@@ -34,7 +34,6 @@ const Cart = (props) => {
   let shippingProgress = Math.floor((subtotal / 150) * 100);
   if (shippingProgress > 100) shippingProgress = 100;
   const [freeShippingProgress, setFreeShippingProgress] = useState("0%");
-  console.log("cart is rendered");
 
   //redux hooks for cart store
   const dispatch = useDispatch();

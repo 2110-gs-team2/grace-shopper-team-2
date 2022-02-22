@@ -10,6 +10,7 @@ const CartCard = (props) => {
   //redux hooks
   const dispatch = useDispatch();
 
+  console.log(product.quantity, "this is product quantity");
   return (
     <div className="flex flex-row gap-5 pr-1">
       <img src={product.imageUrl[0]} className=" object-contain w-24" alt="" />
@@ -37,9 +38,12 @@ const CartCard = (props) => {
           </span>
           <div className="flex items-center justify-between w-28 px-2 py-1 text-base font-bold text-forest-green border-2 border-forest-green uppercase rounded-full">
             <button
-              disabled={product.quantity < 2}
               onClick={() => {
-                dispatch(subFromQuantity(currUser, product, products));
+                if (product.quantity === 1) {
+                  dispatch(removeFromCart(currUser, product.id));
+                } else {
+                  dispatch(subFromQuantity(currUser, product, products));
+                }
               }}
             >
               <Minus strokeWidth={2} width={18} />

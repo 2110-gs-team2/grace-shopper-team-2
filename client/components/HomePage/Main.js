@@ -42,10 +42,10 @@ const Main = () => {
       {/* middle section */}
       <div className="flex flex-col md:flex-row min-h-[60vh]">
         <div className="basis-1/2 bg-forest-green p-10 md:py-20 md:px-10 ">
-          <div className="text-5xl text-white">
+          <div className="text-5xl text-beige">
             Delivered right at your door
           </div>
-          <div className="my-5 text-xl text-white ">
+          <div className="my-5 text-xl text-beige ">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Mattis
             molestie a iaculis at erat pellentesque adipiscing commodo elit.
@@ -53,7 +53,7 @@ const Main = () => {
           </div>
           <Link
             to="/products"
-            className="block mt-5 p-6 py-3 w-48 text-center rounded-full text-base font-bold bg-white text-forest-green uppercase"
+            className="block mt-5 p-6 py-3 w-48 text-center rounded-full text-base font-bold bg-beige text-forest-green uppercase"
           >
             Shop all
           </Link>
@@ -67,8 +67,8 @@ const Main = () => {
       <div className="p-20">
         <div className="flex justify-start relative py-10 h-[40vw] max-w-5xl m-auto my-10">
           <div className=" absolute left-0 min-h-min w-2/5 p-14 z-10 flex flex-col justify-center rounded-lg shadow-sm bg-forest-green">
-            <div className="text-5xl text-white">Value prop 1</div>
-            <div className="mt-5 text-xl text-white">
+            <div className="text-5xl text-beige">Value prop 1</div>
+            <div className="mt-5 text-xl text-beige">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Mattis
               molestie a iaculis at erat pellentesque adipiscing commodo elit.
@@ -94,8 +94,8 @@ const Main = () => {
             </div>
           </div>
           <div className="absolute right-0 min-h-min  w-2/5 p-14 z-10 flex flex-col justify-center rounded-lg shadow-sm bg-forest-green">
-            <div className="text-5xl text-white">Value prop 2</div>
-            <div className="mt-5 text-xl text-white">
+            <div className="text-5xl text-beige">Value prop 2</div>
+            <div className="mt-5 text-xl text-beige">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Mattis
               molestie a iaculis at erat pellentesque adipiscing commodo elit.
