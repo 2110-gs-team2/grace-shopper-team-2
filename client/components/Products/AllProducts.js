@@ -9,8 +9,8 @@ import {
   types,
 } from "../Admin/SingleInventoryForm";
 import startCase from "lodash/startCase";
-import ProductCard from "./ProductCard";
 import queryString from "query-string";
+import Pagination from "./Pagination";
 
 const AllProducts = (props) => {
   const [queryObj, setQueryObj] = useState({});
@@ -360,15 +360,7 @@ const AllProducts = (props) => {
                 Clear filters
               </button>
             </div>
-            <div className="col-span-3  bg-beige rounded-lg pl-5 ">
-              <div className="flex flex-col md:grid md:grid-cols-3 gap-5">
-                {currProducts.length
-                  ? currProducts.map((product) => (
-                      <ProductCard product={product} key={product.id} />
-                    ))
-                  : null}
-              </div>
-            </div>
+            <Pagination currProducts={currProducts} />
           </div>
         </div>
       </div>
