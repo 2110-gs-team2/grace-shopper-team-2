@@ -47,7 +47,7 @@ const AdminTab = () => {
               {products.map((p) => (
                 <li key={p.id} className="bg-beige rounded-lg flex">
                   <div
-                    style={{ backgroundImage: "url('/img/HomePage-1.jpg')" }}
+                    style={{ backgroundImage: `url('${p.imageUrl[0]}')` }}
                     className="w-1/2 bg-no-repeat rounded-lg bg-center bg-cover"
                   ></div>
                   <div className="p-5 grow">

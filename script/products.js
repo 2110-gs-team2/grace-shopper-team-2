@@ -305,6 +305,106 @@ const products = [
     description:
       "The Philodendron Birkin is characterized by its lush green leaves with white or yellow pinstripes. A unique hybrid, you won't find this plant in the wild. It is a slow growing plant that can reach up to 3 feet tall indoors if well cared for.",
   },
+  {
+    name: "Echeveria Lola",
+    description:
+      "The Echeveria is our equivalent of the rose. This iconic succulent has fleshy drought-tolerant green leaves that grow in a chic rosette shape. It’s the perfect pick-me-up plant for yourself or a friend. ",
+  },
+  {
+    name: "Bird’s Nest Fern",
+    description:
+      "If you’re looking for the perfect tropical houseplant, look no further than the popular Bird’s Nest Fern. Known for its tropical fronds that grow out of a central rosette, this plant will add a vibrant pop of green to any space all year long. It is one of the easiest ferns to care for indoors.",
+  },
+  {
+    name: "Arrowhead White Butterfly",
+    description:
+      "Take a closer look at the Arrowhead White Butterfly, and you’ll find that its leaves actually feature marbling in a variety of vibrant green shades. You can showcase this unique variegation by training your Syngonium podophyllum to climb trellises and ladder stands in the same way it climbs trees in its native rainforests",
+  },
+  {
+    name: "Monstera Ginny",
+    description:
+      "Though the Monstera Ginny, or Rhaphidophora tetrasperma, resembles its distant cousin the Monstera Deliciosa, it has its own unique personality and is most often seen climbing moss poles, trellises, and stakes.",
+  },
+  {
+    name: "Bromeliad Antonio Pink",
+    description:
+      "The “pink” in Bromeliad Antonio Pink describes the fuchsia bracts found in this cultivar, which sometimes produce short-blooming purple flowers. Its vibrant bract also gives it its nickname, the Pink Quill Plant.",
+  },
+  {
+    name: "Large Schefflera Arboricola",
+    description:
+      "The Schefflera Arboricola features a single or braided trunk and tree-like clusters of leaflets, which have been likened to umbrellas, wheels, and octopi! You can help it retain its foliage by placing it in bright light and spacing out waterings.",
+  },
+  {
+    name: "Pink Anthurium",
+    description:
+      "Dramatic in color but not in care, the Phalaenopsis orchid—or beginner orchid—is one of the easiest varieties to grow as a houseplant. You may notice a small amount of blooms on your orchid upon delivery. These blooms will open quicker in a warm indoor setting. It will typically bloom about once a year, for up to three months. After a blooming cycle, the flowers will wilt and fall off. This is the orchid’s way to store up energy to re-bloom again next season. ",
+  },
+  {
+    name: "Pink Orchid",
+    description:
+      "The Schefflera Arboricola features a single or braided trunk and tree-like clusters of leaflets, which have been likened to umbrellas, wheels, and octopi! You can help it retain its foliage by placing it in bright light and spacing out waterings.",
+  },
+  {
+    name: "Watercolor Pink Orchid",
+    description:
+      "Watercolor orchids are Phalaenopsis orchids dyed using a safe and natural method. You may notice a small amount of blooms on your orchid upon delivery. These blooms will open quicker in a warm indoor setting. Phalaenopsis orchids typically bloom about once a year, for up to three months. After a blooming cycle, the flowers will wilt and fall off. This is the orchid’s way to store up energy to re-bloom again next season. When they re-bloom, their flowers will be their natural color. ",
+  },
+  {
+    name: "Peruvian Apple Cactus",
+    description:
+      "The Peruvian Apple Cactus is easy to grow, and needs very little TLC to thrive indoors or out. As the name implies, the plant originates in the deserts of South America. This succulent is slow growing, but will reward you with pristine white flowers throughout the summer. Lucky gardeners may even enjoy the fruit, which some say tastes like a cross between an overripe apple and a melon.",
+  },
+  {
+    name: "Indian Rubber Plant",
+    description:
+      "Watercolor orchids are Phalaenopsis orchids dyed using a safe and natural method. You may notice a small amount of blooms on your orchid upon delivery. These blooms will open quicker in a warm indoor setting. Phalaenopsis orchids typically bloom about once a year, for up to three months. After a blooming cycle, the flowers will wilt and fall off. This is the orchid’s way to store up energy to re-bloom again next season. When they re-bloom, their flowers will be their natural color. ",
+  },
+  {
+    name: "Indian Lilac",
+    description:
+      "Also known as the Neem Tree or Indian Lilac, the Azadirachta Indica is native to the subcontinent of India, including India, Nepal, Pakistan, Bangladesh and Sri Lanka. Best in tropical and semi-tropical regions, it requires zones 10 – 12 in order to grow to its best.",
+  },
+  {
+    name: "Pigeon Plum",
+    description:
+      "Coccoloba diversifolia, known as pigeonplum or tietongue, is a species of the genus Coccoloba native to coastal areas of the Caribbean, Central America, southern Mexico, southern Florida and the Bahamas.",
+  },
+  {
+    name: "Milkweed",
+    description:
+      "The Milkweed looks beautifully at home in native-style gardens and among wildflowers. You’ll find it works well in borders of perennials, as it comes back each year. Its bright orange umbrella-like flowers are surrounded by green leaves.",
+  },
+  {
+    name: "Peacock Plant",
+    description:
+      "The distinctive markings on this plant’s pale green leaves are said to resemble a peacock’s tail. Also called “Cathedral Windows,” a dark green feathered pattern runs from the leaves’ middle to its outer edges. When new leaves sprout, the undersides show off vibrant pink hues.",
+  },
+  {
+    name: "Long Leaved Fig",
+    description:
+      "The Ficus ‘Alii’ does not actually exist in the wild, it is a relatively new man-made hybrid that has become extremely popular as it makes for a rather handsome indoor tree. It has long tapered leaves that have a wonderful natural gloss, and as the tree grows the lower trunk may shed its leaves to give a palm tree-like appearance. Experienced growers may want to experiment with braiding the trunks to give the Ficus ‘Alii’ an even bigger visual impact. Their stunning appearance more than makes up for the fact that they do not bloom indoors – their preferred environment – instead forming small yellow globular inflorescence’s, which have a similar appearance to berries.",
+  },
+  {
+    name: "Confetti Lantana Camara",
+    description:
+      "This lovely, hardy plant colors your landscape with its vibrant flowers in a range of colors. It’s a favorite of bees, butterflies, hummingbirds – and anyone who strolls by.  Lantana is great for full sun areas and does well with very little water. In fact, it’s a highly drought tolerant plant that thrives in warm weather.",
+  },
+  {
+    name: "Blue Daze",
+    description:
+      "The Blue Daze provides bright spots of color throughout the year. Its blue ruffled petals are offset by cool, silvery green leaves. Interestingly, the flowers bloom during the day, but close up when rain approaches.",
+  },
+  {
+    name: "Downy Jasmine",
+    description:
+      "The Downy Jasmine spills lovely white flowers into your landscaping. A great choice if you’re going for that casual Cottage Garden look. It is definitely a fast grower, so be prepared to shape frequently if you’re going for a more sculptured look.",
+  },
+  {
+    name: "Kimberly Queen Fern",
+    description:
+      "The Kimberley queen fern (Nephrolepis obliterata) is a lush evergreen plant characterized by its large, gracefully arching, sword-shaped fronds. Overall, the plant has an upright, bushy growth habit. These ferns can be successfully grown outdoors in warm regions, as container plants that are overwintered indoors or as completely indoor houseplants. They have a fairly quick growth rate and are best planted in the spring.",
+  },
 ];
 
 products.forEach((p, idx) => {
