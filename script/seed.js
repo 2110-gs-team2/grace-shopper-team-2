@@ -41,16 +41,19 @@ async function seed() {
   const products = await Promise.all(productData.map((p) => Product.create(p)));
 
   // Creating Reviews
-  const reviews = await Promise.all(
-    new Array(200).fill("-").map((review) => {
-      return Review.create({
-        reviewText: faker.lorem.sentences(),
-        userId: users[random(0, users.length - 1)].id,
-        productId: products[random(0, products.length - 1)].id,
-        rating: random(3, 5),
-      });
-    })
-  );
+  // const reviews =
+  for (let i = 0; i < products.length; i++) {
+    await Promise.all(
+      new Array(5).fill("-").map((review) => {
+        return Review.create({
+          reviewText: faker.lorem.sentences(),
+          userId: users[random(0, users.length - 1)].id,
+          productId: products[i].id,
+          rating: random(3, 5),
+        });
+      })
+    );
+  }
 
   // Creating Orders
   let orders = await Promise.all(
@@ -119,7 +122,7 @@ async function seed() {
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${products.length} products`);
   console.log(`seeded ${orders.length} orders`);
-  console.log(`seeded ${reviews.length} reviews`);
+  // console.log(`seeded ${reviews.length} reviews`);
   console.log(`seeded successfully`);
   return {
     users: {
