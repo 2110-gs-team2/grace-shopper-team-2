@@ -1,7 +1,9 @@
 import React, { Component, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Main = () => {
+  const products = useSelector((state) => state.products);
   return (
     <div>
       <div
@@ -14,32 +16,20 @@ const Main = () => {
         <div className="w-full md:w-9/12 m-auto">
           <div className="text-5xl">Browse our plants</div>
           <div className="flex flex-col md:grid-cols-3 md:grid gap-10 my-6">
-            <div className="flex flex-col ">
-              <img src="/img/FicusDanielle.jpeg" className="" alt="" />
-              <div className="flex justify-between items-center mt-5">
-                <div className="text-3xl font-medium ">Money Tree</div>
-                <div>$39</div>
-              </div>
-              <div className="uppercase text-dark-grey">x-large</div>
-            </div>
-            <div className="flex flex-col">
-              <img src="/img/FicusDanielle.jpeg" className="" alt="" />
-              <div className="flex justify-between items-center mt-5">
-                <div className="text-3xl font-medium">Red Prayer Plant</div>
-                <div>$108</div>
-              </div>
-              <div className="uppercase text-dark-grey">small</div>
-            </div>
-            <div className="flex flex-col ">
-              <img src="/img/FicusDanielle.jpeg" className="" alt="" />
-              <div className="flex justify-between items-center mt-5">
-                <div className="text-3xl font-medium">
-                  Schefflera Arboricola
-                </div>
-                <div>$49</div>
-              </div>
-              <div className="uppercase text-dark-grey">large</div>
-            </div>
+            {products
+              ? products.slice(0, 3).map((p) => (
+                  <Link to={`/products/${p.slug}`} key={p.id}>
+                    <div className="flex flex-col ">
+                      <img src={p.imageUrl[0]} className="" alt="" />
+                      <div className="flex justify-between items-center mt-5">
+                        <div className="text-3xl font-medium ">{p.name}</div>
+                        <div>${p.price}</div>
+                      </div>
+                      <div className="uppercase text-dark-grey">{p.size}</div>
+                    </div>
+                  </Link>
+                ))
+              : null}
           </div>
         </div>
       </div>
