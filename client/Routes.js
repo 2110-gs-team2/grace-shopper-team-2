@@ -10,7 +10,6 @@ import AdminView from "./components/Admin/AdminView";
 import CheckoutPage from "./components/Purchase/CheckoutPage";
 import Cart from "./components/Purchase/Cart";
 import ThankYouPage from "./components/Purchase/ThankYouPage";
-// import { setOpenOrder } from "./store";
 import { convertOrder } from "./store";
 import { fetchCart } from "./store/cart";
 import { me } from "./store";
@@ -23,7 +22,6 @@ class Routes extends Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if (!prevProps.isLoggedIn && this.props.isLoggedIn) {
-      // this.props.setOpenOrder(this.props.auth);
       this.props.convertOrder(this.props.auth, this.props.products);
       if (this.props.auth.openOrder)
         this.props.fetchCart(this.props.auth, this.props.products);
