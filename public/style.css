@@ -25,22 +25,3 @@ form div {
 .slick-dots li button:before {
   font-size: 10px !important;
 }
-
-.icon-button,
-.slick-next:focus,
-.slick-prev:focus {
-  background-color: #00365c;
-  color: white;
-  height: 28px;
-  width: 28px;
-  border: 1px solid transparent;
-  border-radius: 50%;
-  display: inline-flex;
-  padding: 0;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 0 0 transparent;
-  text-decoration: none;
-  position: absolute;
-}

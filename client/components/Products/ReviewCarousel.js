@@ -8,7 +8,7 @@ const PrevArrow = (props) => {
   const { className, style, onClick } = props;
   return (
     <div
-      className="w-12 h-12 bg-xlight-green rounded-full bg-opacity-70 hover:bg-opacity-100 flex justify-center items-center absolute top-1/2 -translate-y-1/2 z-20"
+      className="w-12 h-12 bg-xlight-green rounded-full bg-opacity-70 hover:bg-opacity-100 flex justify-center items-center absolute top-1/2 -translate-y-1/2 z-10"
       onClick={onClick}
     >
       <ArrowLeft />
@@ -20,7 +20,7 @@ const NextArrow = (props) => {
   const { className, style, onClick } = props;
   return (
     <div
-      className="w-12 h-12 bg-xlight-green rounded-full bg-opacity-70 hover:bg-opacity-100 flex justify-center items-center absolute right-0 top-1/2 -translate-y-1/2 z-20"
+      className="w-12 h-12 bg-xlight-green rounded-full bg-opacity-70 hover:bg-opacity-100 flex justify-center items-center absolute right-0 top-1/2 -translate-y-1/2 z-10"
       onClick={onClick}
     >
       <ArrowRight />
