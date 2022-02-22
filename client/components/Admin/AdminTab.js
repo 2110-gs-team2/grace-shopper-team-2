@@ -5,6 +5,8 @@ import { getAllProducts } from "../../store/products";
 import { fetchUsers } from "../../store/users";
 import SingleInventory from "./SingleInventory";
 import WarningModal from "./WarningModal";
+import toast, { Toaster } from "react-hot-toast";
+import { Check } from "react-feather";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -20,8 +22,27 @@ const AdminTab = () => {
     dispatch(fetchUsers());
   }, []);
 
+  const triggerBanner = (operation) =>
+    toast((t) => {
+      return (
+        <div className="flex flex-row gap-2 w-full items-center">
+          <div className="w-5 h-5 p-1  flex items-center justify-center bg-beige rounded-full">
+            <Check className="text-forest-green" />
+          </div>
+          <div className="text-base">Successfully {`${operation}`}d</div>
+        </div>
+      );
+    });
+
   return (
     <div className="w-full px-2  sm:px-0">
+      <div>
+        <Toaster
+          toastOptions={{
+            className: "bg-forest-green text-white",
+          }}
+        />
+      </div>
       <Tab.Group>
         <Tab.List className="flex p-1 space-x-1 bg-forest-green rounded-xl">
           {categories.map((category) => (
@@ -73,8 +94,14 @@ const AdminTab = () => {
                         <div>Size</div>
                         <div>{p.size}</div>
                       </div>
-                      <SingleInventory product={p} />
-                      <WarningModal productId={p.id} />
+                      <SingleInventory
+                        product={p}
+                        triggerBanner={triggerBanner}
+                      />
+                      <WarningModal
+                        productId={p.id}
+                        triggerBanner={triggerBanner}
+                      />
                     </div>
                   </div>
                 </li>

@@ -9,8 +9,6 @@ const CartCard = (props) => {
 
   //redux hooks
   const dispatch = useDispatch();
-
-  console.log(product.quantity, "this is product quantity");
   return (
     <div className="flex flex-row gap-5 pr-1">
       <img src={product.imageUrl[0]} className=" object-contain w-24" alt="" />

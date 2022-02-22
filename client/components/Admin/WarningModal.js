@@ -4,7 +4,7 @@ import { AlertTriangle } from "react-feather";
 import { deleteProduct } from "../../store/products";
 import { useDispatch } from "react-redux";
 
-const WarningModal = ({ productId }) => {
+const WarningModal = ({ productId, triggerBanner }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   function closeModal() {
@@ -82,6 +82,7 @@ const WarningModal = ({ productId }) => {
                     onClick={() => {
                       dispatch(deleteProduct(productId));
                       setOpen(false);
+                      triggerBanner("delet");
                     }}
                   >
                     Delete
