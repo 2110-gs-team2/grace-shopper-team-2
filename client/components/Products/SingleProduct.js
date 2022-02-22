@@ -31,16 +31,24 @@ class SingleProduct extends Component {
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     const { products } = this.props;
     const { product } = this.state;
     const { slug } = this.props.match.params;
     if (!Object.keys(product).length) {
       if (isArray(products) && products.length) {
-        this.setState({
+        console.log("cdu ran");
+        return this.setState({
           product: products.find((product) => slug === product.slug),
         });
       }
+    }
+
+    if (prevProps.match.params.slug !== this.props.match.params.slug) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return this.setState({
+        product: products.find((product) => slug === product.slug),
+      });
     }
   }
 
@@ -60,7 +68,7 @@ class SingleProduct extends Component {
       <div className="min-h-[100vh] bg-beige">
         <div className="pt-28 p-20 max-w-[90vw] m-auto">
           <div className="flex flex-row gap-20 justify-around items-between">
-            <Carousel />
+            <Carousel product={product} />
             <div className="grid-cols-1 flex flex-col gap-3 basis-1/3">
               <div className="flex flex-col gap-2 pb-5 border-b-2 border-forest-green">
                 <div className="text-5xl">{product.name}</div>

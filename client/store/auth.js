@@ -90,7 +90,7 @@ export const updateUser = (user, id) => {
   };
 };
 
-export const createGuest = (guest) => {
+export const createGuest = (guest, products) => {
   return async (dispatch) => {
     const { data: newGuest } = await axios.post(`/api/users/`, guest);
     // create openOrder
@@ -99,6 +99,7 @@ export const createGuest = (guest) => {
     ).data;
     newGuest.openOrder = incompleteOrder;
     dispatch(setAuth(newGuest));
+    if (products) dispatch(fetchCart(newGuest, products));
   };
 };
 
@@ -135,7 +136,10 @@ export const convertOrder = (user, products) => {
       );
 
       window.localStorage.setItem("cart", JSON.stringify([]));
+      // if this is called when user logs in after shopping a while
       dispatch(me(products));
+      // if this is called when user converts as a guest on checkout
+      if (products) dispatch(fetchCart(user, products));
     }
   };
 };
