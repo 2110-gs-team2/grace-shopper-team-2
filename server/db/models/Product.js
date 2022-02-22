@@ -2,6 +2,11 @@ const Sequelize = require("sequelize");
 const { STRING, ENUM, TEXT, DECIMAL, INTEGER, UUID, UUIDV4, BOOLEAN, ARRAY } =
   Sequelize;
 const db = require("../db");
+const imgs = [
+  "https://bloomscape.com/wp-content/uploads/2020/12/bloomscape_dracaena-gold-lemon-lime_stone-resize-e1625252440907.jpg?ver=372948",
+  "https://bloomscape.com/wp-content/uploads/2020/08/bloomscape_dracaena-gold-lemon-lime_detail.jpg?ver=279520",
+  "https://bloomscape.com/wp-content/uploads/2020/08/bloomscape_dracaena-gold-lemon-lime_detail.jpg?ver=279520",
+];
 
 const Product = db.define("product", {
   id: {
@@ -52,12 +57,14 @@ const Product = db.define("product", {
     validate: {
       isUrl: true,
     },
+    defaultValue: [],
   },
   imageUrl: {
     type: ARRAY(Sequelize.TEXT),
     validate: {
       isUrl: true,
     },
+    defaultValue: imgs,
   },
   isNew: {
     type: BOOLEAN,

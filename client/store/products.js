@@ -1,8 +1,5 @@
 import axios from "axios";
 
-// Get token
-const token = window.localStorage.getItem("token");
-
 // Action types
 const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 const GET_SINGLE_PRODUCT = "GET_SINGLE_PRODUCT";
@@ -32,6 +29,7 @@ export const getSingleProduct = (id) => {
 
 export const addProduct = (product) => {
   return async (dispatch) => {
+    const token = window.localStorage.getItem("token");
     const { data: newProduct } = await axios.post(`/api/products/`, {
       product,
       token,
@@ -42,6 +40,7 @@ export const addProduct = (product) => {
 
 export const updateProduct = (product) => {
   return async (dispatch) => {
+    const token = window.localStorage.getItem("token");
     const { data: updatedProduct } = await axios.put(
       `/api/products/${product.id}`,
       { product, token }
@@ -52,6 +51,7 @@ export const updateProduct = (product) => {
 
 export const deleteProduct = (id) => {
   return async (dispatch) => {
+    const token = window.localStorage.getItem("token");
     await axios.delete(`/api/products/${id}`, {
       headers: {
         authorization: token,
@@ -60,7 +60,6 @@ export const deleteProduct = (id) => {
     dispatch(_deleteProduct(id));
   };
 };
-
 
 // Reducer
 const products = (state = [], action) => {
