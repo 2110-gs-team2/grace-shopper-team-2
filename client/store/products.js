@@ -61,6 +61,7 @@ export const deleteProduct = (id) => {
   };
 };
 
+
 // Reducer
 const products = (state = [], action) => {
   switch (action.type) {

@@ -47,6 +47,7 @@ async function seed() {
         reviewText: faker.lorem.sentences(),
         userId: users[random(0, users.length - 1)].id,
         productId: products[random(0, products.length - 1)].id,
+        rating: random(1, 5),
       });
     })
   );

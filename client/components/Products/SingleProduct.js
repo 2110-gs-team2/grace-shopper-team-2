@@ -1,18 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { isArray } from "lodash";
-import Carousel from "./Carousel";
+import PhotoCarousel from "./PhotoCarousel";
+import ReviewCarousel from "./ReviewCarousel";
 import { Minus, Plus, Sun, Frown, Scissors, Smile } from "react-feather";
 import { Disclosure, Transition } from "@headlessui/react";
 import ProductCard, { INCREMENT, DECREMENT } from "./ProductCard";
 import { getAllProducts } from "../../store/products";
 import { addToCart } from "../../store/cart";
+import { fetchReviews } from "../../store/reviews";
 
 class SingleProduct extends Component {
   constructor() {
     super();
     this.state = {
       product: {},
+      reviews: [],
       count: 1,
     };
   }
@@ -25,9 +28,12 @@ class SingleProduct extends Component {
     const { slug } = this.props.match.params;
 
     if (products.length) {
+      console.log("this??");
       this.setState({
         product: products.find((product) => slug === product.slug),
       });
+      console.log("this state.product", this.state.product);
+      // this.props.fetchReviews(this.state.product);
     }
   }
 
@@ -37,18 +43,19 @@ class SingleProduct extends Component {
     const { slug } = this.props.match.params;
     if (!Object.keys(product).length) {
       if (isArray(products) && products.length) {
-        console.log("cdu ran");
-        return this.setState({
+        this.setState({
           product: products.find((product) => slug === product.slug),
         });
+        // this.props.fetchReviews(this.state.product);
       }
     }
 
     if (prevProps.match.params.slug !== this.props.match.params.slug) {
       window.scrollTo({ top: 0, behavior: "smooth" });
-      return this.setState({
+      this.setState({
         product: products.find((product) => slug === product.slug),
       });
+      // this.props.fetchReviews(this.state.product);
     }
   }
 
@@ -61,14 +68,14 @@ class SingleProduct extends Component {
 
   render() {
     const { product, count } = this.state;
-    const { products, addToCart, updateCartAuth, currUser } = this.props;
+    const { products, addToCart, currUser } = this.props;
     const { changeQuantity } = this;
 
     return (
       <div className="min-h-[100vh] bg-beige">
-        <div className="pt-28 p-20 max-w-[90vw] m-auto">
-          <div className="flex flex-row gap-20 justify-around items-between">
-            <Carousel product={product} />
+        <div className="pt-8 m-auto">
+          <div className="flex flex-row gap-20 justify-around items-between m-auto p-20 max-w-[90vw]">
+            <PhotoCarousel product={product} />
             <div className="grid-cols-1 flex flex-col gap-3 basis-1/3">
               <div className="flex flex-col gap-2 pb-5 border-b-2 border-forest-green">
                 <div className="text-5xl">{product.name}</div>
@@ -217,7 +224,8 @@ class SingleProduct extends Component {
               </div>
             </div>
           </div>
-          <div className="mt-10">
+          <ReviewCarousel />
+          <div className="p-20 max-w-[90vw] m-auto">
             {products.length ? (
               <>
                 <div className="text-5xl mb-5">People also browsed...</div>
@@ -252,6 +260,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     updateCartAuth: (user, product, quantity, operation) => {
       dispatch(updateCartAuth(user, product, quantity, operation));
+    },
+    fetchReviews: (product) => {
+      dispatch(fetchReviews(product));
     },
   };
 };

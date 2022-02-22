@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default class Carousel extends Component {
+export default class PhotoCarousel extends Component {
   constructor() {
     super();
     this.state = {
@@ -41,7 +41,7 @@ export default class Carousel extends Component {
           <ul style={{ margin: "0px" }} className="flex flex-col">
             {dots.map((item, index) => {
               return (
-                <li key={index} style={{ height: "70px", width: "100px" }}>
+                <li key={index} style={{ height: "90px", width: "100px" }}>
                   {item.props.children}
                 </li>
               );
