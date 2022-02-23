@@ -26,7 +26,7 @@ const AuthForm = (props) => {
         className="flex flex-col"
       >
         {name === "signup" ? (
-          <div className="flex m-0 gap-5 w-full">
+          <div className="flex m-0 md:gap-5 w-full md:flex-row flex-col">
             <div className="m-0 grow">
               <label
                 htmlFor="firstName"
