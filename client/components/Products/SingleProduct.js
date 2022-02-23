@@ -25,7 +25,6 @@ class SingleProduct extends Component {
   componentDidMount() {
     window.scrollTo({ top: 0, behavior: "smooth" });
     this.props.getAllProducts();
-    console.log(this.props);
     if (this.props.product) this.props.fetchReviews(this.props.product);
   }
 
