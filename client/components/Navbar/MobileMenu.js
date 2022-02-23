@@ -55,11 +55,11 @@ const MobileMenu = (props) => {
       displayName: "Indoor plants",
     },
     {
-      path: "type=succulents",
+      path: "type=succulent",
       displayName: "Succulents",
     },
     {
-      path: "type=herbs",
+      path: "type=herb",
       displayName: "Herbs",
     },
     {
