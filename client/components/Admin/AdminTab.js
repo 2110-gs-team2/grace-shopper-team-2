@@ -12,6 +12,20 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+export const triggerBanner = (operation) =>
+  toast((t) => {
+    return (
+      <div className="flex flex-row gap-2 w-full items-center">
+        <div className="w-5 h-5 p-1  flex items-center justify-center bg-beige rounded-full">
+          <Check className="text-forest-green" />
+        </div>
+        <div className="text-base">
+          Successfully {`${operation}${operation === "add" ? "e" : ""}`}d
+        </div>
+      </div>
+    );
+  });
+
 const AdminTab = () => {
   let [categories] = useState(["Inventory", "Users"]);
   const dispatch = useDispatch();
@@ -21,18 +35,6 @@ const AdminTab = () => {
     dispatch(getAllProducts());
     dispatch(fetchUsers());
   }, []);
-
-  const triggerBanner = (operation) =>
-    toast((t) => {
-      return (
-        <div className="flex flex-row gap-2 w-full items-center">
-          <div className="w-5 h-5 p-1  flex items-center justify-center bg-beige rounded-full">
-            <Check className="text-forest-green" />
-          </div>
-          <div className="text-base">Successfully {`${operation}`}d</div>
-        </div>
-      );
-    });
 
   return (
     <div className="w-full px-2  sm:px-0">
