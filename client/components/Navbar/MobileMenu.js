@@ -12,13 +12,10 @@ const MobileMenu = (props) => {
   const cart = useSelector((state) => state.cart);
   const currUser = useSelector((state) => state.auth);
   const products = useSelector((state) => state.products);
-  console.log(currUser, "currUser??");
 
   //redux hooks for cart store
   const dispatch = useDispatch();
   const location = useLocation();
-
-  console.log(location, "this islocation");
 
   const closeSlideover = () => {
     setOpen(false);
@@ -27,6 +24,57 @@ const MobileMenu = (props) => {
     setOpen(true);
   };
 
+  const userMenu = [
+    {
+      path: "profile",
+      displayName: "My account",
+    },
+    {
+      path: "orders",
+      displayName: "My orders",
+    },
+    {
+      path: "address",
+      displayName: "My address",
+    },
+  ];
+  const guestMenu = [
+    {
+      path: "login",
+      displayName: "Sign in",
+    },
+    {
+      path: "signup",
+      displayName: "Sign up",
+    },
+  ];
+
+  const globalMenu = [
+    {
+      path: "type=indoor",
+      displayName: "Indoor plants",
+    },
+    {
+      path: "type=succulents",
+      displayName: "Succulents",
+    },
+    {
+      path: "type=herbs",
+      displayName: "Herbs",
+    },
+    {
+      path: "difficulty=easy",
+      displayName: "Best beginner plants",
+    },
+    {
+      path: "light=low",
+      displayName: "Low light plants",
+    },
+    {
+      path: "isPetFriendly=true",
+      displayName: "Pet friendly plants",
+    },
+  ];
   return (
     <div className="md:hidden block">
       <button
@@ -92,102 +140,42 @@ const MobileMenu = (props) => {
                           Shop all
                         </span>
                       </Link>
-                      <Link
-                        to={`/products?type=indoor`}
-                        onClick={() => closeSlideover()}
-                        className={`${
-                          includes(location.search, "type=indoor")
-                            ? "before:block before:absolute before:h-2 before:top-1/2 before:-translate-y-1/2 before:-inset-x-0.5 before:bg-xlight-green"
-                            : null
-                        } text-lg inline max-w-fit relative uppercase font-medium hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green`}
-                      >
-                        <span className="relative z-10">Indoor plants</span>
-                      </Link>
-                      <Link
-                        to={`/products?type=succulents`}
-                        onClick={() => closeSlideover()}
-                        className={`${
-                          includes(location.search, "type=succulents")
-                            ? "before:block before:absolute before:h-2 before:top-1/2 before:-translate-y-1/2 before:-inset-x-0.5 before:bg-xlight-green"
-                            : null
-                        } text-lg inline max-w-fit relative uppercase font-medium hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green`}
-                      >
-                        <span className="relative z-10">Succulents</span>
-                      </Link>
-                      <Link
-                        to={`/products?type=herbs`}
-                        onClick={() => closeSlideover()}
-                        className={`${
-                          includes(location.search, "type=herbs")
-                            ? "before:block before:absolute before:h-2 before:top-1/2 before:-translate-y-1/2 before:-inset-x-0.5 before:bg-xlight-green"
-                            : null
-                        } text-lg inline max-w-fit relative uppercase font-medium hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green`}
-                      >
-                        <span className="relative z-10">Herbs</span>
-                      </Link>
-                      <Link
-                        to={`/products?difficulty=easy`}
-                        onClick={() => closeSlideover()}
-                        className={`${
-                          includes(location.search, "difficulty=easy")
-                            ? "before:block before:absolute before:h-2 before:top-1/2 before:-translate-y-1/2 before:-inset-x-0.5 before:bg-xlight-green"
-                            : null
-                        } text-lg inline max-w-fit relative uppercase font-medium hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green`}
-                      >
-                        <span className="relative z-10">
-                          Best beginner plants
-                        </span>
-                      </Link>
-                      <Link
-                        to={`/products?light=low`}
-                        onClick={() => closeSlideover()}
-                        className={`${
-                          includes(location.search, "light=low")
-                            ? "before:block before:absolute before:h-2 before:top-1/2 before:-translate-y-1/2 before:-inset-x-0.5 before:bg-xlight-green"
-                            : null
-                        } text-lg inline max-w-fit relative uppercase font-medium hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green`}
-                      >
-                        <span className="relative z-10">Low light plants</span>
-                      </Link>
-                      <Link
-                        to={`/products?isPetFriendly=true`}
-                        onClick={() => closeSlideover()}
-                        className={`${
-                          includes(location.search, "isPetFriendly=true")
-                            ? "before:block before:absolute before:h-2 before:top-1/2 before:-translate-y-1/2 before:-inset-x-0.5 before:bg-xlight-green"
-                            : null
-                        } text-lg inline max-w-fit relative uppercase font-medium hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green`}
-                      >
-                        <span className="relative z-10">
-                          Pet-friendly plants
-                        </span>
-                      </Link>
+                      {globalMenu.map((item, idx) => (
+                        <Link
+                          key={idx}
+                          to={`/products?${item.path}`}
+                          onClick={() => closeSlideover()}
+                          className={`${
+                            includes(location.search, `${item.path}`)
+                              ? "before:block before:absolute before:h-2 before:top-1/2 before:-translate-y-1/2 before:-inset-x-0.5 before:bg-xlight-green"
+                              : null
+                          } text-lg inline max-w-fit relative uppercase font-medium hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green`}
+                        >
+                          <span className="relative z-10">
+                            {item.displayName}
+                          </span>
+                        </Link>
+                      ))}
                     </div>
                     <div className="flex flex-col gap-3 pt-5">
                       {currUser.id ? (
                         <Fragment>
-                          <Link
-                            to={`/my-account/profile`}
-                            onClick={() => closeSlideover()}
-                            className={`${
-                              includes(location.pathname, "profile")
-                                ? "before:block before:absolute before:h-2 before:top-1/2 before:-translate-y-1/2 before:-inset-x-0.5 before:bg-xlight-green"
-                                : null
-                            } text-lg inline max-w-fit relative uppercase font-medium hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green`}
-                          >
-                            <span className="relative z-10">My account</span>
-                          </Link>
-                          <Link
-                            to={`/my-account/orders`}
-                            onClick={() => closeSlideover()}
-                            className={`${
-                              includes(location.pathname, "orders")
-                                ? "before:block before:absolute before:h-2 before:top-1/2 before:-translate-y-1/2 before:-inset-x-0.5 before:bg-xlight-green"
-                                : null
-                            } text-lg inline max-w-fit relative uppercase font-medium hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green`}
-                          >
-                            <span className="relative z-10">Orders</span>
-                          </Link>
+                          {userMenu.map((item, idx) => (
+                            <Link
+                              key={idx}
+                              to={`/my-account/${item.path}`}
+                              onClick={() => closeSlideover()}
+                              className={`${
+                                includes(location.pathname, `${item.path}`)
+                                  ? "before:block before:absolute before:h-2 before:top-1/2 before:-translate-y-1/2 before:-inset-x-0.5 before:bg-xlight-green"
+                                  : null
+                              } text-lg inline max-w-fit relative uppercase font-medium hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green`}
+                            >
+                              <span className="relative z-10">
+                                {item.displayName}
+                              </span>
+                            </Link>
+                          ))}
                           <button
                             onClick={() => {
                               dispatch(logout());
@@ -200,31 +188,24 @@ const MobileMenu = (props) => {
                         </Fragment>
                       ) : (
                         <Fragment>
-                          <Link
-                            to={`/login`}
-                            onClick={() => closeSlideover()}
-                            className={`${
-                              includes(location.pathname, "login")
-                                ? "before:block before:absolute before:h-2 before:top-1/2 before:-translate-y-1/2 before:-inset-x-0.5 before:bg-xlight-green"
-                                : null
-                            } text-lg inline max-w-fit relative uppercase font-medium hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green`}
-                          >
-                            <span className="relative z-10">Sign in</span>
-                          </Link>
-                          <Link
-                            to={`/signup`}
-                            onClick={() => closeSlideover()}
-                            className={`${
-                              includes(location.pathname, "signup")
-                                ? "before:block before:absolute before:h-2 before:top-1/2 before:-translate-y-1/2 before:-inset-x-0.5 before:bg-xlight-green"
-                                : null
-                            } text-lg inline max-w-fit relative uppercase font-medium hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green`}
-                          >
-                            <span className="relative z-10">Sign up</span>
-                          </Link>
+                          {guestMenu.map((item, idx) => (
+                            <Link
+                              key={idx}
+                              to={`/${item.path}`}
+                              onClick={() => closeSlideover()}
+                              className={`${
+                                includes(location.pathname, `${item.path}`)
+                                  ? "before:block before:absolute before:h-2 before:top-1/2 before:-translate-y-1/2 before:-inset-x-0.5 before:bg-xlight-green"
+                                  : null
+                              } text-lg inline max-w-fit relative uppercase font-medium hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green`}
+                            >
+                              <span className="relative z-10">
+                                {item.displayName}
+                              </span>
+                            </Link>
+                          ))}
                         </Fragment>
                       )}
-
                       {currUser.role === "ADMIN" ? (
                         <Link
                           to={`/manage`}

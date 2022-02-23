@@ -58,7 +58,7 @@ const ProfileView = () => {
       >
         {({ dirty, isValid }) => (
           <Form className="max-w-3xl flex flex-col">
-            <div className="flex flex-start m-0 gap-5">
+            <div className="flex md:flex-row flex-col flex-start m-0 md:gap-5">
               <div className="flex flex-col grow m-0">
                 <label
                   htmlFor="firstName"
@@ -100,7 +100,7 @@ const ProfileView = () => {
                 />
               </div>
             </div>
-            <div className="flex flex-col m-0 w-3/5">
+            <div className="flex flex-col m-0 md:w-3/5 w-full">
               <label
                 htmlFor="email"
                 className="text-sm font-bold uppercase pt-5 pb-3"

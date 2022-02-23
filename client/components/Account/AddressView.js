@@ -67,7 +67,7 @@ const AddressView = () => {
       >
         {({ dirty, isValid }) => (
           <Form className="max-w-3xl flex flex-col">
-            <div className="flex flex-start m-0 gap-5">
+            <div className="flex md:flex-row flex-col flex-start m-0 md:gap-5">
               <div className="flex flex-col grow m-0">
                 <label
                   htmlFor="addressLine1"
@@ -108,7 +108,7 @@ const AddressView = () => {
               </div>
             </div>
 
-            <div className="flex flex-start m-0 gap-5 justify-between">
+            <div className="flex md:flex-row flex-col flex-start m-0 md:gap-5 justify-between">
               <div className="flex flex-col m-0 grow">
                 <label
                   htmlFor="city"
