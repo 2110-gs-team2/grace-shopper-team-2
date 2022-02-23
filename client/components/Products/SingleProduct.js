@@ -26,6 +26,9 @@ class SingleProduct extends Component {
   componentDidMount() {
     window.scrollTo({ top: 0, behavior: "smooth" });
     this.props.getAllProducts();
+    console.log(this.props);
+    if (this.props.product) this.props.fetchReviews(this.props.product);
+    //  console.log()
 
     // if (products.length) {
     //   this.setState({
@@ -49,7 +52,6 @@ class SingleProduct extends Component {
     // this.props.fetchReviews(this.state.product);
     //   }
     // }
-
     if (prevProps.match.params.slug !== this.props.match.params.slug) {
       window.scrollTo({ top: 0, behavior: "smooth" });
       this.props.fetchReviews(this.props.product);
