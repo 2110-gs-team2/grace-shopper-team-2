@@ -5,15 +5,19 @@ import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
 /*
 To-Do:
--Change fontFamily to match page
-// -Wrap text in drop-down results if possible (was kind of able to implement it, but it just adds "..." at the end of long product names)
--Bring entire products page up a little (I used py-20 on AllProducts component, but it brought the page down too much. Any number less than 20 brings it up too much)
+-Change font to match page (freight-neo-pro?)
 -Clear search bar after user clicks a product?
+-Change borderRadius to match navbar's drop down menus
 */
 
 class SearchBar extends Component {
   handleOnSelect = (product) => {
     this.props.history.push({ pathname: `/products/${product.slug}` });
+    // Attempting to clear search input after user is navigated to single product page
+    // const searchField = document.getElementsByTagName("input")[0];
+    // console.log(searchField.value, "Before");
+    // searchField.value = '';
+    // console.log(searchField.value, "After");
   };
 
   formatResult = (product) => {
@@ -37,7 +41,7 @@ class SearchBar extends Component {
     return (
       <div>
         <header>
-          <div style={{ width: 375 }}>
+          <div style={{ width: 350 }}>
             <ReactSearchAutocomplete
               formatResult={this.formatResult}
               items={products}
@@ -46,9 +50,12 @@ class SearchBar extends Component {
               placeholder={"Search Products"}
               styling={{
                 backgroundColor: "#FFFAE3",
+                fontFamily: "freight-neo-pro",
+                fontSize: "18px",
                 height: "35px",
                 hoverBackgroundColor: "#D7D9AF",
-                iconColor: "#2D4323"
+                iconColor: "#2D4323",
+                lineColor: "#2D4323"
               }}
             />
           </div>

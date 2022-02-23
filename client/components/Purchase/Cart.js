@@ -181,7 +181,7 @@ const Cart = (props) => {
                   {cart && cart.length === 0 ? (
                     <div className="flex flex-col gap-3">
                       <div className="text-3xl">
-                        Your cart is looking a little empty..
+                        Your cart is looking a little empty...
                       </div>
                       <div className="text-xl">Here's where to start:</div>
                       <Link

@@ -151,9 +151,9 @@ const AllProducts = (props) => {
               <option value="" disabled>
                 SORT BY
               </option>
-              <option value="name">Name (A → Z)</option>
-              <option value="price">Price (lowest → highest) </option>
-              <option value="size">Size (small → big)</option>
+              <option value="name">Name (a → z)</option>
+              <option value="price">Price (low → high)</option>
+              <option value="size">Size (small → large)</option>
             </select>
           </div>
           <div className="grid grid-cols-4 m-auto h-full gap-5 my-5">
