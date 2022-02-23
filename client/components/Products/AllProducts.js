@@ -30,20 +30,20 @@ const AllProducts = (props) => {
     setFilter({});
   };
 
-  const filterChange = (name, filterValue, event) => {
+  const filterChange = (name, filterValue, evt) => {
     const qo = Object.assign({}, queryObj);
     if (!qo[name]) {
       qo[name] = filterValue.toLowerCase();
     } else {
       if (Array.isArray(queryObj[name])) {
-        if (event.target.checked) {
+        if (evt.target.checked) {
           qo[name].push(filterValue.toLowerCase());
         } else {
           qo[name] = qo[name].filter((z) => z !== filterValue.toLowerCase());
           if (!qo[name].length) delete qo[name];
         }
       } else {
-        if (event.target.checked) {
+        if (evt.target.checked) {
           qo[name] = [qo[name]];
           qo[name].push(filterValue.toLowerCase());
         } else {
@@ -137,17 +137,16 @@ const AllProducts = (props) => {
 
   return (
     <div>
-      <div className="min-h-[100vh] bg-beige">
+      <div className="min-h-[100vh] py-20 bg-beige">
         <div className="min-h-[120vh] pt-28 md:p-20 max-w-[90vw] m-auto">
           <div className="flex justify-between mb-5">
-            <div className="text-3xl md:block hidden">
-              Filter ({currProducts.length})
+            <div className="text-2xl md:block hidden">
+              Filter ({currProducts.length} results)
             </div>
             <select
               defaultValue=""
               onChange={(evt) => changeSort(evt)}
-              className="focus:outline-none block p-6 py-3  text-center rounded-full text-base font-bold bg-forest-green text-beige
-               focus:border-forest-green focus:ring-2 focus:ring-xlight-green"
+              className="focus:outline-none block p-6 py-3 text-center rounded-full text-base font-bold bg-forest-green text-beige focus:border-forest-green focus:ring-2 focus:ring-xlight-green"
             >
               <option value="" disabled>
                 SORT BY
@@ -179,8 +178,8 @@ const AllProducts = (props) => {
                           <input
                             name={type}
                             type="checkbox"
-                            onChange={(event) =>
-                              filterChange("type", type, event)
+                            onChange={(evt) =>
+                              filterChange("type", type, evt)
                             }
                             value={type}
                             checked={isInFilter("type", type)}
@@ -218,8 +217,8 @@ const AllProducts = (props) => {
                           <input
                             name={size}
                             type="checkbox"
-                            onChange={(event) =>
-                              filterChange("size", size, event)
+                            onChange={(evt) =>
+                              filterChange("size", size, evt)
                             }
                             value={size}
                             checked={isInFilter("size", size)}
@@ -259,8 +258,8 @@ const AllProducts = (props) => {
                           <input
                             name={light}
                             type="checkbox"
-                            onChange={(event) =>
-                              filterChange("light", light, event)
+                            onChange={(evt) =>
+                              filterChange("light", light, evt)
                             }
                             value={light}
                             checked={isInFilter("light", light)}
@@ -299,8 +298,8 @@ const AllProducts = (props) => {
                             name={difficulty}
                             type="checkbox"
                             value={difficulty}
-                            onChange={(event) =>
-                              filterChange("difficulty", difficulty, event)
+                            onChange={(evt) =>
+                              filterChange("difficulty", difficulty, evt)
                             }
                             checked={isInFilter("difficulty", difficulty)}
                             className="h-8 w-8 border-2 rounded-lg border-forest-green  focus:text-forest-green focus:ring-forest-green focus:outline-none checked:hover:bg-forest-green checked:bg-forest-green bg-beige"
@@ -334,11 +333,11 @@ const AllProducts = (props) => {
                           name="isPetFriendly"
                           type="checkbox"
                           value={false}
-                          onChange={(event) =>
+                          onChange={(evt) =>
                             filterChange(
                               "isPetFriendly",
-                              String(event.target.checked),
-                              event
+                              String(evt.target.checked),
+                              evt
                             )
                           }
                           checked={isInFilter("isPetFriendly", "true")}
