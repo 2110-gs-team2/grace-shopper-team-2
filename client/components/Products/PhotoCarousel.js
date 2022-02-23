@@ -54,7 +54,6 @@ export default class PhotoCarousel extends Component {
               className="flex justify-center items-center md:hidden"
             >
               {dots.map((item, index) => {
-                console.log("this isrun");
                 return (
                   <li
                     key={index}
