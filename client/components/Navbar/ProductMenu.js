@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const ProductMenu = () => {
   return (
-    <div className="w-full max-w-sm">
+    <div className="w-full max-w-sm ">
       <Popover className="relative">
         {({ open, close }) => (
           <>

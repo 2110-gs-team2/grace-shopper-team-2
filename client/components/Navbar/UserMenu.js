@@ -9,7 +9,7 @@ import { fetchCart } from "../../store/cart";
 const UserMenu = ({ styleChange, currUser }) => {
   const dispatch = useDispatch();
   return (
-    <Menu className="relative z-50" as="div">
+    <Menu className="relative z-50 md:block hidden" as="div">
       <Menu.Button className="flex items-center focus:outline-none rounded-lg focus:ring-2 ring-offset-2 ring-offset-forest-green ring-beige ring-opacity-60">
         <div className="text-lg text-medium px-3 py-1 rounded-lg flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-forest-green"></div>

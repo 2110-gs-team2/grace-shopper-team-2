@@ -5,7 +5,7 @@ import { User } from "react-feather";
 
 const GuestMenu = ({ styleChange }) => {
   return (
-    <Menu className="relative z-50" as="div">
+    <Menu className="relative z-50 md:block hidden" as="div">
       <Menu.Button className="flex items-center">
         <User strokeWidth={1} width={30} height={30} />
       </Menu.Button>

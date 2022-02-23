@@ -64,9 +64,9 @@ const Main = () => {
         ></div>
       </div>
       {/* value prop section */}
-      <div className="p-20">
-        <div className="flex justify-start relative py-10 h-[40vw] max-w-5xl m-auto my-10">
-          <div className=" absolute left-0 min-h-min w-2/5 p-14 z-10 flex flex-col justify-center rounded-lg shadow-sm bg-forest-green">
+      <div className="md:p-20 p-5">
+        <div className="flex lg:flex-row flex-col justify-start relative py-10 lg:h-[50vw] h-[90vh] max-w-5xl m-auto my-10">
+          <div className=" absolute lg:bottom-auto bottom-10 left-0 min-h-min lg:w-2/5 w-full p-14 z-10 flex flex-col justify-center rounded-lg shadow-sm bg-forest-green">
             <div className="text-5xl text-beige">Value prop 1</div>
             <div className="mt-5 text-xl text-beige">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -75,25 +75,25 @@ const Main = () => {
               Purus faucibus ornare suspendisse sed nisi lacus sed viverra.
             </div>
           </div>
-          <div className="absolute inset-0 w-4/6 left-auto m-0 z-0">
-            <div className="absolute inset-0">
+          <div className="absolute inset-0 lg:w-4/6 w-full left-auto m-0 z-0 ">
+            <div className="absolute inset-0 ">
               <img
-                className="object-cover w-full"
+                className="object-cover w-full lg:rounded-none rounded-lg"
                 src="/img/HomePage-3.jpg"
               ></img>
             </div>
           </div>
         </div>
-        <div className="flex justify-start relative py-10 min-h-[30vw] max-w-5xl m-auto my-10">
-          <div className="absolute inset-0 w-4/6 right-auto m-0 z-0">
+        <div className="flex justify-start relative py-10 lg:min-h-[40vw] min-h-[90vh] max-w-5xl m-auto my-10">
+          <div className="absolute inset-0 lg:w-4/6 w-full right-auto m-0 z-0">
             <div className="absolute inset-0">
               <img
-                className="object-cover w-full"
+                className="object-cover w-full lg:rounded-none rounded-lg"
                 src="/img/HomePage-3.jpg"
               ></img>
             </div>
           </div>
-          <div className="absolute right-0 min-h-min  w-2/5 p-14 z-10 flex flex-col justify-center rounded-lg shadow-sm bg-forest-green">
+          <div className="absolute lg:bottom-auto bottom-10 right-0 min-h-min  lg:w-2/5 w-full p-14 z-10 flex flex-col justify-center rounded-lg shadow-sm bg-forest-green">
             <div className="text-5xl text-beige">Value prop 2</div>
             <div className="mt-5 text-xl text-beige">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -106,7 +106,7 @@ const Main = () => {
       </div>
       {/* final section */}
       <div
-        className="p-20 bg-cover min-h-[50vh] bg-beige flex justify-center items-center flex-col gap-3"
+        className="lg:p-20 py-0 bg-cover lg:min-h-[50vh] min-h-[30vh] bg-beige flex justify-center items-center flex-col gap-3"
         style={{ backgroundImage: "url(/img/HomePage-2.png)" }}
       >
         <div className="text-5xl">Ready to buy?</div>
