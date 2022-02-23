@@ -95,12 +95,12 @@ const AuthForm = (props) => {
         {name === "login" ? (
           <Fragment>
             <div className="text-lg my-5 mx-0 text-center">— or —</div>
-            <div className="flex flex-row justify-around my-2 mx-0">
+            <div className="flex xl:flex-row flex-col gap-5 justify-around my-2 mx-0">
               <a
                 href="/auth/login/google"
                 className="bg-white rounded-full px-10 shadow-sm"
               >
-                <div className="flex gap-2 items-center">
+                <div className="flex gap-2 items-center md:justify-center">
                   <img src="/img/google.png" className="w-5" />
                   <span className="font-bold">Login with Google</span>
                 </div>
@@ -109,7 +109,7 @@ const AuthForm = (props) => {
                 href="/auth/login/facebook"
                 className="rounded-full px-10 bg-[#1877F2]"
               >
-                <div className="flex gap-2 items-center ">
+                <div className="flex gap-2 items-center md:justify-center">
                   <img src="/img/facebook.png" className="w-5" />
                   <span className="font-bold text-white">
                     Login with Facebook

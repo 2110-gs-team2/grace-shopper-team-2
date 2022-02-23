@@ -6,8 +6,8 @@ const AuthPage = (props) => {
   const { name, displayName } = props;
   return (
     <div className="flex flex-row ">
-      <div className="basis-1/2 h-screen bg-forest-green"></div>
-      <div className="basis-1/2 flex flex-col justify-center p-10">
+      <div className="md:basis-1/2 h-screen bg-forest-green"></div>
+      <div className="md:basis-1/2 basis-full flex flex-col justify-center p-10">
         <div className="text-3xl">{displayName}</div>
         {name === "login" ? <Login /> : <Signup />}
       </div>

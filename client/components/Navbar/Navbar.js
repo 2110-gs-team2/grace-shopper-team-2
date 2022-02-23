@@ -56,7 +56,7 @@ const Navbar = ({ isLoggedIn, isAdmin }) => {
           )}
           <Cart />
           {isAdmin ? (
-            <Link to="/manage" className="flex  items-center md:block hidden">
+            <Link to="/manage" className="md:flex items-center hidden">
               <Settings strokeWidth={1} width={30} height={30} />
             </Link>
           ) : null}
