@@ -193,7 +193,7 @@ const Cart = (props) => {
                             'url("/img/scott-webb-oRWRlTgBrPo-unsplash.jpg")',
                         }}
                       >
-                        <span className="text-center absolute text-3xl top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2  text-white">
+                        <span className="text-center absolute md:text-3xl text-2xl top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2  text-white">
                           Shop all products
                         </span>
                       </Link>
@@ -206,7 +206,7 @@ const Cart = (props) => {
                             'url("/img/sarah-dorweiler-x2Tmfd1-SgA-unsplash.jpg")',
                         }}
                       >
-                        <span className="text-center absolute text-3xl top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2  text-white">
+                        <span className="text-center absolute md:text-3xl text-2xl top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2  text-white">
                           For beginner plant parents
                         </span>
                       </Link>

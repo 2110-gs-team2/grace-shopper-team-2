@@ -24,7 +24,7 @@ const Pagination = (props) => {
   }
 
   return (
-    <div className="col-span-3  bg-beige rounded-lg pl-5 ">
+    <div className="md:col-span-3 col-span-4 bg-beige rounded-lg md:pl-5 ">
       <div className="flex flex-col md:grid md:grid-cols-3 gap-5 ">
         {currProducts.length
           ? currProducts

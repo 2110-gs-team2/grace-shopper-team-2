@@ -12,8 +12,8 @@ const MyAccount = () => {
   const location = useLocation();
   return (
     <div className="w-screen h-screen bg-forest-green">
-      <div className="pt-36 pb-20 max-w-7xl grid grid-cols-4 m-auto h-full gap-5">
-        <div className="col-span-1 p-10 bg-beige rounded-lg">
+      <div className="pt-36 pb-20 px-5 max-w-7xl grid grid-cols-4 m-auto h-full gap-5">
+        <div className="col-span-1 p-10 bg-beige rounded-lg md:block hidden">
           <div className="flex flex-col gap-3">
             <Link
               to={`/my-account/profile`}
@@ -47,7 +47,7 @@ const MyAccount = () => {
             </Link>
           </div>
         </div>
-        <div className="col-span-3 p-10 bg-beige rounded-lg overflow-y-auto">
+        <div className="md:col-span-3 col-span-4 p-10 bg-beige rounded-lg overflow-y-auto">
           {includes(location.pathname, "profile") ? <ProfileView /> : null}
           {includes(location.pathname, "orders") ? (
             location.pathname === "/my-account/orders" ? (

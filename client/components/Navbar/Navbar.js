@@ -8,6 +8,7 @@ import UserMenu from "./UserMenu";
 import ProductMenu from "./ProductMenu";
 import Cart from "../Purchase/Cart";
 import { useLocation } from "react-router-dom";
+import MobileMenu from "./MobileMenu";
 
 const Navbar = ({ isLoggedIn, isAdmin }) => {
   const [styleChange, setStyleChange] = useState(false);
@@ -31,24 +32,31 @@ const Navbar = ({ isLoggedIn, isAdmin }) => {
     <div
       className={`${styleChange ? "bg-beige shadow-lg" : ""} ${
         pathname === "/" && !styleChange ? "bg-transparent" : "bg-beige"
-      } fixed px-5 py-3 inset-x-0 transition duration-300 z-20`}
+      } fixed md:px-5 md:py-3 px-2 py-2 inset-x-0 transition duration-300 z-20`}
     >
       <div className="flex justify-between items-center m-2">
-        <div className="text-lg font-medium relative hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green ">
+        <div className="md:block hidden text-lg font-medium relative hover:before:block hover:before:absolute hover:before:h-2 hover:before:top-1/2 hover:before:-translate-y-1/2 hover:before:-inset-x-0.5 hover:before:bg-xlight-green ">
           <ProductMenu />
         </div>
+        <div className="md:hidden block">
+          <MobileMenu />
+        </div>
         <Link to="/" className="">
-          <img src="/img/logo.svg" className="w-36" alt="" />
+          <img src="/img/logo.svg" className="md:w-36 w-28" alt="" />
         </Link>
 
         <div className="flex gap-3 flex-row">
           <button>
             <Search strokeWidth={1} width={30} height={30} />
           </button>
-          {isLoggedIn ? <UserMenu /> : <GuestMenu />}
+          {isLoggedIn ? (
+            <UserMenu className="md:block hidden" />
+          ) : (
+            <GuestMenu />
+          )}
           <Cart />
           {isAdmin ? (
-            <Link to="/manage" className="flex  items-center">
+            <Link to="/manage" className="md:flex items-center hidden">
               <Settings strokeWidth={1} width={30} height={30} />
             </Link>
           ) : null}

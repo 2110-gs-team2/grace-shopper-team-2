@@ -56,8 +56,8 @@ const CheckoutPage = () => {
         </div>
       </div>
       <div className="min-h-[100vh] bg-forest-green">
-        <div className="pt-36 pb-20 max-w-7xl grid grid-cols-5 m-auto h-full gap-5">
-          <div className="col-span-3 flex flex-col gap-5">
+        <div className="pt-36 pb-20 px-5 max-w-7xl md:grid md:grid-cols-5 flex flex-col m-auto h-full gap-5">
+          <div className="md:col-span-3 flex flex-col gap-5">
             <div className="bg-beige p-10 rounded-lg">
               {!currUser.id ? (
                 <div className="flex flex-col gap-2">
@@ -69,7 +69,7 @@ const CheckoutPage = () => {
                     />
                     Provide your info
                   </div>
-                  <div className="flex justify-between gap-5">
+                  <div className="flex md:flex-row flex-col justify-between md:gap-5">
                     <AuthenticationModal operation="LOGIN" />
                     <AuthenticationModal operation="SIGNUP" />
                   </div>
@@ -138,7 +138,7 @@ const CheckoutPage = () => {
               </div>
             ) : null}
           </div>
-          <div className="col-span-2 pb-52 px-10 bg-beige rounded-lg min-h-[60vh] max-h-[80vh] relative">
+          <div className="md:col-span-2 pb-52 px-10 bg-beige rounded-lg min-h-[60vh] max-h-[80vh] relative md:order-1 order-first">
             <div className="text-3xl pt-5 pb-5">Your cart</div>
             <div className="overflow-x-hidden overflow-y-auto h-full">
               <div className="flex flex-col gap-5 ">

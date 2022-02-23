@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ChevronDown } from "react-feather";
+import { ChevronDown, Filter } from "react-feather";
 import { useDispatch, useSelector } from "react-redux";
 import { Disclosure } from "@headlessui/react";
 import {
@@ -138,9 +138,11 @@ const AllProducts = (props) => {
   return (
     <div>
       <div className="min-h-[100vh] bg-beige">
-        <div className="min-h-[120vh] pt-28 p-20 max-w-[90vw] m-auto">
+        <div className="min-h-[120vh] pt-28 md:p-20 max-w-[90vw] m-auto">
           <div className="flex justify-between mb-5">
-            <div className="text-3xl">Filter ({currProducts.length})</div>
+            <div className="text-3xl md:block hidden">
+              Filter ({currProducts.length})
+            </div>
             <select
               defaultValue=""
               onChange={(evt) => changeSort(evt)}
@@ -156,7 +158,7 @@ const AllProducts = (props) => {
             </select>
           </div>
           <div className="grid grid-cols-4 m-auto h-full gap-5 my-5">
-            <div className="col-span-1 bg-beige rounded-lg">
+            <div className="col-span-1 bg-beige rounded-lg md:block hidden">
               <Disclosure>
                 {({ open }) => (
                   <>

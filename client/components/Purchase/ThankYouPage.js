@@ -16,7 +16,7 @@ const ThankYouPage = () => {
 
   return (
     <div className="w-screen h-screen bg-forest-green">
-      <div className="pt-36 pb-20 max-w-7xl m-auto h-full">
+      <div className="pt-36 pb-20 md:px-10 px-5 max-w-7xl m-auto h-full">
         <div className=" p-10 bg-beige rounded-lg ">
           <div className="flex flex-col gap-2 max-w-xl m-auto">
             <div className="text-3xl text-center">
