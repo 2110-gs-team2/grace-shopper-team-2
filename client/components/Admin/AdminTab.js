@@ -37,7 +37,7 @@ const AdminTab = () => {
   }, []);
 
   return (
-    <div className="w-full px-2  sm:px-0">
+    <div className="w-full md:px-2  sm:px-0">
       <div>
         <Toaster
           toastOptions={{
@@ -66,12 +66,15 @@ const AdminTab = () => {
         </Tab.List>
         <Tab.Panels className="mt-2 bg-forest-green rounded-lg p-5">
           <Tab.Panel className="rounded-lg">
-            <ul className="grid grid-cols-2 gap-5">
+            <ul className="md:grid md:grid-cols-2 flex flex-col gap-5">
               {products.map((p) => (
-                <li key={p.id} className="bg-beige rounded-lg flex">
+                <li
+                  key={p.id}
+                  className="bg-beige rounded-lg flex md:flex-row flex-col"
+                >
                   <div
                     style={{ backgroundImage: `url('${p.imageUrl[0]}')` }}
-                    className="w-1/2 bg-no-repeat rounded-lg bg-center bg-cover"
+                    className="md:w-1/2 bg-no-repeat rounded-lg bg-center bg-cover md:h-full h-[300px] w-full"
                   ></div>
                   <div className="p-5 grow">
                     <div className="border-b border-dark-grey pb-2">
@@ -111,7 +114,7 @@ const AdminTab = () => {
             </ul>
           </Tab.Panel>
           <Tab.Panel className="rounded-lg focus:outline-none focus:ring-2 ring-offset-2 ring-offset-forest-green ring-beige ring-opacity-60">
-            <ul className="grid grid-cols-4 gap-5">
+            <ul className="md:grid md:grid-cols-4 flex flex-col gap-5">
               {users.map((u, idx) => (
                 <li key={idx} className="p-5 bg-beige rounded-lg flex flex-col">
                   <div className="font-bold uppercase leading-5 border-b border-dark-grey pb-2 grow">

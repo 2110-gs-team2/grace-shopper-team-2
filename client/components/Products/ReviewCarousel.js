@@ -93,7 +93,7 @@ export default class ReviewCarousel extends Component {
     };
 
     return (
-      <div>
+      <div className="md:my-0 my-10">
         <div className="text-5xl mb-5 md:px-40 px-10">
           What our customers say
         </div>
@@ -101,7 +101,7 @@ export default class ReviewCarousel extends Component {
           {reviews.map((review) => {
             return (
               <div className="md:p-5 p-2" key={review.id}>
-                <div className="min-h-[300px] h-full mb-3 border-2 p-5 border-forest-green rounded-lg w-full h-auto flex flex-col justify-between gap-5">
+                <div className="min-h-[300px]  mb-3 border-2 p-5 border-forest-green rounded-lg w-full h-auto flex flex-col justify-between gap-5">
                   <div className="flex flex-col">
                     <div className="text-lg">{review.reviewText}</div>
                     <Ratings rating={review.rating} starDimension="15px" />
