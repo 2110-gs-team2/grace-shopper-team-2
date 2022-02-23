@@ -141,7 +141,7 @@ const AllProducts = (props) => {
         <div className="min-h-[120vh] pt-28 md:p-20 max-w-[90vw] m-auto">
           <div className="flex justify-between mb-5">
             <div className="text-3xl md:block hidden">
-              Filter ({currProducts.length})
+              Results ({currProducts.length})
             </div>
             <select
               defaultValue=""

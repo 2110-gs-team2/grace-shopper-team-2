@@ -57,7 +57,7 @@ class SingleProduct extends Component {
     return (
       <div className="min-h-[100vh] bg-beige">
         <div className="pt-8 m-auto">
-          <div className="flex md:flex-row flex-col gap-20 justify-around items-between m-auto md:p-20 p-5 max-w-[90vw]">
+          <div className="flex md:flex-row flex-col md:gap-20 gap-10 justify-around items-between m-auto md:p-20 max-w-[90vw]">
             <PhotoCarousel product={product} />
             <div className="grid-cols-1 flex flex-col gap-3 md:basis-1/3 basis-full">
               <div className="flex flex-col gap-2 pb-5 border-b-2 border-forest-green">
@@ -211,7 +211,7 @@ class SingleProduct extends Component {
             </div>
           </div>
           <ReviewCarousel reviews={reviews} />
-          <div className="md:p-20 p-5 max-w-[90vw] m-auto mt-5 md:mt-0">
+          <div className="md:p-20 max-w-[90vw] m-auto mt-5 md:mt-0">
             {products.length ? (
               <>
                 <div className="text-5xl mb-5">People also browsed...</div>
