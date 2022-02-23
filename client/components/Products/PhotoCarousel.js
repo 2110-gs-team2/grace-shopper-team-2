@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -17,7 +17,7 @@ export default class PhotoCarousel extends Component {
     const settings = {
       dots: true,
       infinite: true,
-      className: "md:pl-10 max-w-2xl h-full",
+      className: "md:pl-10 max-w-2xl h-full photos-slider",
       slidesToShow: 1,
       speed: 500,
       centerMode: false,
@@ -32,17 +32,36 @@ export default class PhotoCarousel extends Component {
           breakpoint: 600,
           settings: {
             slidesToShow: 1,
-            dotsClass: "slick-dots",
+            // dotsClass: "slick-dots",
           },
         },
       ],
       appendDots: (dots) => {
         return (
-          <div style={{ top: "0px", bottom: "0px", left: "-4rem" }}>
-            <ul style={{ margin: "0px" }} className="flex md:flex-col flex-row">
+          <div>
+            <ul style={{ margin: "0px" }} className="md:flex flex-col hidden">
               {dots.map((item, index) => {
                 return (
                   <li key={index} style={{ height: "90px", width: "100px" }}>
+                    {item.props.children}
+                  </li>
+                );
+              })}
+            </ul>
+
+            <ul
+              style={{ margin: "0px" }}
+              className="flex justify-center items-center md:hidden"
+            >
+              {dots.map((item, index) => {
+                console.log("this isrun");
+                return (
+                  <li
+                    key={index}
+                    className={`${
+                      this.state.currentSlide === index ? "slick-active" : ""
+                    } flex justify-center items-center`}
+                  >
                     {item.props.children}
                   </li>
                 );
@@ -53,27 +72,33 @@ export default class PhotoCarousel extends Component {
       },
       customPaging: (i) => {
         return (
-          <div
-            style={
-              i === this.state.currentSlide
-                ? {
-                    borderColor: "#2D4323",
-                    borderWidth: "2px",
-                    width: "80px",
-                    height: "80px",
-                    borderRadius: "100%",
-                    backgroundSize: "cover",
-                    backgroundImage: `url(${imgs[i]})`,
-                  }
-                : {
-                    width: "80px",
-                    height: "80px",
-                    borderRadius: "100%",
-                    backgroundSize: "cover",
-                    backgroundImage: `url(${imgs[i]})`,
-                  }
-            }
-          ></div>
+          <>
+            <div
+              className="md:block hidden"
+              style={
+                i === this.state.currentSlide
+                  ? {
+                      borderColor: "#2D4323",
+                      borderWidth: "2px",
+                      width: "80px",
+                      height: "80px",
+                      borderRadius: "100%",
+                      backgroundSize: "cover",
+                      backgroundImage: `url(${imgs[i]})`,
+                    }
+                  : {
+                      width: "80px",
+                      height: "80px",
+                      borderRadius: "100%",
+                      backgroundSize: "cover",
+                      backgroundImage: `url(${imgs[i]})`,
+                    }
+              }
+            ></div>
+            <button className="before:w-4 before:h-5 md:hidden block before:md:hidden">
+              1
+            </button>
+          </>
         );
       },
     };
