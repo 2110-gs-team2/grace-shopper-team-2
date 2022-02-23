@@ -9,12 +9,12 @@ const Main = () => {
   return (
     <div>
       <div
-        className={`h-screen w-full bg-cover bg-center bg-no-repeat relative`}
+        className={`md:h-screen h-[70vh] w-full bg-cover bg-center bg-no-repeat relative`}
         style={{
           backgroundImage: "url(/img/above-the-fold.jpg)",
         }}
       >
-        <div className="animate-bounce w-12 h-12 bg-beige bg-opacity-70 flex justify-center items-center rounded-full absolute bottom-10 left-1/2 -translate-x-1/2">
+        <div className="md:flex hidden animate-bounce w-12 h-12 bg-beige bg-opacity-70 justify-center items-center rounded-full absolute bottom-10 left-1/2 -translate-x-1/2">
           <ArrowDown className="text-forest-green" strokeWidth={2} />
         </div>
       </div>
