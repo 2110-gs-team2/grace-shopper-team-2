@@ -17,7 +17,7 @@ export default class PhotoCarousel extends Component {
     const settings = {
       dots: true,
       infinite: true,
-      className: "pl-10 max-w-2xl h-full",
+      className: "md:pl-10 max-w-2xl h-full",
       slidesToShow: 1,
       speed: 500,
       centerMode: false,
@@ -31,24 +31,26 @@ export default class PhotoCarousel extends Component {
         {
           breakpoint: 600,
           settings: {
-            slidesToShow: 2,
+            slidesToShow: 1,
             dotsClass: "slick-dots",
           },
         },
       ],
-      appendDots: (dots) => (
-        <div style={{ top: "0px", bottom: "0px", left: "-4rem" }}>
-          <ul style={{ margin: "0px" }} className="flex flex-col">
-            {dots.map((item, index) => {
-              return (
-                <li key={index} style={{ height: "90px", width: "100px" }}>
-                  {item.props.children}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      ),
+      appendDots: (dots) => {
+        return (
+          <div style={{ top: "0px", bottom: "0px", left: "-4rem" }}>
+            <ul style={{ margin: "0px" }} className="flex md:flex-col flex-row">
+              {dots.map((item, index) => {
+                return (
+                  <li key={index} style={{ height: "90px", width: "100px" }}>
+                    {item.props.children}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        );
+      },
       customPaging: (i) => {
         return (
           <div
@@ -58,7 +60,6 @@ export default class PhotoCarousel extends Component {
                     borderColor: "#2D4323",
                     borderWidth: "2px",
                     width: "80px",
-                    color: "blue",
                     height: "80px",
                     borderRadius: "100%",
                     backgroundSize: "cover",
@@ -66,7 +67,6 @@ export default class PhotoCarousel extends Component {
                   }
                 : {
                     width: "80px",
-                    color: "blue",
                     height: "80px",
                     borderRadius: "100%",
                     backgroundSize: "cover",

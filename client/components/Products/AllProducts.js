@@ -11,7 +11,6 @@ import {
 import startCase from "lodash/startCase";
 import queryString from "query-string";
 import Pagination from "./Pagination";
-import FilterDropdown from "./FilterDropdown";
 
 const AllProducts = (props) => {
   const [queryObj, setQueryObj] = useState({});

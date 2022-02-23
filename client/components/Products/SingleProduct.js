@@ -17,7 +17,6 @@ class SingleProduct extends Component {
   constructor() {
     super();
     this.state = {
-      // product: {},
       reviews: [],
       count: 1,
     };
@@ -28,30 +27,12 @@ class SingleProduct extends Component {
     this.props.getAllProducts();
     console.log(this.props);
     if (this.props.product) this.props.fetchReviews(this.props.product);
-    //  console.log()
-
-    // if (products.length) {
-    //   this.setState({
-    //     product: products.find((product) => slug === product.slug),
-    //   });
-    // }
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (!prevProps.product && prevProps.product !== this.props.product) {
       this.props.fetchReviews(this.props.product);
     }
-
-    // const { product } = this.state;
-    // const { slug } = this.props.match.params;
-    // if (!Object.keys(product).length) {
-    //   if (isArray(products) && products.length) {
-    //     this.setState({
-    //       product: products.find((product) => slug === product.slug),
-    //     });
-    // this.props.fetchReviews(this.state.product);
-    //   }
-    // }
     if (prevProps.match.params.slug !== this.props.match.params.slug) {
       window.scrollTo({ top: 0, behavior: "smooth" });
       this.props.fetchReviews(this.props.product);
@@ -76,9 +57,9 @@ class SingleProduct extends Component {
     return (
       <div className="min-h-[100vh] bg-beige">
         <div className="pt-8 m-auto">
-          <div className="flex flex-row gap-20 justify-around items-between m-auto p-20 max-w-[90vw]">
+          <div className="flex md:flex-row flex-col gap-20 justify-around items-between m-auto md:p-20 p-5 max-w-[90vw]">
             <PhotoCarousel product={product} />
-            <div className="grid-cols-1 flex flex-col gap-3 basis-1/3">
+            <div className="grid-cols-1 flex flex-col gap-3 md:basis-1/3 basis-full">
               <div className="flex flex-col gap-2 pb-5 border-b-2 border-forest-green">
                 <div className="text-5xl">{product.name}</div>
                 {!isNaN(avgRating) ? (
@@ -230,7 +211,7 @@ class SingleProduct extends Component {
             </div>
           </div>
           <ReviewCarousel reviews={reviews} />
-          <div className="p-20 max-w-[90vw] m-auto">
+          <div className="md:p-20 p-5 max-w-[90vw] m-auto mt-5 md:mt-0">
             {products.length ? (
               <>
                 <div className="text-5xl mb-5">People also browsed...</div>

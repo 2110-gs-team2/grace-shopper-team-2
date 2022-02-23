@@ -40,7 +40,7 @@ export default class ReviewCarousel extends Component {
     const settings = {
       dots: true,
       infinite: true,
-      className: "mx-10",
+      className: "",
       slidesToShow: 3,
       slidesToScroll: 1,
       speed: 500,
@@ -81,9 +81,11 @@ export default class ReviewCarousel extends Component {
       ),
       responsive: [
         {
-          breakpoint: 600,
+          breakpoint: 768,
           settings: {
-            slidesToShow: 2,
+            slidesToShow: 1,
+            arrows: false,
+            centerPadding: "30px",
             dotsClass: "slick-dots",
           },
         },
@@ -92,12 +94,14 @@ export default class ReviewCarousel extends Component {
 
     return (
       <div>
-        <div className="text-5xl mb-5 px-40">What our customers say</div>
+        <div className="text-5xl mb-5 md:px-40 px-10">
+          What our customers say
+        </div>
         <Slider {...settings}>
           {reviews.map((review) => {
             return (
-              <div className="p-5" key={review.id}>
-                <div className="min-h-[300px] border-2 p-5 border-forest-green rounded-lg w-full h-auto flex flex-col justify-between gap-5">
+              <div className="md:p-5 p-2" key={review.id}>
+                <div className="min-h-[300px] h-full mb-3 border-2 p-5 border-forest-green rounded-lg w-full h-auto flex flex-col justify-between gap-5">
                   <div className="flex flex-col">
                     <div className="text-lg">{review.reviewText}</div>
                     <Ratings rating={review.rating} starDimension="15px" />
