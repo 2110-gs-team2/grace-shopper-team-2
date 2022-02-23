@@ -65,8 +65,8 @@ const Main = () => {
       </div>
       {/* value prop section */}
       <div className="md:p-20 md:pb-10 p-5">
-        <div className="flex lg:flex-row flex-col justify-start relative py-10 md:h-[65vh] h-[90vh] max-w-5xl m-auto my-10">
-          <div className=" absolute lg:bottom-auto bottom-10 left-0 min-h-min lg:w-2/5 w-full p-14 z-10 flex flex-col justify-center rounded-lg shadow-sm bg-forest-green">
+        <div className="flex lg:flex-row flex-col justify-start relative py-10 md:h-[65vh] h-[90vh] max-w-5xl m-auto my-10 md:mb-0 mb-20">
+          <div className=" absolute lg:bottom-auto -bottom-2 left-0 lg:w-2/5 w-full p-14 z-10 flex flex-col justify-center rounded-lg shadow-sm bg-forest-green">
             <div className="text-5xl text-beige">Value prop 1</div>
             <div className="mt-5 text-xl text-beige">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -93,7 +93,7 @@ const Main = () => {
               ></img>
             </div>
           </div>
-          <div className="absolute lg:bottom-auto bottom-10 right-0 min-h-min  lg:w-2/5 w-full p-14 z-10 flex flex-col justify-center rounded-lg shadow-sm bg-forest-green">
+          <div className="absolute lg:bottom-auto -bottom-2 right-0 lg:w-2/5 w-full p-14 z-10 flex flex-col justify-center rounded-lg shadow-sm bg-forest-green">
             <div className="text-5xl text-beige">Value prop 2</div>
             <div className="mt-5 text-xl text-beige">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -106,14 +106,14 @@ const Main = () => {
       </div>
       {/* final section */}
       <div
-        className="lg:p-20 py-0 bg-cover lg:min-h-[50vh] min-h-[30vh] bg-beige flex justify-center items-center flex-col gap-3"
+        className="lg:p-20 py-0 bg-cover lg:min-h-[50vh] min-h-[90vh] bg-beige flex justify-center items-center flex-col gap-3"
         style={{ backgroundImage: "url(/img/HomePage-2.png)" }}
       >
         <div className="text-5xl">Ready to buy?</div>
         <div className="text-xl">Enjoy free shipping on $150+ orders</div>
         <Link
           to="/products"
-          className="block mt-5 p-6 py-3 w-48 text-center rounded-full text-base font-bold bg-forest-green text-beige uppercase"
+          className="block mt-5 p-6 py-3 w-48 text-center rounded-full text-base font-bold border-2 border-beige md:border-0 bg-forest-green text-beige uppercase"
         >
           Shop all
         </Link>
