@@ -72,7 +72,7 @@ export default class PhotoCarousel extends Component {
       },
       customPaging: (i) => {
         return (
-          <>
+          <div>
             <div
               className="md:block hidden"
               style={
@@ -98,7 +98,9 @@ export default class PhotoCarousel extends Component {
             <button className="before:w-4 before:h-5 md:hidden block before:md:hidden">
               1
             </button>
-          </>
+          </div>
+
+          // </>
         );
       },
     };
