@@ -138,7 +138,7 @@ const AllProducts = (props) => {
   return (
     <div>
       <div className="min-h-[100vh] py-20 bg-beige">
-        <div className="min-h-[120vh] pt-28 md:p-20 max-w-[90vw] m-auto">
+        <div className="min-h-[120vh] md:p-20 pt-0 max-w-[90vw] m-auto">
           <div className="flex justify-between mb-5">
             <div className="text-3xl md:block hidden">
               Results ({currProducts.length})
@@ -178,9 +178,7 @@ const AllProducts = (props) => {
                           <input
                             name={type}
                             type="checkbox"
-                            onChange={(evt) =>
-                              filterChange("type", type, evt)
-                            }
+                            onChange={(evt) => filterChange("type", type, evt)}
                             value={type}
                             checked={isInFilter("type", type)}
                             className="h-8 w-8 border-2 rounded-lg border-forest-green  focus:text-forest-green focus:ring-forest-green focus:outline-none checked:hover:bg-forest-green checked:bg-forest-green bg-beige"
@@ -217,9 +215,7 @@ const AllProducts = (props) => {
                           <input
                             name={size}
                             type="checkbox"
-                            onChange={(evt) =>
-                              filterChange("size", size, evt)
-                            }
+                            onChange={(evt) => filterChange("size", size, evt)}
                             value={size}
                             checked={isInFilter("size", size)}
                             className="h-8 w-8 border-2 rounded-lg border-forest-green  focus:text-forest-green focus:ring-forest-green focus:outline-none checked:hover:bg-forest-green checked:bg-forest-green bg-beige"
