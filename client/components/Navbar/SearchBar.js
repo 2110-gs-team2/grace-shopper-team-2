@@ -3,22 +3,9 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
-/*
-To-Do:
--Change font to match page (freight-neo-pro?)
--Clear search bar after user clicks a product?
--Change borderRadius to match navbar's drop down menus
-*/
-
 class SearchBar extends Component {
   handleOnSelect = (product) => {
     this.props.history.push({ pathname: `/products/${product.slug}` });
-  };
-
-  handleOnSearch = (string, results) => {
-    // onSearch will have as the first callback parameter
-    // the string searched and for the second the results.
-    return string, results;
   };
 
   formatResult = (product) => {
@@ -42,25 +29,23 @@ class SearchBar extends Component {
         <header>
           <div style={{ width: "100%" }}>
             <ReactSearchAutocomplete
+              autoFocus={true}
               formatResult={this.formatResult}
               items={products}
               maxResults={5}
               onSelect={this.handleOnSelect}
               placeholder={"Search Products"}
-              onSearch={this.handleOnSearch}
               styling={{
                 backgroundColor: "#FFFAE3",
-                fontFamily: "freight-neo-pro",
+                border: "2px solid #2D4323",
+                borderRadius: "0.5rem",
                 boxShadow: "none",
+                fontFamily: "freight-neo-pro",
                 fontSize: "18px",
                 height: "45px",
                 hoverBackgroundColor: "#D7D9AF",
                 iconColor: "#2D4323",
                 lineColor: "#2D4323",
-                width: "100%",
-                border: "2px solid #2D4323",
-                padding: "",
-                borderRadius: "0.5rem",
               }}
             />
           </div>

@@ -137,10 +137,10 @@ const AllProducts = (props) => {
 
   return (
     <div>
-      <div className="min-h-[100vh] py-20 bg-beige">
+      <div className="min-h-[100vh] py-8 bg-beige">
         <div className="min-h-[120vh] md:p-20 pt-0 max-w-[90vw] m-auto">
           <div className="flex justify-between mb-5">
-            <div className="text-3xl md:block hidden">
+            <div className="text-2xl px-4 py-2 md:block hidden">
               Results ({currProducts.length})
             </div>
             <select
