@@ -27,8 +27,8 @@ form div {
 }
 
 .photos-slider .slick-dots {
-  top: 0;
-  bottom: 0;
+  top: 0; 
+  bottom: 0; 
   left: -4rem;
 }
 

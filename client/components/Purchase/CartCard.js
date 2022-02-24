@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Trash2, Minus, Plus } from "react-feather";
 import { removeFromCart, subFromQuantity, addToCart } from "../../store/cart";
+import { getAllProducts } from "../../store/products";
 
 const CartCard = (props) => {
-  const { product, products } = props;
+  let { product, products } = props;
   const currUser = useSelector((state) => state.auth);
-
+  if (!products) products = useSelector((state) => state.products);
   //redux hooks
   const dispatch = useDispatch();
+
   return (
     <div className="flex flex-row gap-5 pr-1">
       <img src={product.imageUrl[0]} className=" object-contain w-24" alt="" />

@@ -9,7 +9,7 @@ import ProductMenu from "./ProductMenu";
 import Cart from "../Purchase/Cart";
 import { useLocation } from "react-router-dom";
 import MobileMenu from "./MobileMenu";
-import SearchBar from "./SearchBar";
+import SearchBarContainer from "./SearchBarContainer";
 
 const Navbar = ({ isLoggedIn, isAdmin }) => {
   const [styleChange, setStyleChange] = useState(false);
@@ -47,10 +47,9 @@ const Navbar = ({ isLoggedIn, isAdmin }) => {
         </Link>
 
         <div className="flex gap-3 flex-row items-center">
-          <SearchBar />
-          {/* <button>
-            <Search strokeWidth={1} width={30} height={30} />
-          </button> */}
+          <div>
+            <SearchBarContainer setStyleChange={setStyleChange} />
+          </div>
           {isLoggedIn ? (
             <UserMenu className="md:block hidden" />
           ) : (
