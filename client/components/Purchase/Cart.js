@@ -63,7 +63,6 @@ const Cart = (props) => {
         prevCartRef.current.length !== cart.length &&
         prevUserRef.current.id === currUser.id
       ) {
-        console.log("condition 1");
         return openSlideOver();
       }
       if (
@@ -71,17 +70,14 @@ const Cart = (props) => {
         cart.length === 1 &&
         prevCartRef.current[0].quantity !== cart[0].quantity
       ) {
-        console.log("condition 2");
         return openSlideOver();
       }
-
       if (
         !prevCartRef.current.id &&
         !currUser.id &&
         cart.length === 1 &&
         prevCartRef.current.length !== 0
       ) {
-        console.log("condition 3");
         return openSlideOver();
       }
     }
@@ -198,7 +194,7 @@ const Cart = (props) => {
                         </span>
                       </Link>
                       <Link
-                        to="/featured/beginners"
+                        to="/products?difficulty=easy"
                         onClick={closeSlideover}
                         className="w-full h-32 group bg-cover bg-center relative before:block before:absolute before:h-full before:top-0 before:-inset-x-0 before:bg-black before:opacity-40 hover:before:opacity-80 before:transition before:ease-in-out before:duration-500"
                         style={{
