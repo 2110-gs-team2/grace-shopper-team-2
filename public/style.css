@@ -27,12 +27,12 @@ form div {
 }
 
 .photos-slider .slick-dots {
-  top: 0 !important;
-  bottom: 0 !important;
-  left: -4rem !important;
+  top: 0; 
+  bottom: 0; 
+  left: -4rem;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 600px) {
   .photos-slider .slick-dots {
     bottom: 10px !important;
     top: auto !important;

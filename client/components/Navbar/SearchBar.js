@@ -13,11 +13,12 @@ To-Do:
 class SearchBar extends Component {
   handleOnSelect = (product) => {
     this.props.history.push({ pathname: `/products/${product.slug}` });
-    // Attempting to clear search input after user is navigated to single product page
-    // const searchField = document.getElementsByTagName("input")[0];
-    // console.log(searchField.value, "Before");
-    // searchField.value = '';
-    // console.log(searchField.value, "After");
+  };
+
+  handleOnSearch = (string, results) => {
+    // onSearch will have as the first callback parameter
+    // the string searched and for the second the results.
+    return string, results;
   };
 
   formatResult = (product) => {
@@ -28,9 +29,7 @@ class SearchBar extends Component {
             style={{ height: "50px", width: "auto", maxHeight: "50px" }}
             src={product.imageUrl[0]}
           />
-          <span>
-            {product.name}
-          </span>
+          <span>{product.name}</span>
         </Link>
       </>
     );
@@ -41,21 +40,27 @@ class SearchBar extends Component {
     return (
       <div>
         <header>
-          <div style={{ width: 350 }}>
+          <div style={{ width: "100%" }}>
             <ReactSearchAutocomplete
               formatResult={this.formatResult}
               items={products}
               maxResults={5}
               onSelect={this.handleOnSelect}
               placeholder={"Search Products"}
+              onSearch={this.handleOnSearch}
               styling={{
                 backgroundColor: "#FFFAE3",
                 fontFamily: "freight-neo-pro",
+                boxShadow: "none",
                 fontSize: "18px",
-                height: "35px",
+                height: "45px",
                 hoverBackgroundColor: "#D7D9AF",
                 iconColor: "#2D4323",
-                lineColor: "#2D4323"
+                lineColor: "#2D4323",
+                width: "100%",
+                border: "2px solid #2D4323",
+                padding: "",
+                borderRadius: "0.5rem",
               }}
             />
           </div>

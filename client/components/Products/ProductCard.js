@@ -33,7 +33,7 @@ const ProductCard = ({ product }) => {
         <div className="relative">
           <Link to={`/products/${product.slug}`}>
             <div className="relative">
-              <img src={product.imageUrl[0]} alt="" />
+              <img src={product.imageUrl[0]} className="w-full" alt="" />
             </div>
           </Link>
           <button

@@ -15,10 +15,8 @@ const stripePromise = loadStripe(
 
 const CheckoutPage = () => {
   const [clientSecret, setClientSecret] = useState("");
-  const dispatch = useDispatch();
   const currUser = useSelector((state) => state.auth);
   const cart = useSelector((state) => state.cart);
-  const prevUserRef = useRef(currUser);
 
   const items = [{ id: "xl-tshirt" }];
   useEffect(() => {
