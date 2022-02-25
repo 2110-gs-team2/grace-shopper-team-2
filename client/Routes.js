@@ -10,6 +10,7 @@ import AdminView from "./components/Admin/AdminView";
 import CheckoutPage from "./components/Purchase/CheckoutPage";
 import Cart from "./components/Purchase/Cart";
 import ThankYouPage from "./components/Purchase/ThankYouPage";
+import PageNotFound from "./components/PageNotFound";
 import { convertOrder } from "./store";
 import { fetchCart } from "./store/cart";
 import { me } from "./store";
@@ -53,6 +54,7 @@ class Routes extends Component {
           <Route path="/manage" exact>
             {!isAdmin ? <Redirect to="/" /> : <AdminView />}
           </Route>
+          <Route component={PageNotFound} />  
         </Switch>
       </div>
     );
