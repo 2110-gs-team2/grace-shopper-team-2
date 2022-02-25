@@ -31,6 +31,7 @@ class Cart extends Component {
     this.state = {
       open: false,
       freeShippingProgress: "0%",
+      subtotal: 0,
     };
   }
 
@@ -40,15 +41,22 @@ class Cart extends Component {
     const subtotal = cartSubTotal(cart).toFixed(2);
     let shippingProgress = Math.floor((subtotal / 150) * 100);
     if (shippingProgress > 100) shippingProgress = 100;
-    this.setState({ freeShippingProgress: shippingProgress });
-    console.log(this.state.freeShippingProgress);
+    this.setState({ freeShippingProgress: `${shippingProgress}%` });
+    this.setState({ subtotal });
     this.props.fetchCart(currUser, products);
   }
 
   componentDidUpdate(prevProps, prevState) {
     const subtotal = cartSubTotal(this.props.cart).toFixed(2);
     let shippingProgress = Math.floor((subtotal / 150) * 100);
-    if (shippingProgress > 100) shippingProgress = 100;
+    if (shippingProgress > 100) shippingProgress = "100%";
+    else shippingProgress = `${shippingProgress}%`;
+
+    // console.log(prevState.subtotal, "what is the sbutotal PREV");
+    // console.log(this.state.subtotal, "what is the sbutotal THIS");
+    if (this.state.freeShippingProgress !== shippingProgress)
+      this.setState({ freeShippingProgress: shippingProgress });
+    if (this.state.subtotal !== subtotal) this.setState({ subtotal });
 
     // never open cart if youre on the checkout or thank you page
     if (
@@ -61,22 +69,21 @@ class Cart extends Component {
         !(this.props.cart.length === 0) &&
         prevProps.cart.length !== this.props.cart.length
       ) {
-        this.setState({ freeShippingProgress: `${shippingProgress}%` });
         return this.openSlideover();
       }
       if (prevProps.cart.length === this.props.cart.length) {
+        // debugger;
         for (let i = 0; i < this.props.cart.length; i++) {
           if (this.props.cart[i].quantity !== prevProps.cart[i].quantity) {
-            this.setState({ freeShippingProgress: `${shippingProgress}%` });
             return this.openSlideover();
           }
         }
       }
       if (this.props.cart.length === 1 && prevProps.cart.length === 0) {
+        // debugger;
         for (let i = 0; i < this.props.cart.length; i++) {
+          console.log(this.props.cart[i], "look here!");
           if (this.props.cart[i].quantity < 2) {
-            if (shippingProgress)
-              this.setState({ freeShippingProgress: `${shippingProgress}%` });
             this.openSlideover();
           }
         }
@@ -160,9 +167,9 @@ class Cart extends Component {
                                     150 - subtotal
                                   } away from free shipping!`}
                             </div>
-                            <div className="w-full bg-forest-green rounded-full h-1.5 dark:bg-xlight-green my-3">
+                            <div className="w-full dark:bg-forest-green rounded-full h-1.5 bg-xlight-green my-3">
                               <div
-                                className=" h-1.5 bg-xlight-green rounded-full dark:bg-forest-green transition-all"
+                                className=" h-1.5 dark:bg-xlight-green rounded-full bg-forest-green transition-all"
                                 style={{ width: `${freeShippingProgress}` }}
                               ></div>
                             </div>
