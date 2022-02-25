@@ -61,7 +61,6 @@ class Cart extends Component {
         !(this.props.cart.length === 0) &&
         prevProps.cart.length !== this.props.cart.length
       ) {
-<<<<<<< HEAD
         this.setState({ freeShippingProgress: `${shippingProgress}%` });
         return this.openSlideover();
       }
@@ -81,24 +80,6 @@ class Cart extends Component {
             this.openSlideover();
           }
         }
-=======
-        return openSlideOver();
-      }
-      if (
-        prevCartRef.current.length === 1 &&
-        cart.length === 1 &&
-        prevCartRef.current[0].quantity !== cart[0].quantity
-      ) {
-        return openSlideOver();
-      }
-      if (
-        !prevCartRef.current.id &&
-        !currUser.id &&
-        cart.length === 1 &&
-        prevCartRef.current.length !== 0
-      ) {
-        return openSlideOver();
->>>>>>> 9944ab99421db342215453206208b315e331ab2f
       }
     }
   }
@@ -246,18 +227,9 @@ class Cart extends Component {
                         </span>
                       </div>
                       <Link
-<<<<<<< HEAD
                         to="/checkout"
                         onClick={async () => {
                           closeSlideover();
-=======
-                        to="/products?difficulty=easy"
-                        onClick={closeSlideover}
-                        className="w-full h-32 group bg-cover bg-center relative before:block before:absolute before:h-full before:top-0 before:-inset-x-0 before:bg-black before:opacity-40 hover:before:opacity-80 before:transition before:ease-in-out before:duration-500"
-                        style={{
-                          backgroundImage:
-                            'url("/img/sarah-dorweiler-x2Tmfd1-SgA-unsplash.jpg")',
->>>>>>> 9944ab99421db342215453206208b315e331ab2f
                         }}
                         disabled={!cart.length}
                         className={`${
