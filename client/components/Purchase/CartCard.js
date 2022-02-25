@@ -6,6 +6,14 @@ import { getAllProducts } from "../../store/products";
 
 const CartCard = (props) => {
   let { product, products } = props;
+
+  //needed for determining how many are in stock for a specific product
+  const getNumInStock = () => {
+    const _product = products.find((p) => p.id === product.id);
+    const numInStock = _product?.quantity;
+    return numInStock;
+  };
+
   const currUser = useSelector((state) => state.auth);
   if (!products) products = useSelector((state) => state.products);
   //redux hooks
@@ -51,21 +59,34 @@ const CartCard = (props) => {
             <span className="text-xl inline-block align-middle">
               {product.quantity}
             </span>
-            <button
-              onClick={() => {
-                const productInfo = products.filter(
-                  (p) => p.id === product.productId
-                )[0];
-                if (currUser.id) {
-                  dispatch(addToCart(currUser, productInfo, products, 1));
-                } else {
-                  dispatch(addToCart(currUser, product, products, 1));
-                }
-              }}
-            >
-              <Plus strokeWidth={2} width={18} />
-            </button>
+            {product.quantity >= getNumInStock() ? (
+              <button disabled={product.quantity >= getNumInStock()}>
+                <Plus strokeWidth={2} width={18} />
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  const productInfo = products.filter(
+                    (p) => p.id === product.productId
+                  )[0];
+                  if (currUser.id) {
+                    dispatch(addToCart(currUser, productInfo, products, 1));
+                  } else {
+                    dispatch(addToCart(currUser, product, products, 1));
+                  }
+                }}
+              >
+                <Plus strokeWidth={2} width={18} />
+              </button>
+            )}
           </div>
+        </div>
+        <div>
+          {product.quantity === getNumInStock() ? (
+            <span style={{ color: "red" }}>
+              {`Only ${product.quantity} in stock`}
+            </span>
+          ) : null}
         </div>
       </div>
     </div>
