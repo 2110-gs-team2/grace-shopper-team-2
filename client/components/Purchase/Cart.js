@@ -71,10 +71,10 @@ class Cart extends Component {
             return this.openSlideover();
           }
         }
-      }
-      if (this.props.cart.length === 1 && prevProps.cart.length === 0) {
+      } 
+      if (this.props.cart.length === 1 && prevProps.cart.length === 0 && this.props.products.length) {
         for (let i = 0; i < this.props.cart.length; i++) {
-          if (this.props.cart[i].quantity < 2) {
+          if (this.props.cart[i].quantity) {
             if (shippingProgress)
               this.setState({ freeShippingProgress: `${shippingProgress}%` });
             this.openSlideover();
