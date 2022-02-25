@@ -42,17 +42,17 @@ class Cart extends Component {
     if (shippingProgress > 100) shippingProgress = 100;
     this.setState({ freeShippingProgress: `${shippingProgress}%` });
     this.props.fetchCart(currUser, products);
+    
   }
-
+  
   componentDidUpdate(prevProps, prevState) {
     const subtotal = cartSubTotal(this.props.cart).toFixed(2);
     let shippingProgress = Math.floor((subtotal / 150) * 100);
     if (shippingProgress > 100) shippingProgress = "100%";
     else shippingProgress = `${shippingProgress}%`;
-
+    
     if (this.state.freeShippingProgress !== shippingProgress)
       this.setState({ freeShippingProgress: shippingProgress });
-
     // never open cart if youre on the checkout or thank you page
     if (
       !includes(location.pathname, "checkout") &&
@@ -73,11 +73,13 @@ class Cart extends Component {
           }
         }
       }
+      
       if (
         this.props.cart.length === 1 &&
         prevProps.cart.length === 0 &&
+        this.props.history.action === 'PUSH' &&
         this.props.products.length
-      ) {
+      ) { 
         for (let i = 0; i < this.props.cart.length; i++) {
           if (this.props.cart[i].quantity) {
             if (shippingProgress)
