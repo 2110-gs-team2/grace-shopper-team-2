@@ -72,17 +72,12 @@ class Cart extends Component {
             return this.openSlideover();
           }
         }
-<<<<<<< HEAD
-      } 
-      if (this.props.cart.length === 1 && prevProps.cart.length === 0 && this.props.products.length) {
-=======
       }
       if (
         this.props.cart.length === 1 &&
         prevProps.cart.length === 0 &&
         this.props.products.length
       ) {
->>>>>>> jkim/cart-updates
         for (let i = 0; i < this.props.cart.length; i++) {
           if (this.props.cart[i].quantity) {
             if (shippingProgress)
