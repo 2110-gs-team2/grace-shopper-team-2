@@ -10,7 +10,7 @@ const SearchBarContainer = ({ setStyleChange }) => {
         {({ open, close }) => {
           return (
             <>
-              <Popover.Button className="focus:outline-none ">
+              <Popover.Button className="focus:outline-none flex justify-center">
                 <Search
                   strokeWidth={1}
                   width={30}
