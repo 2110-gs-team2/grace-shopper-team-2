@@ -203,7 +203,7 @@ class Cart extends Component {
                           </span>
                         </Link>
                         <Link
-                          to="/featured/beginners"
+                          to="/products?difficulty=easy"
                           onClick={closeSlideover}
                           className="w-full h-32 group bg-cover bg-center relative before:block before:absolute before:h-full before:top-0 before:-inset-x-0 before:bg-black before:opacity-40 hover:before:opacity-80 before:transition before:ease-in-out before:duration-500"
                           style={{
