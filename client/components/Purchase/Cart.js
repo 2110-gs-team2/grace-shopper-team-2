@@ -41,7 +41,7 @@ class Cart extends Component {
     let shippingProgress = Math.floor((subtotal / 150) * 100);
     if (shippingProgress > 100) shippingProgress = 100;
     this.setState({ freeShippingProgress: `${shippingProgress}%` });
-    // this.props.fetchCart(currUser, products);
+    this.props.fetchCart(currUser, products);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -50,8 +50,6 @@ class Cart extends Component {
     if (shippingProgress > 100) shippingProgress = "100%";
     else shippingProgress = `${shippingProgress}%`;
 
-    // console.log(prevState.subtotal, "what is the sbutotal PREV");
-    // console.log(this.state.subtotal, "what is the sbutotal THIS");
     if (this.state.freeShippingProgress !== shippingProgress)
       this.setState({ freeShippingProgress: shippingProgress });
 
@@ -69,7 +67,6 @@ class Cart extends Component {
         return this.openSlideover();
       }
       if (prevProps.cart.length === this.props.cart.length) {
-        // debugger;
         for (let i = 0; i < this.props.cart.length; i++) {
           if (this.props.cart[i].quantity !== prevProps.cart[i].quantity) {
             return this.openSlideover();
@@ -78,13 +75,6 @@ class Cart extends Component {
       }
       if (this.props.cart.length === 1 && prevProps.cart.length === 0) {
         console.log("this has happened!");
-        // debugger;
-        // for (let i = 0; i < this.props.cart.length; i++) {
-        //   console.log(this.props.cart[i], "look here!");
-        //   if (this.props.cart[i].quantity < 2) {
-        //     this.openSlideover();
-        //   }
-        // }
       }
     }
   }
@@ -106,7 +96,6 @@ class Cart extends Component {
     const { closeSlideover, openSlideover, setFreeShippingProgress } = this;
 
     const subtotal = cartSubTotal(cart).toFixed(2);
-
 
     return (
       <Fragment>
