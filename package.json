@@ -47,6 +47,7 @@
     "query-string": "^7.1.1",
     "react-feather": "^2.0.9",
     "react-hot-toast": "^2.2.0",
+    "react-loading-skeleton": "^3.0.3",
     "react-search-autocomplete": "^6.0.0",
     "react-slick": "^0.28.1",
     "react-star-ratings": "^2.3.0",
