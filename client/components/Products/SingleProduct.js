@@ -39,6 +39,7 @@ class SingleProduct extends Component {
   }
 
   changeQuantity = (operation) => {
+    const { product } = this.props;
     if (operation === "DECREMENT")
       this.setState({ count: this.state.count - 1 });
     if (operation === "INCREMENT")
@@ -74,15 +75,33 @@ class SingleProduct extends Component {
                 <div className="text-lg uppercase font-bold">Quantity</div>
                 <div>
                   <div className="flex items-center justify-between w-28 px-2 py-1 text-base font-bold text-forest-green border-2 border-forest-green uppercase rounded-full">
-                    <button onClick={() => changeQuantity(DECREMENT)}>
-                      <Minus strokeWidth={2} width={18} />
-                    </button>
+                    {count >= 2 ? (
+                      <button onClick={() => changeQuantity(DECREMENT)}>
+                        <Minus strokeWidth={2} width={18} />
+                      </button>
+                    ) : (
+                      <button
+                        disabled={count < 2}
+                        onClick={() => changeQuantity(DECREMENT)}
+                      >
+                        <Minus strokeWidth={2} width={18} />
+                      </button>
+                    )}
                     <div className="text-xl text items-center flex">
                       {count}
                     </div>
-                    <button onClick={() => changeQuantity(INCREMENT)}>
-                      <Plus strokeWidth={2} width={18} />
-                    </button>
+                    {count < product.quantity ? (
+                      <button onClick={() => changeQuantity(INCREMENT)}>
+                        <Plus strokeWidth={2} width={18} />
+                      </button>
+                    ) : (
+                      <button
+                        disabled={count >= product.quantity}
+                        onClick={() => changeQuantity(INCREMENT)}
+                      >
+                        <Plus strokeWidth={2} width={18} />
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
