@@ -103,11 +103,15 @@ class SingleProduct extends Component {
                       </button>
                     )}
                   </div>
+                  {count === product.quantity ? (
+                    <div
+                      style={{ color: "red" }}
+                    >{`Only ${count} in stock`}</div>
+                  ) : null}
                 </div>
               </div>
               <div>
                 <button
-                  disabled={!product.quantity}
                   onClick={() => {
                     addToCart(currUser, product, products, count);
                   }}
