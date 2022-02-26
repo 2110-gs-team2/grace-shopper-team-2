@@ -77,7 +77,6 @@ class Cart extends Component {
       if (
         this.props.cart.length === 1 &&
         prevProps.cart.length === 0 &&
-        // this.props.history.action === 'PUSH' &&
         this.props.products.length
       ) {
         for (let i = 0; i < this.props.cart.length; i++) {
