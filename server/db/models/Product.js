@@ -3,9 +3,9 @@ const { STRING, ENUM, TEXT, DECIMAL, INTEGER, UUID, UUIDV4, BOOLEAN, ARRAY } =
   Sequelize;
 const db = require("../db");
 const imgs = [
-  "https://bloomscape.com/wp-content/uploads/2020/12/bloomscape_dracaena-gold-lemon-lime_stone-resize-e1625252440907.jpg?ver=372948",
-  "https://bloomscape.com/wp-content/uploads/2020/08/bloomscape_dracaena-gold-lemon-lime_detail.jpg?ver=279520",
-  "https://bloomscape.com/wp-content/uploads/2020/08/bloomscape_dracaena-gold-lemon-lime_detail.jpg?ver=279520",
+  "https://poshleaf-images.s3.amazonaws.com/the-sill_monstera-adansonii_variant_small_grant_black_768x.jpeg",
+  "https://poshleaf-images.s3.amazonaws.com/the-sill_pilea-peperomioides_gallery_small_03_1024x.jpeg",
+  "https://poshleaf-images.s3.amazonaws.com/the-sill_white-orchid_small_bryant_black_720x.jpg.webp",
 ];
 
 const Product = db.define("product", {
