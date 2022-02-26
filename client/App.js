@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import Navbar from "./components/Navbar/Navbar";
 import Routes from "./Routes";
 import Footer from "./components/Footer/Footer";
