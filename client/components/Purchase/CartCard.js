@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Trash2, Minus, Plus } from "react-feather";
 import { removeFromCart, subFromQuantity, addToCart } from "../../store/cart";
-import { getAllProducts } from "../../store/products";
 
 const CartCard = (props) => {
   let { product, products } = props;
@@ -44,50 +43,59 @@ const CartCard = (props) => {
           <span className="text-xl font-bold uppercase leading-5">
             ${product.price}
           </span>
-          <div className="flex items-center justify-between w-28 px-2 py-1 text-base font-bold text-forest-green border-2 border-forest-green uppercase rounded-full">
-            <button
-              onClick={() => {
-                if (product.quantity === 1) {
-                  dispatch(removeFromCart(currUser, product.id));
-                } else {
-                  dispatch(subFromQuantity(currUser, product, products));
-                }
-              }}
-            >
-              <Minus strokeWidth={2} width={18} />
-            </button>
-            <span className="text-xl inline-block align-middle">
-              {product.quantity}
-            </span>
-            {product.quantity >= getNumInStock() ? (
-              <button disabled={product.quantity >= getNumInStock()}>
-                <Plus strokeWidth={2} width={18} />
-              </button>
-            ) : (
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center justify-between w-28 px-2 py-1 text-base font-bold text-forest-green border-2 border-forest-green uppercase rounded-full">
               <button
                 onClick={() => {
-                  const productInfo = products.filter(
-                    (p) => p.id === product.productId
-                  )[0];
-                  if (currUser.id) {
-                    dispatch(addToCart(currUser, productInfo, products, 1));
+                  if (product.quantity === 1) {
+                    dispatch(removeFromCart(currUser, product.id));
                   } else {
-                    dispatch(addToCart(currUser, product, products, 1));
+                    dispatch(subFromQuantity(currUser, product, products));
                   }
                 }}
               >
-                <Plus strokeWidth={2} width={18} />
+                <Minus strokeWidth={2} width={18} />
               </button>
-            )}
+              <span className="text-xl inline-block align-middle">
+                {product.quantity}
+              </span>
+              {product.quantity >= getNumInStock() ? (
+                <button disabled={product.quantity >= getNumInStock()}>
+                  <Plus strokeWidth={2} width={18} />
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    const productInfo = products.filter(
+                      (p) => p.id === product.productId
+                    )[0];
+                    if (currUser.id) {
+                      dispatch(addToCart(currUser, productInfo, products, 1));
+                    } else {
+                      dispatch(addToCart(currUser, product, products, 1));
+                    }
+                  }}
+                >
+                  <Plus strokeWidth={2} width={18} />
+                </button>
+              )}
+            </div>
+            <div className="w-full text-center">
+              {product.quantity === getNumInStock() ? (
+                <span className="text-red-700">
+                  {`Only ${product.quantity} in stock`}
+                </span>
+              ) : null}
+            </div>
           </div>
         </div>
-        <div>
+        {/* <div>
           {product.quantity === getNumInStock() ? (
             <span style={{ color: "red" }}>
               {`Only ${product.quantity} in stock`}
             </span>
           ) : null}
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { isArray } from "lodash";
 import PhotoCarousel from "./PhotoCarousel";
 import ReviewCarousel from "./ReviewCarousel";
 import { Minus, Plus, Sun, Frown, Scissors, Smile } from "react-feather";
@@ -104,9 +103,7 @@ class SingleProduct extends Component {
                     )}
                   </div>
                   {count === product.quantity ? (
-                    <div
-                      style={{ color: "red" }}
-                    >{`Only ${count} in stock`}</div>
+                    <div className="text-red-700 text-center mt-1">{`Only ${count} in stock`}</div>
                   ) : null}
                 </div>
               </div>

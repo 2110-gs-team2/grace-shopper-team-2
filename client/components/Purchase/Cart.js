@@ -1,11 +1,11 @@
 import React, { Fragment, Component } from "react";
-import { useSelector, useDispatch, connect } from "react-redux";
+import { connect } from "react-redux";
 import { fetchCart } from "../../store/cart";
 import { Transition, Dialog } from "@headlessui/react";
 import { Package, X } from "react-feather";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import CartCard from "./CartCard";
-import { Link, useLocation, withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { getAllProducts } from "../../store/products";
 import { convertOrder } from "../../store";
 import includes from "lodash/includes";
