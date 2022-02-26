@@ -82,7 +82,7 @@ const WarningModal = ({ productId, triggerBanner }) => {
                     onClick={() => {
                       dispatch(deleteProduct(productId));
                       setOpen(false);
-                      triggerBanner("delet");
+                      triggerBanner("delete");
                     }}
                   >
                     Delete

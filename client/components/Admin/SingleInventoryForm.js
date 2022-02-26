@@ -265,7 +265,7 @@ const SingleInventoryForm = ({
               name="isPetFriendly"
               type="checkbox"
               className="pr-4 block bg-beige h-6 w-6 border-2 rounded-lg border-forest-green  checked:hover:bg-forest-green checked:bg-forest-green 
-              focus:border-forest-green focus:ring-2 focus:ring-xlight-green
+              focus:border-forest-green focus:ring-2 focus:ring-xlight-green   focus:text-forest-green
               "
             />
           </div>

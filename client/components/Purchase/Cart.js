@@ -42,7 +42,7 @@ class Cart extends Component {
     if (shippingProgress > 100) shippingProgress = 100;
     this.setState({ freeShippingProgress: `${shippingProgress}%` });
     this.props.fetchCart(currUser, products);
-    // this.props.convertOrder(currUser, products);
+    this.props.convertOrder(currUser, products);
   }
 
   componentDidUpdate(prevProps, prevState) {
