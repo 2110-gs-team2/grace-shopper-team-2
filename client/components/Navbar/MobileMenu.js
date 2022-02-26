@@ -1,8 +1,7 @@
-import React, { useState, Fragment, useEffect, useRef } from "react";
+import React, { useState, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Transition, Dialog } from "@headlessui/react";
-import { Package, X, Menu, Framer } from "react-feather";
-import { LockClosedIcon } from "@heroicons/react/solid";
+import { X, Menu } from "react-feather";
 import { Link, useLocation } from "react-router-dom";
 import includes from "lodash/includes";
 import { logout } from "../../store";

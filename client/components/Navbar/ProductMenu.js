@@ -1,5 +1,4 @@
 import { Popover, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/solid";
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
