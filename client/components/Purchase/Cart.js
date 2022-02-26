@@ -42,15 +42,15 @@ class Cart extends Component {
     if (shippingProgress > 100) shippingProgress = 100;
     this.setState({ freeShippingProgress: `${shippingProgress}%` });
     this.props.fetchCart(currUser, products);
-    this.props.convertOrder(currUser, products);
+    // this.props.convertOrder(currUser, products);
   }
-  
+
   componentDidUpdate(prevProps, prevState) {
     const subtotal = cartSubTotal(this.props.cart).toFixed(2);
     let shippingProgress = Math.floor((subtotal / 150) * 100);
     if (shippingProgress > 100) shippingProgress = "100%";
     else shippingProgress = `${shippingProgress}%`;
-    
+
     if (this.state.freeShippingProgress !== shippingProgress)
       this.setState({ freeShippingProgress: shippingProgress });
     // never open cart if youre on the checkout or thank you page
@@ -73,13 +73,13 @@ class Cart extends Component {
           }
         }
       }
-      
+
       if (
         this.props.cart.length === 1 &&
         prevProps.cart.length === 0 &&
-        this.props.history.action === 'PUSH' &&
+        // this.props.history.action === 'PUSH' &&
         this.props.products.length
-      ) { 
+      ) {
         for (let i = 0; i < this.props.cart.length; i++) {
           if (this.props.cart[i].quantity) {
             this.openSlideover();
@@ -102,8 +102,8 @@ class Cart extends Component {
 
   render() {
     const { open, freeShippingProgress } = this.state;
-    const { cart, products, currUser } = this.props;
-    const { closeSlideover, openSlideover, setFreeShippingProgress } = this;
+    const { cart, products } = this.props;
+    const { closeSlideover, openSlideover } = this;
 
     const subtotal = cartSubTotal(cart).toFixed(2);
 

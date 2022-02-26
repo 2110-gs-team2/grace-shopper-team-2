@@ -136,9 +136,10 @@ const CheckoutPage = () => {
               </div>
             ) : null}
           </div>
-          <div className="md:col-span-2 pb-52 px-10 bg-beige rounded-lg min-h-[60vh] max-h-[80vh] relative md:order-1 order-first">
+          <div className="md:col-span-2 pb-44 md:px-10 px-5 bg-beige rounded-lg min-h-[60vh] max-h-[80vh]  relative md:order-1 order-first">
             <div className="text-3xl pt-5 pb-5">Your cart</div>
-            <div className="overflow-x-hidden overflow-y-auto h-full">
+            <div className="overflow-x-hidden overflow-y-auto md:max-h-full max-h-[60vh]">
+              {/* <div className="mt-6 overflow-x-hidden overflow-y-auto max-h-[50vh] pb-16"> */}
               <div className="flex flex-col gap-5 ">
                 {cart.length
                   ? cart.map((product) => (
