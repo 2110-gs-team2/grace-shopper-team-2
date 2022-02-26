@@ -175,7 +175,7 @@ class Cart extends Component {
                         ) : null}
                       </Dialog.Title>
                     </div>
-                    <div className="mt-6 overflow-x-hidden overflow-y-auto max-h-[80vh] pb-16">
+                    <div className="mt-6 overflow-x-hidden overflow-y-auto max-h-[80vh] pb-24">
                       <div className="flex flex-col gap-5 ">
                         {cart.map((product) => {
                           return (

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link, useParams } from "react-router-dom";
 import OrderView from "./OrderView";
 import ProfileView from "./ProfileView";

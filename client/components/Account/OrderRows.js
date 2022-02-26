@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchOrders } from "../../store/orders";
 import format from "date-fns/format";
