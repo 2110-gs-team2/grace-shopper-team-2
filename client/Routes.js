@@ -24,8 +24,8 @@ class Routes extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (!prevProps.isLoggedIn && this.props.isLoggedIn) {
       this.props.convertOrder(this.props.auth, this.props.products);
-      if (this.props.auth.openOrder)
-        this.props.fetchCart(this.props.auth, this.props.products);
+      // if (this.props.auth.openOrder)
+      //   this.props.fetchCart(this.props.auth, this.props.products);
     }
   }
 
@@ -54,7 +54,7 @@ class Routes extends Component {
           <Route path="/manage" exact>
             {!isAdmin ? <Redirect to="/" /> : <AdminView />}
           </Route>
-          <Route component={PageNotFound} />  
+          <Route component={PageNotFound} />
         </Switch>
       </div>
     );

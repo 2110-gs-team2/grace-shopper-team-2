@@ -47,8 +47,10 @@ export const me = (products) => async (dispatch) => {
 
     user.openOrder = incompleteOrder;
 
-    dispatch(setAuth(user));
     if (products) dispatch(fetchCart(user, products));
+    else {
+      dispatch(setAuth(user));
+    }
   }
 };
 
@@ -136,10 +138,13 @@ export const convertOrder = (user, products) => {
       );
 
       window.localStorage.setItem("cart", JSON.stringify([]));
-      // if this is called when user logs in after shopping a while
-      dispatch(me(products));
+
       // if this is called when user converts as a guest on checkout
       if (products) dispatch(fetchCart(user, products));
+      else {
+        // if this is called when user logs in after shopping a while
+        dispatch(me(products));
+      }
     }
   };
 };

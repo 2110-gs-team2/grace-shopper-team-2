@@ -49,6 +49,7 @@ export const _resetCart = () => {
 //thunks
 export const fetchCart = (user, products) => {
   return async (dispatch) => {
+    // console.log(user, "who is user");
     // if its a guest, the source of truth is localstorage
     if (!user.id) {
       window.localStorage.cart
