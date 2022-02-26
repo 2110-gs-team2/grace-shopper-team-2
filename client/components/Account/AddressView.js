@@ -59,9 +59,9 @@ const AddressView = () => {
         onSubmit={(values) => {
           if (currUser.id) {
             dispatch(updateUser(values, currUser.id));
-            setMsg(true);
+            setSuccessMsg(true);
           } else {
-            setMsg(true);
+            setErrorMsg(true);
           }
         }}
       >
