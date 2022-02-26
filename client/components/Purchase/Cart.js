@@ -1,11 +1,11 @@
 import React, { Fragment, Component } from "react";
-import { useSelector, useDispatch, connect } from "react-redux";
+import { connect } from "react-redux";
 import { fetchCart } from "../../store/cart";
 import { Transition, Dialog } from "@headlessui/react";
 import { Package, X } from "react-feather";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import CartCard from "./CartCard";
-import { Link, useLocation, withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { getAllProducts } from "../../store/products";
 import { convertOrder } from "../../store";
 import includes from "lodash/includes";
@@ -42,15 +42,15 @@ class Cart extends Component {
     if (shippingProgress > 100) shippingProgress = 100;
     this.setState({ freeShippingProgress: `${shippingProgress}%` });
     this.props.fetchCart(currUser, products);
-    this.props.convertOrder(currUser, products);
+    // this.props.convertOrder(currUser, products);
   }
-  
+
   componentDidUpdate(prevProps, prevState) {
     const subtotal = cartSubTotal(this.props.cart).toFixed(2);
     let shippingProgress = Math.floor((subtotal / 150) * 100);
     if (shippingProgress > 100) shippingProgress = "100%";
     else shippingProgress = `${shippingProgress}%`;
-    
+
     if (this.state.freeShippingProgress !== shippingProgress)
       this.setState({ freeShippingProgress: shippingProgress });
     // never open cart if youre on the checkout or thank you page
@@ -73,12 +73,12 @@ class Cart extends Component {
           }
         }
       }
-      
+
       if (
         this.props.cart.length === 1 &&
         prevProps.cart.length === 0 &&
         this.props.products.length
-      ) { 
+      ) {
         for (let i = 0; i < this.props.cart.length; i++) {
           if (this.props.cart[i].quantity) {
             this.openSlideover();
@@ -101,8 +101,8 @@ class Cart extends Component {
 
   render() {
     const { open, freeShippingProgress } = this.state;
-    const { cart, products, currUser } = this.props;
-    const { closeSlideover, openSlideover, setFreeShippingProgress } = this;
+    const { cart, products } = this.props;
+    const { closeSlideover, openSlideover } = this;
 
     const subtotal = cartSubTotal(cart).toFixed(2);
 
@@ -174,7 +174,7 @@ class Cart extends Component {
                         ) : null}
                       </Dialog.Title>
                     </div>
-                    <div className="mt-6 overflow-x-hidden overflow-y-auto max-h-[80vh] pb-16">
+                    <div className="mt-6 overflow-x-hidden overflow-y-auto max-h-[80vh] pb-24">
                       <div className="flex flex-col gap-5 ">
                         {cart.map((product) => {
                           return (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { logout } from "../../store";
-import { Search, Package, Settings } from "react-feather";
+import { Settings } from "react-feather";
 import { Link } from "react-router-dom";
 import GuestMenu from "./GuestMenu";
 import UserMenu from "./UserMenu";

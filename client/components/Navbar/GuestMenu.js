@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { User } from "react-feather";
 
-const GuestMenu = ({ styleChange }) => {
+const GuestMenu = () => {
   return (
     <Menu className="relative z-50 md:block hidden" as="div">
       <Menu.Button className="flex items-center">

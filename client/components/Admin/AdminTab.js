@@ -1,5 +1,5 @@
 import { Tab } from "@headlessui/react";
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector, connect } from "react-redux";
 import { getAllProducts } from "../../store/products";
 import { fetchUsers } from "../../store/users";
