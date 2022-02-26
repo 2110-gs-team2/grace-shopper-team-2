@@ -42,6 +42,7 @@ class Cart extends Component {
     if (shippingProgress > 100) shippingProgress = 100;
     this.setState({ freeShippingProgress: `${shippingProgress}%` });
     this.props.fetchCart(currUser, products);
+    this.props.convertOrder(currUser, products);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -53,7 +54,6 @@ class Cart extends Component {
     if (this.state.freeShippingProgress !== shippingProgress)
       this.setState({ freeShippingProgress: shippingProgress });
 
-    // never open cart if youre on the checkout or thank you page
     if (
       !includes(location.pathname, "checkout") &&
       !includes(location.pathname, "thank-you")
@@ -73,6 +73,7 @@ class Cart extends Component {
           }
         }
       }
+
       if (
         this.props.cart.length === 1 &&
         prevProps.cart.length === 0 &&
@@ -80,8 +81,6 @@ class Cart extends Component {
       ) {
         for (let i = 0; i < this.props.cart.length; i++) {
           if (this.props.cart[i].quantity) {
-            if (shippingProgress)
-              this.setState({ freeShippingProgress: `${shippingProgress}%` });
             this.openSlideover();
           }
         }
@@ -165,9 +164,9 @@ class Cart extends Component {
                                     150 - subtotal
                                   } away from free shipping!`}
                             </div>
-                            <div className="w-full dark:bg-forest-green rounded-full h-1.5 bg-xlight-green my-3">
+                            <div className="w-full  rounded-full h-1.5 bg-xlight-green my-3">
                               <div
-                                className=" h-1.5 dark:bg-xlight-green rounded-full bg-forest-green transition-all"
+                                className=" h-1.5 rounded-full bg-forest-green transition-all"
                                 style={{ width: `${freeShippingProgress}` }}
                               ></div>
                             </div>
