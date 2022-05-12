@@ -10,10 +10,10 @@
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
-  <a href="#how-to-use">How To Use</a> •
+  <a href="#how-to-use">How To Use</a>
 </p>
 
-![screenshot](https://res.cloudinary.com/juliekim0918/image/upload/v1651497293/real_fw6m6q.gif)
+![screenshot](https://res.cloudinary.com/juliekim0918/image/upload/v1651498104/Screen_Shot_2022-05-02_at_9.28.13_AM_nkww1k.png)
 
 ## Key Features
 
